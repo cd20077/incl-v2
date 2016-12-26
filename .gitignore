@@ -1,0 +1,5 @@
+/sfproject/cache/*
+/sfproject/config/*Server
+/sfproject/log/*
+*/.DS_Store
+!.gitkeep
