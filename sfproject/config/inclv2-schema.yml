@@ -1,4 +1,0 @@
-inclv2:
-  _attributes:
-    package: lib.model
-    defaultIdMethod: native

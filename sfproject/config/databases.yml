@@ -2,7 +2,7 @@
 # http://www.symfony-project.org/reference/1_4/en/07-Databases
 
 dev:
-  inclv2:
+  propel:
     param:
       classname:  DebugPDO
       debug:
@@ -15,18 +15,18 @@ dev:
           memdelta:   { enabled: true }
 
 test:
-  inclv2:
+  propel:
     param:
       classname:  DebugPDO
 
 all:
-  inclv2:
+  propel:
     class:        sfPropelDatabase
     param:
       classname:  PropelPDO
       dsn:        mysql:dbname=inclv2;host=localhost
       username:   root
-      password:   root
+      password:   
       encoding:   utf8
       persistent: true
       pooling:    true
