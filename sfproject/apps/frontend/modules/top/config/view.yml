@@ -5,15 +5,15 @@ default:
   http_metas:
     content-type: text/html
 
-  stylesheets:    [top,form,colorbox]
+  stylesheets:    [top, form, colorbox]
 
-  javascripts:    [jquery-1.11.0.min.js,jquery.colorbox-min.js,jquery.mousewheel.min.js,jquery.easie.js,jquery.form.js,top.js]
+  javascripts:    [jquery-1.11.0.min.js, jquery.colorbox-min.js, jquery.mousewheel.min.js, jquery.easie.js, jquery.form.js, top.js]
 
   has_layout:     true
-  layout:         layout
+  layout:         topLayout
 
 indexSuccess:
-  metas:
+  #metas:
     #title:        '発令中パトライト | パトライトシステム'
     #description:  symfony project
     #keywords:     symfony, project

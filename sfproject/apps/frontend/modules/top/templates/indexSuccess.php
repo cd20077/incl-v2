@@ -8,21 +8,19 @@
 
                     <tr>
                         <td>
-                            <a href="/users/entry_input" class="loga" target="">
+                            <a href="<?php echo url_for('user/entryInput') ?>" class="loga" target="">
                                 <div id="logdiv">新規会員登録</div>
                             </a>
                         </td>
                     </tr>
                 	<tr>
                         <td>
-                            <a href="/auths/login" id="myElement" class="loga" target="">
+                            <a href="<?php echo url_for('auth/login') ?>" id="myElement" class="loga" target="">
                                 <div id="newdiv">ログイン</div>
                             </a>
                         </td>
                     </tr>
                 </table>
-
-
             </div>
             <div id="topright">
             	<p>
