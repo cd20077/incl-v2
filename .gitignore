@@ -3,3 +3,4 @@
 /sfproject/log/*
 */.DS_Store
 !.gitkeep
+nbproject/
