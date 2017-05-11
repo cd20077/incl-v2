@@ -2,24 +2,24 @@
 
 
 /**
- * Base class that represents a row from the 'user_status' table.
+ * Base class that represents a row from the 'file_status' table.
  *
  *
  *
  * @package    propel.generator.lib.model.om
  */
-abstract class BaseUserStatus extends BaseObject implements Persistent
+abstract class BaseFileStatus extends BaseObject implements Persistent
 {
     /**
      * Peer class name
      */
-    const PEER = 'UserStatusPeer';
+    const PEER = 'FileStatusPeer';
 
     /**
      * The Peer class.
      * Instance provides a convenient way of calling static methods on a class
      * that calling code may not be able to identify.
-     * @var        UserStatusPeer
+     * @var        FileStatusPeer
      */
     protected static $peer;
 
@@ -67,10 +67,10 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
     protected $name;
 
     /**
-     * @var        PropelObjectCollection|User[] Collection to store aggregation of User objects.
+     * @var        PropelObjectCollection|File[] Collection to store aggregation of File objects.
      */
-    protected $collUsers;
-    protected $collUsersPartial;
+    protected $collFiles;
+    protected $collFilesPartial;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -96,7 +96,7 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
      * An array of objects scheduled for deletion.
      * @var		PropelObjectCollection
      */
-    protected $usersScheduledForDeletion = null;
+    protected $filesScheduledForDeletion = null;
 
     /**
      * Applies default values to this object.
@@ -110,7 +110,7 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
     }
 
     /**
-     * Initializes internal state of BaseUserStatus object.
+     * Initializes internal state of BaseFileStatus object.
      * @see        applyDefaults()
      */
     public function __construct()
@@ -261,7 +261,7 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
      * Set the value of [id] column.
      *
      * @param  int $v new value
-     * @return UserStatus The current object (for fluent API support)
+     * @return FileStatus The current object (for fluent API support)
      */
     public function setId($v)
     {
@@ -271,7 +271,7 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
 
         if ($this->id !== $v) {
             $this->id = $v;
-            $this->modifiedColumns[] = UserStatusPeer::ID;
+            $this->modifiedColumns[] = FileStatusPeer::ID;
         }
 
 
@@ -282,7 +282,7 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
      * Set the value of [is_deleted] column.
      *
      * @param  int $v new value
-     * @return UserStatus The current object (for fluent API support)
+     * @return FileStatus The current object (for fluent API support)
      */
     public function setIsDeleted($v)
     {
@@ -292,7 +292,7 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
 
         if ($this->is_deleted !== $v) {
             $this->is_deleted = $v;
-            $this->modifiedColumns[] = UserStatusPeer::IS_DELETED;
+            $this->modifiedColumns[] = FileStatusPeer::IS_DELETED;
         }
 
 
@@ -304,7 +304,7 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
      *
      * @param mixed $v string, integer (timestamp), or DateTime value.
      *               Empty strings are treated as null.
-     * @return UserStatus The current object (for fluent API support)
+     * @return FileStatus The current object (for fluent API support)
      */
     public function setUpdatedAt($v)
     {
@@ -314,7 +314,7 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
             $newDateAsString = $dt ? $dt->format('Y-m-d H:i:s') : null;
             if ($currentDateAsString !== $newDateAsString) {
                 $this->updated_at = $newDateAsString;
-                $this->modifiedColumns[] = UserStatusPeer::UPDATED_AT;
+                $this->modifiedColumns[] = FileStatusPeer::UPDATED_AT;
             }
         } // if either are not null
 
@@ -327,7 +327,7 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
      *
      * @param mixed $v string, integer (timestamp), or DateTime value.
      *               Empty strings are treated as null.
-     * @return UserStatus The current object (for fluent API support)
+     * @return FileStatus The current object (for fluent API support)
      */
     public function setDeletedAt($v)
     {
@@ -337,7 +337,7 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
             $newDateAsString = $dt ? $dt->format('Y-m-d H:i:s') : null;
             if ($currentDateAsString !== $newDateAsString) {
                 $this->deleted_at = $newDateAsString;
-                $this->modifiedColumns[] = UserStatusPeer::DELETED_AT;
+                $this->modifiedColumns[] = FileStatusPeer::DELETED_AT;
             }
         } // if either are not null
 
@@ -350,7 +350,7 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
      *
      * @param mixed $v string, integer (timestamp), or DateTime value.
      *               Empty strings are treated as null.
-     * @return UserStatus The current object (for fluent API support)
+     * @return FileStatus The current object (for fluent API support)
      */
     public function setCreatedAt($v)
     {
@@ -360,7 +360,7 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
             $newDateAsString = $dt ? $dt->format('Y-m-d H:i:s') : null;
             if ($currentDateAsString !== $newDateAsString) {
                 $this->created_at = $newDateAsString;
-                $this->modifiedColumns[] = UserStatusPeer::CREATED_AT;
+                $this->modifiedColumns[] = FileStatusPeer::CREATED_AT;
             }
         } // if either are not null
 
@@ -372,7 +372,7 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
      * Set the value of [name] column.
      *
      * @param  string $v new value
-     * @return UserStatus The current object (for fluent API support)
+     * @return FileStatus The current object (for fluent API support)
      */
     public function setName($v)
     {
@@ -382,7 +382,7 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
 
         if ($this->name !== $v) {
             $this->name = $v;
-            $this->modifiedColumns[] = UserStatusPeer::NAME;
+            $this->modifiedColumns[] = FileStatusPeer::NAME;
         }
 
 
@@ -440,10 +440,10 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
             }
             $this->postHydrate($row, $startcol, $rehydrate);
 
-            return $startcol + 6; // 6 = UserStatusPeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 6; // 6 = FileStatusPeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
-            throw new PropelException("Error populating UserStatus object", $e);
+            throw new PropelException("Error populating FileStatus object", $e);
         }
     }
 
@@ -486,13 +486,13 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(UserStatusPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(FileStatusPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
         // We don't need to alter the object instance pool; we're just modifying this instance
         // already in the pool.
 
-        $stmt = UserStatusPeer::doSelectStmt($this->buildPkeyCriteria(), $con);
+        $stmt = FileStatusPeer::doSelectStmt($this->buildPkeyCriteria(), $con);
         $row = $stmt->fetch(PDO::FETCH_NUM);
         $stmt->closeCursor();
         if (!$row) {
@@ -502,7 +502,7 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
 
         if ($deep) {  // also de-associate any related objects?
 
-            $this->collUsers = null;
+            $this->collFiles = null;
 
         } // if (deep)
     }
@@ -524,16 +524,16 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(UserStatusPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(FileStatusPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         $con->beginTransaction();
         try {
-            $deleteQuery = UserStatusQuery::create()
+            $deleteQuery = FileStatusQuery::create()
                 ->filterByPrimaryKey($this->getPrimaryKey());
             $ret = $this->preDelete($con);
             // symfony_behaviors behavior
-            foreach (sfMixer::getCallables('BaseUserStatus:delete:pre') as $callable)
+            foreach (sfMixer::getCallables('BaseFileStatus:delete:pre') as $callable)
             {
               if (call_user_func($callable, $this, $con))
               {
@@ -546,7 +546,7 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
                 $deleteQuery->delete($con);
                 $this->postDelete($con);
                 // symfony_behaviors behavior
-                foreach (sfMixer::getCallables('BaseUserStatus:delete:post') as $callable)
+                foreach (sfMixer::getCallables('BaseFileStatus:delete:post') as $callable)
                 {
                   call_user_func($callable, $this, $con);
                 }
@@ -583,7 +583,7 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(UserStatusPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(FileStatusPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         $con->beginTransaction();
@@ -591,7 +591,7 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
         try {
             $ret = $this->preSave($con);
             // symfony_behaviors behavior
-            foreach (sfMixer::getCallables('BaseUserStatus:save:pre') as $callable)
+            foreach (sfMixer::getCallables('BaseFileStatus:save:pre') as $callable)
             {
               if (is_integer($affectedRows = call_user_func($callable, $this, $con)))
               {
@@ -601,14 +601,14 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
             }
 
             // symfony_timestampable behavior
-            if ($this->isModified() && !$this->isColumnModified(UserStatusPeer::UPDATED_AT))
+            if ($this->isModified() && !$this->isColumnModified(FileStatusPeer::UPDATED_AT))
             {
                 $this->setUpdatedAt(time());
             }
             if ($isInsert) {
                 $ret = $ret && $this->preInsert($con);
                 // symfony_timestampable behavior
-                if (!$this->isColumnModified(UserStatusPeer::CREATED_AT))
+                if (!$this->isColumnModified(FileStatusPeer::CREATED_AT))
                 {
                   $this->setCreatedAt(time());
                 }
@@ -625,12 +625,12 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
                 }
                 $this->postSave($con);
                 // symfony_behaviors behavior
-                foreach (sfMixer::getCallables('BaseUserStatus:save:post') as $callable)
+                foreach (sfMixer::getCallables('BaseFileStatus:save:post') as $callable)
                 {
                   call_user_func($callable, $this, $con, $affectedRows);
                 }
 
-                UserStatusPeer::addInstanceToPool($this);
+                FileStatusPeer::addInstanceToPool($this);
             } else {
                 $affectedRows = 0;
             }
@@ -671,18 +671,18 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
                 $this->resetModified();
             }
 
-            if ($this->usersScheduledForDeletion !== null) {
-                if (!$this->usersScheduledForDeletion->isEmpty()) {
-                    foreach ($this->usersScheduledForDeletion as $user) {
+            if ($this->filesScheduledForDeletion !== null) {
+                if (!$this->filesScheduledForDeletion->isEmpty()) {
+                    foreach ($this->filesScheduledForDeletion as $file) {
                         // need to save related object because we set the relation to null
-                        $user->save($con);
+                        $file->save($con);
                     }
-                    $this->usersScheduledForDeletion = null;
+                    $this->filesScheduledForDeletion = null;
                 }
             }
 
-            if ($this->collUsers !== null) {
-                foreach ($this->collUsers as $referrerFK) {
+            if ($this->collFiles !== null) {
+                foreach ($this->collFiles as $referrerFK) {
                     if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
                         $affectedRows += $referrerFK->save($con);
                     }
@@ -709,13 +709,13 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
         $modifiedColumns = array();
         $index = 0;
 
-        $this->modifiedColumns[] = UserStatusPeer::ID;
+        $this->modifiedColumns[] = FileStatusPeer::ID;
         if (null !== $this->id) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key (' . UserStatusPeer::ID . ')');
+            throw new PropelException('Cannot insert a value for auto-increment primary key (' . FileStatusPeer::ID . ')');
         }
         if (null === $this->id) {
             try {
-                $stmt = $con->query("SELECT nextval('user_status_id_seq')");
+                $stmt = $con->query("SELECT nextval('file_status_id_seq')");
                 $row = $stmt->fetch(PDO::FETCH_NUM);
                 $this->id = $row[0];
             } catch (Exception $e) {
@@ -725,27 +725,27 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
 
 
          // check the columns in natural order for more readable SQL queries
-        if ($this->isColumnModified(UserStatusPeer::ID)) {
+        if ($this->isColumnModified(FileStatusPeer::ID)) {
             $modifiedColumns[':p' . $index++]  = '"id"';
         }
-        if ($this->isColumnModified(UserStatusPeer::IS_DELETED)) {
+        if ($this->isColumnModified(FileStatusPeer::IS_DELETED)) {
             $modifiedColumns[':p' . $index++]  = '"is_deleted"';
         }
-        if ($this->isColumnModified(UserStatusPeer::UPDATED_AT)) {
+        if ($this->isColumnModified(FileStatusPeer::UPDATED_AT)) {
             $modifiedColumns[':p' . $index++]  = '"updated_at"';
         }
-        if ($this->isColumnModified(UserStatusPeer::DELETED_AT)) {
+        if ($this->isColumnModified(FileStatusPeer::DELETED_AT)) {
             $modifiedColumns[':p' . $index++]  = '"deleted_at"';
         }
-        if ($this->isColumnModified(UserStatusPeer::CREATED_AT)) {
+        if ($this->isColumnModified(FileStatusPeer::CREATED_AT)) {
             $modifiedColumns[':p' . $index++]  = '"created_at"';
         }
-        if ($this->isColumnModified(UserStatusPeer::NAME)) {
+        if ($this->isColumnModified(FileStatusPeer::NAME)) {
             $modifiedColumns[':p' . $index++]  = '"name"';
         }
 
         $sql = sprintf(
-            'INSERT INTO "user_status" (%s) VALUES (%s)',
+            'INSERT INTO "file_status" (%s) VALUES (%s)',
             implode(', ', $modifiedColumns),
             implode(', ', array_keys($modifiedColumns))
         );
@@ -859,13 +859,13 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
             $failureMap = array();
 
 
-            if (($retval = UserStatusPeer::doValidate($this, $columns)) !== true) {
+            if (($retval = FileStatusPeer::doValidate($this, $columns)) !== true) {
                 $failureMap = array_merge($failureMap, $retval);
             }
 
 
-                if ($this->collUsers !== null) {
-                    foreach ($this->collUsers as $referrerFK) {
+                if ($this->collFiles !== null) {
+                    foreach ($this->collFiles as $referrerFK) {
                         if (!$referrerFK->validate($columns)) {
                             $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
                         }
@@ -891,7 +891,7 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
      */
     public function getByName($name, $type = BasePeer::TYPE_PHPNAME)
     {
-        $pos = UserStatusPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+        $pos = FileStatusPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
         $field = $this->getByPosition($pos);
 
         return $field;
@@ -948,11 +948,11 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
      */
     public function toArray($keyType = BasePeer::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array(), $includeForeignObjects = false)
     {
-        if (isset($alreadyDumpedObjects['UserStatus'][$this->getPrimaryKey()])) {
+        if (isset($alreadyDumpedObjects['FileStatus'][$this->getPrimaryKey()])) {
             return '*RECURSION*';
         }
-        $alreadyDumpedObjects['UserStatus'][$this->getPrimaryKey()] = true;
-        $keys = UserStatusPeer::getFieldNames($keyType);
+        $alreadyDumpedObjects['FileStatus'][$this->getPrimaryKey()] = true;
+        $keys = FileStatusPeer::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getId(),
             $keys[1] => $this->getIsDeleted(),
@@ -967,8 +967,8 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
         }
 
         if ($includeForeignObjects) {
-            if (null !== $this->collUsers) {
-                $result['Users'] = $this->collUsers->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            if (null !== $this->collFiles) {
+                $result['Files'] = $this->collFiles->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
         }
 
@@ -988,7 +988,7 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
      */
     public function setByName($name, $value, $type = BasePeer::TYPE_PHPNAME)
     {
-        $pos = UserStatusPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+        $pos = FileStatusPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
 
         $this->setByPosition($pos, $value);
     }
@@ -1044,7 +1044,7 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
      */
     public function fromArray($arr, $keyType = BasePeer::TYPE_PHPNAME)
     {
-        $keys = UserStatusPeer::getFieldNames($keyType);
+        $keys = FileStatusPeer::getFieldNames($keyType);
 
         if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
         if (array_key_exists($keys[1], $arr)) $this->setIsDeleted($arr[$keys[1]]);
@@ -1061,14 +1061,14 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
      */
     public function buildCriteria()
     {
-        $criteria = new Criteria(UserStatusPeer::DATABASE_NAME);
+        $criteria = new Criteria(FileStatusPeer::DATABASE_NAME);
 
-        if ($this->isColumnModified(UserStatusPeer::ID)) $criteria->add(UserStatusPeer::ID, $this->id);
-        if ($this->isColumnModified(UserStatusPeer::IS_DELETED)) $criteria->add(UserStatusPeer::IS_DELETED, $this->is_deleted);
-        if ($this->isColumnModified(UserStatusPeer::UPDATED_AT)) $criteria->add(UserStatusPeer::UPDATED_AT, $this->updated_at);
-        if ($this->isColumnModified(UserStatusPeer::DELETED_AT)) $criteria->add(UserStatusPeer::DELETED_AT, $this->deleted_at);
-        if ($this->isColumnModified(UserStatusPeer::CREATED_AT)) $criteria->add(UserStatusPeer::CREATED_AT, $this->created_at);
-        if ($this->isColumnModified(UserStatusPeer::NAME)) $criteria->add(UserStatusPeer::NAME, $this->name);
+        if ($this->isColumnModified(FileStatusPeer::ID)) $criteria->add(FileStatusPeer::ID, $this->id);
+        if ($this->isColumnModified(FileStatusPeer::IS_DELETED)) $criteria->add(FileStatusPeer::IS_DELETED, $this->is_deleted);
+        if ($this->isColumnModified(FileStatusPeer::UPDATED_AT)) $criteria->add(FileStatusPeer::UPDATED_AT, $this->updated_at);
+        if ($this->isColumnModified(FileStatusPeer::DELETED_AT)) $criteria->add(FileStatusPeer::DELETED_AT, $this->deleted_at);
+        if ($this->isColumnModified(FileStatusPeer::CREATED_AT)) $criteria->add(FileStatusPeer::CREATED_AT, $this->created_at);
+        if ($this->isColumnModified(FileStatusPeer::NAME)) $criteria->add(FileStatusPeer::NAME, $this->name);
 
         return $criteria;
     }
@@ -1083,8 +1083,8 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
      */
     public function buildPkeyCriteria()
     {
-        $criteria = new Criteria(UserStatusPeer::DATABASE_NAME);
-        $criteria->add(UserStatusPeer::ID, $this->id);
+        $criteria = new Criteria(FileStatusPeer::DATABASE_NAME);
+        $criteria->add(FileStatusPeer::ID, $this->id);
 
         return $criteria;
     }
@@ -1125,7 +1125,7 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
      * If desired, this method can also make copies of all associated (fkey referrers)
      * objects.
      *
-     * @param object $copyObj An object of UserStatus (or compatible) type.
+     * @param object $copyObj An object of FileStatus (or compatible) type.
      * @param boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
      * @param boolean $makeNew Whether to reset autoincrement PKs and make the object new.
      * @throws PropelException
@@ -1145,9 +1145,9 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
             // store object hash to prevent cycle
             $this->startCopy = true;
 
-            foreach ($this->getUsers() as $relObj) {
+            foreach ($this->getFiles() as $relObj) {
                 if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-                    $copyObj->addUser($relObj->copy($deepCopy));
+                    $copyObj->addFile($relObj->copy($deepCopy));
                 }
             }
 
@@ -1170,7 +1170,7 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
      * objects.
      *
      * @param boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-     * @return UserStatus Clone of current object.
+     * @return FileStatus Clone of current object.
      * @throws PropelException
      */
     public function copy($deepCopy = false)
@@ -1190,12 +1190,12 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
      * same instance for all member of this class. The method could therefore
      * be static, but this would prevent one from overriding the behavior.
      *
-     * @return UserStatusPeer
+     * @return FileStatusPeer
      */
     public function getPeer()
     {
         if (self::$peer === null) {
-            self::$peer = new UserStatusPeer();
+            self::$peer = new FileStatusPeer();
         }
 
         return self::$peer;
@@ -1212,42 +1212,42 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
      */
     public function initRelation($relationName)
     {
-        if ('User' == $relationName) {
-            $this->initUsers();
+        if ('File' == $relationName) {
+            $this->initFiles();
         }
     }
 
     /**
-     * Clears out the collUsers collection
+     * Clears out the collFiles collection
      *
      * This does not modify the database; however, it will remove any associated objects, causing
      * them to be refetched by subsequent calls to accessor method.
      *
-     * @return UserStatus The current object (for fluent API support)
-     * @see        addUsers()
+     * @return FileStatus The current object (for fluent API support)
+     * @see        addFiles()
      */
-    public function clearUsers()
+    public function clearFiles()
     {
-        $this->collUsers = null; // important to set this to null since that means it is uninitialized
-        $this->collUsersPartial = null;
+        $this->collFiles = null; // important to set this to null since that means it is uninitialized
+        $this->collFilesPartial = null;
 
         return $this;
     }
 
     /**
-     * reset is the collUsers collection loaded partially
+     * reset is the collFiles collection loaded partially
      *
      * @return void
      */
-    public function resetPartialUsers($v = true)
+    public function resetPartialFiles($v = true)
     {
-        $this->collUsersPartial = $v;
+        $this->collFilesPartial = $v;
     }
 
     /**
-     * Initializes the collUsers collection.
+     * Initializes the collFiles collection.
      *
-     * By default this just sets the collUsers collection to an empty array (like clearcollUsers());
+     * By default this just sets the collFiles collection to an empty array (like clearcollFiles());
      * however, you may wish to override this method in your stub class to provide setting appropriate
      * to your application -- for example, setting the initial array to the values stored in database.
      *
@@ -1256,158 +1256,158 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
      *
      * @return void
      */
-    public function initUsers($overrideExisting = true)
+    public function initFiles($overrideExisting = true)
     {
-        if (null !== $this->collUsers && !$overrideExisting) {
+        if (null !== $this->collFiles && !$overrideExisting) {
             return;
         }
-        $this->collUsers = new PropelObjectCollection();
-        $this->collUsers->setModel('User');
+        $this->collFiles = new PropelObjectCollection();
+        $this->collFiles->setModel('File');
     }
 
     /**
-     * Gets an array of User objects which contain a foreign key that references this object.
+     * Gets an array of File objects which contain a foreign key that references this object.
      *
      * If the $criteria is not null, it is used to always fetch the results from the database.
      * Otherwise the results are fetched from the database the first time, then cached.
      * Next time the same method is called without $criteria, the cached collection is returned.
-     * If this UserStatus is new, it will return
+     * If this FileStatus is new, it will return
      * an empty collection or the current collection; the criteria is ignored on a new object.
      *
      * @param Criteria $criteria optional Criteria object to narrow the query
      * @param PropelPDO $con optional connection object
-     * @return PropelObjectCollection|User[] List of User objects
+     * @return PropelObjectCollection|File[] List of File objects
      * @throws PropelException
      */
-    public function getUsers($criteria = null, PropelPDO $con = null)
+    public function getFiles($criteria = null, PropelPDO $con = null)
     {
-        $partial = $this->collUsersPartial && !$this->isNew();
-        if (null === $this->collUsers || null !== $criteria  || $partial) {
-            if ($this->isNew() && null === $this->collUsers) {
+        $partial = $this->collFilesPartial && !$this->isNew();
+        if (null === $this->collFiles || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collFiles) {
                 // return empty collection
-                $this->initUsers();
+                $this->initFiles();
             } else {
-                $collUsers = UserQuery::create(null, $criteria)
-                    ->filterByUserStatus($this)
+                $collFiles = FileQuery::create(null, $criteria)
+                    ->filterByFileStatus($this)
                     ->find($con);
                 if (null !== $criteria) {
-                    if (false !== $this->collUsersPartial && count($collUsers)) {
-                      $this->initUsers(false);
+                    if (false !== $this->collFilesPartial && count($collFiles)) {
+                      $this->initFiles(false);
 
-                      foreach ($collUsers as $obj) {
-                        if (false == $this->collUsers->contains($obj)) {
-                          $this->collUsers->append($obj);
+                      foreach ($collFiles as $obj) {
+                        if (false == $this->collFiles->contains($obj)) {
+                          $this->collFiles->append($obj);
                         }
                       }
 
-                      $this->collUsersPartial = true;
+                      $this->collFilesPartial = true;
                     }
 
-                    $collUsers->getInternalIterator()->rewind();
+                    $collFiles->getInternalIterator()->rewind();
 
-                    return $collUsers;
+                    return $collFiles;
                 }
 
-                if ($partial && $this->collUsers) {
-                    foreach ($this->collUsers as $obj) {
+                if ($partial && $this->collFiles) {
+                    foreach ($this->collFiles as $obj) {
                         if ($obj->isNew()) {
-                            $collUsers[] = $obj;
+                            $collFiles[] = $obj;
                         }
                     }
                 }
 
-                $this->collUsers = $collUsers;
-                $this->collUsersPartial = false;
+                $this->collFiles = $collFiles;
+                $this->collFilesPartial = false;
             }
         }
 
-        return $this->collUsers;
+        return $this->collFiles;
     }
 
     /**
-     * Sets a collection of User objects related by a one-to-many relationship
+     * Sets a collection of File objects related by a one-to-many relationship
      * to the current object.
      * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
      * and new objects from the given Propel collection.
      *
-     * @param PropelCollection $users A Propel collection.
+     * @param PropelCollection $files A Propel collection.
      * @param PropelPDO $con Optional connection object
-     * @return UserStatus The current object (for fluent API support)
+     * @return FileStatus The current object (for fluent API support)
      */
-    public function setUsers(PropelCollection $users, PropelPDO $con = null)
+    public function setFiles(PropelCollection $files, PropelPDO $con = null)
     {
-        $usersToDelete = $this->getUsers(new Criteria(), $con)->diff($users);
+        $filesToDelete = $this->getFiles(new Criteria(), $con)->diff($files);
 
 
-        $this->usersScheduledForDeletion = $usersToDelete;
+        $this->filesScheduledForDeletion = $filesToDelete;
 
-        foreach ($usersToDelete as $userRemoved) {
-            $userRemoved->setUserStatus(null);
+        foreach ($filesToDelete as $fileRemoved) {
+            $fileRemoved->setFileStatus(null);
         }
 
-        $this->collUsers = null;
-        foreach ($users as $user) {
-            $this->addUser($user);
+        $this->collFiles = null;
+        foreach ($files as $file) {
+            $this->addFile($file);
         }
 
-        $this->collUsers = $users;
-        $this->collUsersPartial = false;
+        $this->collFiles = $files;
+        $this->collFilesPartial = false;
 
         return $this;
     }
 
     /**
-     * Returns the number of related User objects.
+     * Returns the number of related File objects.
      *
      * @param Criteria $criteria
      * @param boolean $distinct
      * @param PropelPDO $con
-     * @return int             Count of related User objects.
+     * @return int             Count of related File objects.
      * @throws PropelException
      */
-    public function countUsers(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+    public function countFiles(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
     {
-        $partial = $this->collUsersPartial && !$this->isNew();
-        if (null === $this->collUsers || null !== $criteria || $partial) {
-            if ($this->isNew() && null === $this->collUsers) {
+        $partial = $this->collFilesPartial && !$this->isNew();
+        if (null === $this->collFiles || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collFiles) {
                 return 0;
             }
 
             if ($partial && !$criteria) {
-                return count($this->getUsers());
+                return count($this->getFiles());
             }
-            $query = UserQuery::create(null, $criteria);
+            $query = FileQuery::create(null, $criteria);
             if ($distinct) {
                 $query->distinct();
             }
 
             return $query
-                ->filterByUserStatus($this)
+                ->filterByFileStatus($this)
                 ->count($con);
         }
 
-        return count($this->collUsers);
+        return count($this->collFiles);
     }
 
     /**
-     * Method called to associate a User object to this object
-     * through the User foreign key attribute.
+     * Method called to associate a File object to this object
+     * through the File foreign key attribute.
      *
-     * @param    User $l User
-     * @return UserStatus The current object (for fluent API support)
+     * @param    File $l File
+     * @return FileStatus The current object (for fluent API support)
      */
-    public function addUser(User $l)
+    public function addFile(File $l)
     {
-        if ($this->collUsers === null) {
-            $this->initUsers();
-            $this->collUsersPartial = true;
+        if ($this->collFiles === null) {
+            $this->initFiles();
+            $this->collFilesPartial = true;
         }
 
-        if (!in_array($l, $this->collUsers->getArrayCopy(), true)) { // only add it if the **same** object is not already associated
-            $this->doAddUser($l);
+        if (!in_array($l, $this->collFiles->getArrayCopy(), true)) { // only add it if the **same** object is not already associated
+            $this->doAddFile($l);
 
-            if ($this->usersScheduledForDeletion and $this->usersScheduledForDeletion->contains($l)) {
-                $this->usersScheduledForDeletion->remove($this->usersScheduledForDeletion->search($l));
+            if ($this->filesScheduledForDeletion and $this->filesScheduledForDeletion->contains($l)) {
+                $this->filesScheduledForDeletion->remove($this->filesScheduledForDeletion->search($l));
             }
         }
 
@@ -1415,31 +1415,106 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
     }
 
     /**
-     * @param	User $user The user object to add.
+     * @param	File $file The file object to add.
      */
-    protected function doAddUser($user)
+    protected function doAddFile($file)
     {
-        $this->collUsers[]= $user;
-        $user->setUserStatus($this);
+        $this->collFiles[]= $file;
+        $file->setFileStatus($this);
     }
 
     /**
-     * @param	User $user The user object to remove.
-     * @return UserStatus The current object (for fluent API support)
+     * @param	File $file The file object to remove.
+     * @return FileStatus The current object (for fluent API support)
      */
-    public function removeUser($user)
+    public function removeFile($file)
     {
-        if ($this->getUsers()->contains($user)) {
-            $this->collUsers->remove($this->collUsers->search($user));
-            if (null === $this->usersScheduledForDeletion) {
-                $this->usersScheduledForDeletion = clone $this->collUsers;
-                $this->usersScheduledForDeletion->clear();
+        if ($this->getFiles()->contains($file)) {
+            $this->collFiles->remove($this->collFiles->search($file));
+            if (null === $this->filesScheduledForDeletion) {
+                $this->filesScheduledForDeletion = clone $this->collFiles;
+                $this->filesScheduledForDeletion->clear();
             }
-            $this->usersScheduledForDeletion[]= $user;
-            $user->setUserStatus(null);
+            $this->filesScheduledForDeletion[]= $file;
+            $file->setFileStatus(null);
         }
 
         return $this;
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this FileStatus is new, it will return
+     * an empty collection; or if this FileStatus has previously
+     * been saved, it will retrieve related Files from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in FileStatus.
+     *
+     * @param Criteria $criteria optional Criteria object to narrow the query
+     * @param PropelPDO $con optional connection object
+     * @param string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return PropelObjectCollection|File[] List of File objects
+     */
+    public function getFilesJoinUser($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        $query = FileQuery::create(null, $criteria);
+        $query->joinWith('User', $join_behavior);
+
+        return $this->getFiles($query, $con);
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this FileStatus is new, it will return
+     * an empty collection; or if this FileStatus has previously
+     * been saved, it will retrieve related Files from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in FileStatus.
+     *
+     * @param Criteria $criteria optional Criteria object to narrow the query
+     * @param PropelPDO $con optional connection object
+     * @param string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return PropelObjectCollection|File[] List of File objects
+     */
+    public function getFilesJoinGroup($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        $query = FileQuery::create(null, $criteria);
+        $query->joinWith('Group', $join_behavior);
+
+        return $this->getFiles($query, $con);
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this FileStatus is new, it will return
+     * an empty collection; or if this FileStatus has previously
+     * been saved, it will retrieve related Files from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in FileStatus.
+     *
+     * @param Criteria $criteria optional Criteria object to narrow the query
+     * @param PropelPDO $con optional connection object
+     * @param string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return PropelObjectCollection|File[] List of File objects
+     */
+    public function getFilesJoinFileRelatedByParentDirectoryId($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        $query = FileQuery::create(null, $criteria);
+        $query->joinWith('FileRelatedByParentDirectoryId', $join_behavior);
+
+        return $this->getFiles($query, $con);
     }
 
     /**
@@ -1476,8 +1551,8 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
     {
         if ($deep && !$this->alreadyInClearAllReferencesDeep) {
             $this->alreadyInClearAllReferencesDeep = true;
-            if ($this->collUsers) {
-                foreach ($this->collUsers as $o) {
+            if ($this->collFiles) {
+                foreach ($this->collFiles as $o) {
                     $o->clearAllReferences($deep);
                 }
             }
@@ -1485,10 +1560,10 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
             $this->alreadyInClearAllReferencesDeep = false;
         } // if ($deep)
 
-        if ($this->collUsers instanceof PropelCollection) {
-            $this->collUsers->clearIterator();
+        if ($this->collFiles instanceof PropelCollection) {
+            $this->collFiles->clearIterator();
         }
-        $this->collUsers = null;
+        $this->collFiles = null;
     }
 
     /**
@@ -1498,7 +1573,7 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
      */
     public function __toString()
     {
-        return (string) $this->exportTo(UserStatusPeer::DEFAULT_STRING_FORMAT);
+        return (string) $this->exportTo(FileStatusPeer::DEFAULT_STRING_FORMAT);
     }
 
     /**
@@ -1518,7 +1593,7 @@ abstract class BaseUserStatus extends BaseObject implements Persistent
     {
 
         // symfony_behaviors behavior
-        if ($callable = sfMixer::getCallable('BaseUserStatus:' . $name))
+        if ($callable = sfMixer::getCallable('BaseFileStatus:' . $name))
         {
           array_unshift($params, $this);
           return call_user_func_array($callable, $params);

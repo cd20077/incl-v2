@@ -1,260 +1,310 @@
 
-# This is a fix for InnoDB in MySQL >= 4.1.x
-# It "suspends judgement" for fkey relationships until are tables are set.
-SET FOREIGN_KEY_CHECKS = 0;
-
--- ---------------------------------------------------------------------
+-----------------------------------------------------------------------
 -- auth_level_status
--- ---------------------------------------------------------------------
+-----------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `auth_level_status`;
+DROP TABLE IF EXISTS "auth_level_status" CASCADE;
 
-CREATE TABLE `auth_level_status`
+CREATE TABLE "auth_level_status"
 (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `is_deleted` TINYINT DEFAULT 0 NOT NULL,
-    `updated_at` DATETIME,
-    `deleted_at` DATETIME,
-    `created_at` DATETIME NOT NULL,
-    `name` VARCHAR(255),
-    PRIMARY KEY (`id`)
-) ENGINE=InnoDB;
+    "id" serial NOT NULL,
+    "is_deleted" INT2 DEFAULT 0 NOT NULL,
+    "updated_at" TIMESTAMP,
+    "deleted_at" TIMESTAMP,
+    "created_at" TIMESTAMP NOT NULL,
+    "name" VARCHAR(255),
+    PRIMARY KEY ("id")
+);
 
--- ---------------------------------------------------------------------
+-----------------------------------------------------------------------
 -- file
--- ---------------------------------------------------------------------
+-----------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `file`;
+DROP TABLE IF EXISTS "file" CASCADE;
 
-CREATE TABLE `file`
+CREATE TABLE "file"
 (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `is_deleted` TINYINT DEFAULT 0 NOT NULL,
-    `updated_at` DATETIME,
-    `deleted_at` DATETIME,
-    `created_at` DATETIME NOT NULL,
-    `origin_name` VARCHAR(255),
-    `encrypt_name` VARCHAR(255),
-    `size` INTEGER DEFAULT 0,
-    `user_id` INTEGER,
-    `group_id` INTEGER,
-    `file_type` VARCHAR(255),
-    `parent_directory_id` INTEGER,
-    PRIMARY KEY (`id`),
-    INDEX `user_id` (`user_id`),
-    INDEX `group_id` (`group_id`),
-    INDEX `parent_directory_id` (`parent_directory_id`),
-    CONSTRAINT `file_FK_1`
-        FOREIGN KEY (`user_id`)
-        REFERENCES `user` (`id`),
-    CONSTRAINT `file_FK_2`
-        FOREIGN KEY (`group_id`)
-        REFERENCES `group` (`id`),
-    CONSTRAINT `file_FK_3`
-        FOREIGN KEY (`parent_directory_id`)
-        REFERENCES `file` (`id`)
-) ENGINE=InnoDB;
+    "id" serial NOT NULL,
+    "is_deleted" INT2 DEFAULT 0 NOT NULL,
+    "is_directory" INT2 DEFAULT 0 NOT NULL,
+    "updated_at" TIMESTAMP,
+    "deleted_at" TIMESTAMP,
+    "created_at" TIMESTAMP NOT NULL,
+    "origin_name" VARCHAR(255),
+    "encrypt_name" VARCHAR(255),
+    "size" INTEGER DEFAULT 0,
+    "user_id" INTEGER,
+    "group_id" INTEGER,
+    "file_type" VARCHAR(255),
+    "parent_directory_id" INTEGER,
+    "file_status_id" INTEGER DEFAULT 1,
+    PRIMARY KEY ("id")
+);
 
--- ---------------------------------------------------------------------
+CREATE INDEX "file_status_id" ON "file" ("file_status_id");
+
+CREATE INDEX "group_id" ON "file" ("group_id");
+
+CREATE INDEX "parent_directory_id" ON "file" ("parent_directory_id");
+
+CREATE INDEX "user_id" ON "file" ("user_id");
+
+-----------------------------------------------------------------------
+-- file_status
+-----------------------------------------------------------------------
+
+DROP TABLE IF EXISTS "file_status" CASCADE;
+
+CREATE TABLE "file_status"
+(
+    "id" serial NOT NULL,
+    "is_deleted" INT2 DEFAULT 0 NOT NULL,
+    "updated_at" TIMESTAMP,
+    "deleted_at" TIMESTAMP,
+    "created_at" TIMESTAMP NOT NULL,
+    "name" VARCHAR(255),
+    PRIMARY KEY ("id")
+);
+
+-----------------------------------------------------------------------
 -- group
--- ---------------------------------------------------------------------
+-----------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `group`;
+DROP TABLE IF EXISTS "group" CASCADE;
 
-CREATE TABLE `group`
+CREATE TABLE "group"
 (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `is_deleted` TINYINT DEFAULT 0 NOT NULL,
-    `updated_at` DATETIME,
-    `deleted_at` DATETIME,
-    `created_at` DATETIME NOT NULL,
-    `name` VARCHAR(255),
-    `maxcapa` INTEGER DEFAULT 209715200,
-    `precapa` INTEGER DEFAULT 0,
-    `backimg` VARCHAR(255),
-    `ranid` VARCHAR(255),
-    `user_id` INTEGER,
-    PRIMARY KEY (`id`),
-    INDEX `user_id` (`user_id`),
-    CONSTRAINT `group_FK_1`
-        FOREIGN KEY (`user_id`)
-        REFERENCES `user` (`id`)
-) ENGINE=InnoDB;
+    "id" serial NOT NULL,
+    "is_deleted" INT2 DEFAULT 0 NOT NULL,
+    "updated_at" TIMESTAMP,
+    "deleted_at" TIMESTAMP,
+    "created_at" TIMESTAMP NOT NULL,
+    "name" VARCHAR(255),
+    "maxcapa" INTEGER DEFAULT 209715200,
+    "precapa" INTEGER DEFAULT 0,
+    "backimg" VARCHAR(255),
+    "ranid" VARCHAR(255),
+    "user_id" INTEGER,
+    PRIMARY KEY ("id")
+);
 
--- ---------------------------------------------------------------------
+-----------------------------------------------------------------------
 -- group_member
--- ---------------------------------------------------------------------
+-----------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `group_member`;
+DROP TABLE IF EXISTS "group_member" CASCADE;
 
-CREATE TABLE `group_member`
+CREATE TABLE "group_member"
 (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `is_deleted` TINYINT DEFAULT 0 NOT NULL,
-    `updated_at` DATETIME,
-    `deleted_at` DATETIME,
-    `created_at` DATETIME NOT NULL,
-    `user_id` INTEGER,
-    `group_id` INTEGER,
-    `auth_level_status_id` INTEGER DEFAULT 1,
-    PRIMARY KEY (`id`),
-    INDEX `user_id` (`user_id`),
-    INDEX `group_id` (`group_id`),
-    INDEX `auth_level_status_id` (`auth_level_status_id`),
-    CONSTRAINT `group_member_FK_1`
-        FOREIGN KEY (`user_id`)
-        REFERENCES `user` (`id`),
-    CONSTRAINT `group_member_FK_2`
-        FOREIGN KEY (`group_id`)
-        REFERENCES `group` (`id`),
-    CONSTRAINT `group_member_FK_3`
-        FOREIGN KEY (`auth_level_status_id`)
-        REFERENCES `auth_level_status` (`id`)
-) ENGINE=InnoDB;
+    "id" serial NOT NULL,
+    "is_deleted" INT2 DEFAULT 0 NOT NULL,
+    "updated_at" TIMESTAMP,
+    "deleted_at" TIMESTAMP,
+    "created_at" TIMESTAMP NOT NULL,
+    "user_id" INTEGER,
+    "group_id" INTEGER,
+    "auth_level_status_id" INTEGER DEFAULT 1,
+    PRIMARY KEY ("id")
+);
 
--- ---------------------------------------------------------------------
+CREATE INDEX "auth_level_status_id" ON "group_member" ("auth_level_status_id");
+
+-----------------------------------------------------------------------
 -- mail
--- ---------------------------------------------------------------------
+-----------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `mail`;
+DROP TABLE IF EXISTS "mail" CASCADE;
 
-CREATE TABLE `mail`
+CREATE TABLE "mail"
 (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `is_deleted` TINYINT DEFAULT 0 NOT NULL,
-    `updated_at` DATETIME,
-    `deleted_at` DATETIME,
-    `created_at` DATETIME NOT NULL,
-    `title` VARCHAR(255),
-    `text` TEXT,
-    PRIMARY KEY (`id`)
-) ENGINE=InnoDB;
+    "id" serial NOT NULL,
+    "is_deleted" INT2 DEFAULT 0 NOT NULL,
+    "updated_at" TIMESTAMP,
+    "deleted_at" TIMESTAMP,
+    "created_at" TIMESTAMP NOT NULL,
+    "title" VARCHAR(255),
+    "text" TEXT,
+    PRIMARY KEY ("id")
+);
 
--- ---------------------------------------------------------------------
+-----------------------------------------------------------------------
 -- send_mail_status
--- ---------------------------------------------------------------------
+-----------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `send_mail_status`;
+DROP TABLE IF EXISTS "send_mail_status" CASCADE;
 
-CREATE TABLE `send_mail_status`
+CREATE TABLE "send_mail_status"
 (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `is_deleted` TINYINT DEFAULT 0 NOT NULL,
-    `updated_at` DATETIME,
-    `deleted_at` DATETIME,
-    `created_at` DATETIME NOT NULL,
-    `name` TEXT,
-    `snum` TEXT,
-    PRIMARY KEY (`id`)
-) ENGINE=InnoDB;
+    "id" serial NOT NULL,
+    "is_deleted" INT2 DEFAULT 0 NOT NULL,
+    "updated_at" TIMESTAMP,
+    "deleted_at" TIMESTAMP,
+    "created_at" TIMESTAMP NOT NULL,
+    "name" TEXT,
+    "snum" TEXT,
+    PRIMARY KEY ("id")
+);
 
--- ---------------------------------------------------------------------
+-----------------------------------------------------------------------
 -- send_mails
--- ---------------------------------------------------------------------
+-----------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `send_mails`;
+DROP TABLE IF EXISTS "send_mails" CASCADE;
 
-CREATE TABLE `send_mails`
+CREATE TABLE "send_mails"
 (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `is_deleted` TINYINT DEFAULT 0 NOT NULL,
-    `updated_at` DATETIME,
-    `deleted_at` DATETIME,
-    `created_at` DATETIME NOT NULL,
-    `title` VARCHAR(255),
-    `name` TEXT,
-    `from_name` TEXT,
-    `to_name` TEXT,
-    `to_address` TEXT,
-    `subject` TEXT,
-    `body` TEXT,
-    `group_code` TEXT,
-    `from_address` TEXT,
-    `finish_dt` DATETIME,
-    `result` TINYINT(1),
-    `send_date` DATE,
-    `send_time` TIME,
-    `fw_to` TEXT,
-    `server_ip` TEXT,
-    `server_name` TEXT,
-    `send_mail_status_id` BIGINT DEFAULT 1,
-    PRIMARY KEY (`id`)
-) ENGINE=InnoDB;
+    "id" serial NOT NULL,
+    "is_deleted" INT2 DEFAULT 0 NOT NULL,
+    "updated_at" TIMESTAMP,
+    "deleted_at" TIMESTAMP,
+    "created_at" TIMESTAMP NOT NULL,
+    "title" VARCHAR(255),
+    "name" TEXT,
+    "from_name" TEXT,
+    "to_name" TEXT,
+    "to_address" TEXT,
+    "subject" TEXT,
+    "body" TEXT,
+    "group_code" TEXT,
+    "from_address" TEXT,
+    "finish_dt" TIMESTAMP,
+    "result" INT2 DEFAULT 0 NOT NULL,
+    "send_date" DATE,
+    "send_time" TIME,
+    "fw_to" TEXT,
+    "server_ip" TEXT,
+    "server_name" TEXT,
+    "send_mail_status_id" INT8 DEFAULT 1,
+    PRIMARY KEY ("id")
+);
 
--- ---------------------------------------------------------------------
+-----------------------------------------------------------------------
 -- user
--- ---------------------------------------------------------------------
+-----------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS "user" CASCADE;
 
-CREATE TABLE `user`
+CREATE TABLE "user"
 (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `is_deleted` TINYINT DEFAULT 0 NOT NULL,
-    `updated_at` DATETIME,
-    `deleted_at` DATETIME,
-    `created_at` DATETIME NOT NULL,
-    `name` VARCHAR(255),
-    `mail` VARCHAR(255),
-    `password` VARCHAR(255),
-    `userimg` VARCHAR(255),
-    `backimg` VARCHAR(255),
-    `maxcapa` INTEGER DEFAULT 209715200,
-    `precapa` INTEGER DEFAULT 0,
-    `user_status_id` INTEGER DEFAULT 1,
-    `randnum` VARCHAR(255),
-    `randid` VARCHAR(255),
-    `langid` INTEGER DEFAULT 1,
-    PRIMARY KEY (`id`),
-    INDEX `user_status_id` (`user_status_id`),
-    CONSTRAINT `user_FK_1`
-        FOREIGN KEY (`user_status_id`)
-        REFERENCES `user_status` (`id`)
-) ENGINE=InnoDB;
+    "id" serial NOT NULL,
+    "is_deleted" INT2 DEFAULT 0 NOT NULL,
+    "updated_at" TIMESTAMP,
+    "deleted_at" TIMESTAMP,
+    "created_at" TIMESTAMP NOT NULL,
+    "name" VARCHAR(255),
+    "mail" VARCHAR(255),
+    "password" VARCHAR(255),
+    "userimg" VARCHAR(255),
+    "backimg" VARCHAR(255),
+    "maxcapa" INTEGER DEFAULT 209715200,
+    "precapa" INTEGER DEFAULT 0,
+    "user_status_id" INTEGER DEFAULT 1,
+    "randnum" VARCHAR(255),
+    "randid" VARCHAR(255),
+    "langid" INTEGER DEFAULT 1,
+    PRIMARY KEY ("id")
+);
 
--- ---------------------------------------------------------------------
+CREATE INDEX "user_status_id" ON "user" ("user_status_id");
+
+-----------------------------------------------------------------------
 -- user_log
--- ---------------------------------------------------------------------
+-----------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `user_log`;
+DROP TABLE IF EXISTS "user_log" CASCADE;
 
-CREATE TABLE `user_log`
+CREATE TABLE "user_log"
 (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `is_deleted` TINYINT DEFAULT 0 NOT NULL,
-    `updated_at` DATETIME,
-    `deleted_at` DATETIME,
-    `created_at` DATETIME NOT NULL,
-    `title` VARCHAR(255),
-    `user_id` INTEGER,
-    `group_id` INTEGER,
-    PRIMARY KEY (`id`),
-    INDEX `user_id` (`user_id`),
-    INDEX `group_id` (`group_id`),
-    CONSTRAINT `user_log_FK_1`
-        FOREIGN KEY (`user_id`)
-        REFERENCES `user` (`id`),
-    CONSTRAINT `user_log_FK_2`
-        FOREIGN KEY (`group_id`)
-        REFERENCES `group` (`id`)
-) ENGINE=InnoDB;
+    "id" serial NOT NULL,
+    "is_deleted" INT2 DEFAULT 0 NOT NULL,
+    "updated_at" TIMESTAMP,
+    "deleted_at" TIMESTAMP,
+    "created_at" TIMESTAMP NOT NULL,
+    "title" VARCHAR(255),
+    "user_id" INTEGER,
+    "group_id" INTEGER,
+    PRIMARY KEY ("id")
+);
 
--- ---------------------------------------------------------------------
+-----------------------------------------------------------------------
 -- user_status
--- ---------------------------------------------------------------------
+-----------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `user_status`;
+DROP TABLE IF EXISTS "user_status" CASCADE;
 
-CREATE TABLE `user_status`
+CREATE TABLE "user_status"
 (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `is_deleted` TINYINT DEFAULT 0 NOT NULL,
-    `updated_at` DATETIME,
-    `deleted_at` DATETIME,
-    `created_at` DATETIME NOT NULL,
-    `name` VARCHAR(255),
-    PRIMARY KEY (`id`)
-) ENGINE=InnoDB;
+    "id" serial NOT NULL,
+    "is_deleted" INT2 DEFAULT 0 NOT NULL,
+    "updated_at" TIMESTAMP,
+    "deleted_at" TIMESTAMP,
+    "created_at" TIMESTAMP NOT NULL,
+    "name" VARCHAR(255),
+    PRIMARY KEY ("id")
+);
 
-# This restores the fkey checks, after having unset them earlier
-SET FOREIGN_KEY_CHECKS = 1;
+ALTER TABLE "file" ADD CONSTRAINT "file_FK_1"
+    FOREIGN KEY ("user_id")
+    REFERENCES "user" ("id")
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT;
+
+ALTER TABLE "file" ADD CONSTRAINT "file_FK_2"
+    FOREIGN KEY ("group_id")
+    REFERENCES "group" ("id")
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT;
+
+ALTER TABLE "file" ADD CONSTRAINT "file_FK_3"
+    FOREIGN KEY ("parent_directory_id")
+    REFERENCES "file" ("id")
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT;
+
+ALTER TABLE "file" ADD CONSTRAINT "file_FK_4"
+    FOREIGN KEY ("file_status_id")
+    REFERENCES "file_status" ("id")
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT;
+
+ALTER TABLE "group" ADD CONSTRAINT "group_FK_1"
+    FOREIGN KEY ("user_id")
+    REFERENCES "user" ("id")
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT;
+
+ALTER TABLE "group_member" ADD CONSTRAINT "group_member_FK_1"
+    FOREIGN KEY ("user_id")
+    REFERENCES "user" ("id")
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT;
+
+ALTER TABLE "group_member" ADD CONSTRAINT "group_member_FK_2"
+    FOREIGN KEY ("group_id")
+    REFERENCES "group" ("id")
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT;
+
+ALTER TABLE "group_member" ADD CONSTRAINT "group_member_FK_3"
+    FOREIGN KEY ("auth_level_status_id")
+    REFERENCES "auth_level_status" ("id")
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT;
+
+ALTER TABLE "user" ADD CONSTRAINT "user_FK_1"
+    FOREIGN KEY ("user_status_id")
+    REFERENCES "user_status" ("id")
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT;
+
+ALTER TABLE "user_log" ADD CONSTRAINT "user_log_FK_1"
+    FOREIGN KEY ("user_id")
+    REFERENCES "user" ("id")
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT;
+
+ALTER TABLE "user_log" ADD CONSTRAINT "user_log_FK_2"
+    FOREIGN KEY ("group_id")
+    REFERENCES "group" ("id")
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT;

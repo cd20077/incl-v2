@@ -1,2 +1,3 @@
 # Sqlfile -> Database map
-lib.model.schema.sql=inclv2
+schema.sql=incl2
+lib.model.schema.sql=incl2

@@ -3,7 +3,7 @@
 /**
  * Group filter form base class.
  *
- * @package    inclv2
+ * @package    incl2
  * @subpackage filter
  * @author     Your name here
  */

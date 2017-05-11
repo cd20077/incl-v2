@@ -1,20 +1,36 @@
-dev:
-  inclv2:
-    param:
-      classname: DebugPDO
-      debug: { realmemoryusage: true, details: { time: { enabled: true }, slow: { enabled: true, threshold: 0.1 }, mem: { enabled: true }, mempeak: { enabled: true }, memdelta: { enabled: true } } }
-test:
-  inclv2:
-    param:
-      classname: DebugPDO
 all:
-  inclv2:
+  incl2:
     class: sfPropelDatabase
     param:
-      classname: PropelPDO
-      dsn: 'mysql:dbname=inclv2;host=localhost'
-      username: root
-      password: root
+      classname: DebugPDO
+      dsn: 'pgsql:host=localhost;dbname=incl2'
+      username: incl
+      password: incl
       encoding: utf8
       persistent: true
       pooling: true
+      debug: { realmemoryusage: true, details: { time: { enabled: true }, slow: { enabled: true, threshold: 0.1 }, mem: { enabled: true }, mempeak: { enabled: true }, memdelta: { enabled: true } } }
+dev:
+  incl2:
+    class: sfPropelDatabase
+    param:
+      classname: DebugPDO
+      dsn: 'pgsql:host=localhost;dbname=incl2'
+      username: incl
+      password: incl
+      encoding: utf8
+      persistent: true
+      pooling: true
+      debug: { realmemoryusage: true, details: { time: { enabled: true }, slow: { enabled: true, threshold: 0.1 }, mem: { enabled: true }, mempeak: { enabled: true }, memdelta: { enabled: true } } }
+test:
+  incl2:
+    class: sfPropelDatabase
+    param:
+      classname: DebugPDO
+      dsn: 'pgsql:host=localhost;dbname=incl2'
+      username: incl
+      password: incl
+      encoding: utf8
+      persistent: true
+      pooling: true
+      debug: { realmemoryusage: true, details: { time: { enabled: true }, slow: { enabled: true, threshold: 0.1 }, mem: { enabled: true }, mempeak: { enabled: true }, memdelta: { enabled: true } } }

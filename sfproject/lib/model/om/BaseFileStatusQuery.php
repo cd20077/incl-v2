@@ -2,54 +2,54 @@
 
 
 /**
- * Base class that represents a query for the 'user_status' table.
+ * Base class that represents a query for the 'file_status' table.
  *
  *
  *
- * @method UserStatusQuery orderById($order = Criteria::ASC) Order by the id column
- * @method UserStatusQuery orderByIsDeleted($order = Criteria::ASC) Order by the is_deleted column
- * @method UserStatusQuery orderByUpdatedAt($order = Criteria::ASC) Order by the updated_at column
- * @method UserStatusQuery orderByDeletedAt($order = Criteria::ASC) Order by the deleted_at column
- * @method UserStatusQuery orderByCreatedAt($order = Criteria::ASC) Order by the created_at column
- * @method UserStatusQuery orderByName($order = Criteria::ASC) Order by the name column
+ * @method FileStatusQuery orderById($order = Criteria::ASC) Order by the id column
+ * @method FileStatusQuery orderByIsDeleted($order = Criteria::ASC) Order by the is_deleted column
+ * @method FileStatusQuery orderByUpdatedAt($order = Criteria::ASC) Order by the updated_at column
+ * @method FileStatusQuery orderByDeletedAt($order = Criteria::ASC) Order by the deleted_at column
+ * @method FileStatusQuery orderByCreatedAt($order = Criteria::ASC) Order by the created_at column
+ * @method FileStatusQuery orderByName($order = Criteria::ASC) Order by the name column
  *
- * @method UserStatusQuery groupById() Group by the id column
- * @method UserStatusQuery groupByIsDeleted() Group by the is_deleted column
- * @method UserStatusQuery groupByUpdatedAt() Group by the updated_at column
- * @method UserStatusQuery groupByDeletedAt() Group by the deleted_at column
- * @method UserStatusQuery groupByCreatedAt() Group by the created_at column
- * @method UserStatusQuery groupByName() Group by the name column
+ * @method FileStatusQuery groupById() Group by the id column
+ * @method FileStatusQuery groupByIsDeleted() Group by the is_deleted column
+ * @method FileStatusQuery groupByUpdatedAt() Group by the updated_at column
+ * @method FileStatusQuery groupByDeletedAt() Group by the deleted_at column
+ * @method FileStatusQuery groupByCreatedAt() Group by the created_at column
+ * @method FileStatusQuery groupByName() Group by the name column
  *
- * @method UserStatusQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
- * @method UserStatusQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
- * @method UserStatusQuery innerJoin($relation) Adds a INNER JOIN clause to the query
+ * @method FileStatusQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
+ * @method FileStatusQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
+ * @method FileStatusQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
- * @method UserStatusQuery leftJoinUser($relationAlias = null) Adds a LEFT JOIN clause to the query using the User relation
- * @method UserStatusQuery rightJoinUser($relationAlias = null) Adds a RIGHT JOIN clause to the query using the User relation
- * @method UserStatusQuery innerJoinUser($relationAlias = null) Adds a INNER JOIN clause to the query using the User relation
+ * @method FileStatusQuery leftJoinFile($relationAlias = null) Adds a LEFT JOIN clause to the query using the File relation
+ * @method FileStatusQuery rightJoinFile($relationAlias = null) Adds a RIGHT JOIN clause to the query using the File relation
+ * @method FileStatusQuery innerJoinFile($relationAlias = null) Adds a INNER JOIN clause to the query using the File relation
  *
- * @method UserStatus findOne(PropelPDO $con = null) Return the first UserStatus matching the query
- * @method UserStatus findOneOrCreate(PropelPDO $con = null) Return the first UserStatus matching the query, or a new UserStatus object populated from the query conditions when no match is found
+ * @method FileStatus findOne(PropelPDO $con = null) Return the first FileStatus matching the query
+ * @method FileStatus findOneOrCreate(PropelPDO $con = null) Return the first FileStatus matching the query, or a new FileStatus object populated from the query conditions when no match is found
  *
- * @method UserStatus findOneByIsDeleted(int $is_deleted) Return the first UserStatus filtered by the is_deleted column
- * @method UserStatus findOneByUpdatedAt(string $updated_at) Return the first UserStatus filtered by the updated_at column
- * @method UserStatus findOneByDeletedAt(string $deleted_at) Return the first UserStatus filtered by the deleted_at column
- * @method UserStatus findOneByCreatedAt(string $created_at) Return the first UserStatus filtered by the created_at column
- * @method UserStatus findOneByName(string $name) Return the first UserStatus filtered by the name column
+ * @method FileStatus findOneByIsDeleted(int $is_deleted) Return the first FileStatus filtered by the is_deleted column
+ * @method FileStatus findOneByUpdatedAt(string $updated_at) Return the first FileStatus filtered by the updated_at column
+ * @method FileStatus findOneByDeletedAt(string $deleted_at) Return the first FileStatus filtered by the deleted_at column
+ * @method FileStatus findOneByCreatedAt(string $created_at) Return the first FileStatus filtered by the created_at column
+ * @method FileStatus findOneByName(string $name) Return the first FileStatus filtered by the name column
  *
- * @method array findById(int $id) Return UserStatus objects filtered by the id column
- * @method array findByIsDeleted(int $is_deleted) Return UserStatus objects filtered by the is_deleted column
- * @method array findByUpdatedAt(string $updated_at) Return UserStatus objects filtered by the updated_at column
- * @method array findByDeletedAt(string $deleted_at) Return UserStatus objects filtered by the deleted_at column
- * @method array findByCreatedAt(string $created_at) Return UserStatus objects filtered by the created_at column
- * @method array findByName(string $name) Return UserStatus objects filtered by the name column
+ * @method array findById(int $id) Return FileStatus objects filtered by the id column
+ * @method array findByIsDeleted(int $is_deleted) Return FileStatus objects filtered by the is_deleted column
+ * @method array findByUpdatedAt(string $updated_at) Return FileStatus objects filtered by the updated_at column
+ * @method array findByDeletedAt(string $deleted_at) Return FileStatus objects filtered by the deleted_at column
+ * @method array findByCreatedAt(string $created_at) Return FileStatus objects filtered by the created_at column
+ * @method array findByName(string $name) Return FileStatus objects filtered by the name column
  *
  * @package    propel.generator.lib.model.om
  */
-abstract class BaseUserStatusQuery extends ModelCriteria
+abstract class BaseFileStatusQuery extends ModelCriteria
 {
     /**
-     * Initializes internal state of BaseUserStatusQuery object.
+     * Initializes internal state of BaseFileStatusQuery object.
      *
      * @param     string $dbName The dabase name
      * @param     string $modelName The phpName of a model, e.g. 'Book'
@@ -61,25 +61,25 @@ abstract class BaseUserStatusQuery extends ModelCriteria
             $dbName = 'incl2';
         }
         if (null === $modelName) {
-            $modelName = 'UserStatus';
+            $modelName = 'FileStatus';
         }
         parent::__construct($dbName, $modelName, $modelAlias);
     }
 
     /**
-     * Returns a new UserStatusQuery object.
+     * Returns a new FileStatusQuery object.
      *
      * @param     string $modelAlias The alias of a model in the query
-     * @param   UserStatusQuery|Criteria $criteria Optional Criteria to build the query from
+     * @param   FileStatusQuery|Criteria $criteria Optional Criteria to build the query from
      *
-     * @return UserStatusQuery
+     * @return FileStatusQuery
      */
     public static function create($modelAlias = null, $criteria = null)
     {
-        if ($criteria instanceof UserStatusQuery) {
+        if ($criteria instanceof FileStatusQuery) {
             return $criteria;
         }
-        $query = new UserStatusQuery(null, null, $modelAlias);
+        $query = new FileStatusQuery(null, null, $modelAlias);
 
         if ($criteria instanceof Criteria) {
             $query->mergeWith($criteria);
@@ -100,19 +100,19 @@ abstract class BaseUserStatusQuery extends ModelCriteria
      * @param mixed $key Primary key to use for the query
      * @param     PropelPDO $con an optional connection object
      *
-     * @return   UserStatus|UserStatus[]|mixed the result, formatted by the current formatter
+     * @return   FileStatus|FileStatus[]|mixed the result, formatted by the current formatter
      */
     public function findPk($key, $con = null)
     {
         if ($key === null) {
             return null;
         }
-        if ((null !== ($obj = UserStatusPeer::getInstanceFromPool((string) $key))) && !$this->formatter) {
+        if ((null !== ($obj = FileStatusPeer::getInstanceFromPool((string) $key))) && !$this->formatter) {
             // the object is already in the instance pool
             return $obj;
         }
         if ($con === null) {
-            $con = Propel::getConnection(UserStatusPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(FileStatusPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
         $this->basePreSelect($con);
         if ($this->formatter || $this->modelAlias || $this->with || $this->select
@@ -130,7 +130,7 @@ abstract class BaseUserStatusQuery extends ModelCriteria
      * @param     mixed $key Primary key to use for the query
      * @param     PropelPDO $con A connection object
      *
-     * @return                 UserStatus A model object, or null if the key is not found
+     * @return                 FileStatus A model object, or null if the key is not found
      * @throws PropelException
      */
      public function findOneById($key, $con = null)
@@ -145,12 +145,12 @@ abstract class BaseUserStatusQuery extends ModelCriteria
      * @param     mixed $key Primary key to use for the query
      * @param     PropelPDO $con A connection object
      *
-     * @return                 UserStatus A model object, or null if the key is not found
+     * @return                 FileStatus A model object, or null if the key is not found
      * @throws PropelException
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT "id", "is_deleted", "updated_at", "deleted_at", "created_at", "name" FROM "user_status" WHERE "id" = :p0';
+        $sql = 'SELECT "id", "is_deleted", "updated_at", "deleted_at", "created_at", "name" FROM "file_status" WHERE "id" = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -161,9 +161,9 @@ abstract class BaseUserStatusQuery extends ModelCriteria
         }
         $obj = null;
         if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $obj = new UserStatus();
+            $obj = new FileStatus();
             $obj->hydrate($row);
-            UserStatusPeer::addInstanceToPool($obj, (string) $key);
+            FileStatusPeer::addInstanceToPool($obj, (string) $key);
         }
         $stmt->closeCursor();
 
@@ -176,7 +176,7 @@ abstract class BaseUserStatusQuery extends ModelCriteria
      * @param     mixed $key Primary key to use for the query
      * @param     PropelPDO $con A connection object
      *
-     * @return UserStatus|UserStatus[]|mixed the result, formatted by the current formatter
+     * @return FileStatus|FileStatus[]|mixed the result, formatted by the current formatter
      */
     protected function findPkComplex($key, $con)
     {
@@ -197,7 +197,7 @@ abstract class BaseUserStatusQuery extends ModelCriteria
      * @param     array $keys Primary keys to use for the query
      * @param     PropelPDO $con an optional connection object
      *
-     * @return PropelObjectCollection|UserStatus[]|mixed the list of results, formatted by the current formatter
+     * @return PropelObjectCollection|FileStatus[]|mixed the list of results, formatted by the current formatter
      */
     public function findPks($keys, $con = null)
     {
@@ -218,12 +218,12 @@ abstract class BaseUserStatusQuery extends ModelCriteria
      *
      * @param     mixed $key Primary key to use for the query
      *
-     * @return UserStatusQuery The current query, for fluid interface
+     * @return FileStatusQuery The current query, for fluid interface
      */
     public function filterByPrimaryKey($key)
     {
 
-        return $this->addUsingAlias(UserStatusPeer::ID, $key, Criteria::EQUAL);
+        return $this->addUsingAlias(FileStatusPeer::ID, $key, Criteria::EQUAL);
     }
 
     /**
@@ -231,12 +231,12 @@ abstract class BaseUserStatusQuery extends ModelCriteria
      *
      * @param     array $keys The list of primary key to use for the query
      *
-     * @return UserStatusQuery The current query, for fluid interface
+     * @return FileStatusQuery The current query, for fluid interface
      */
     public function filterByPrimaryKeys($keys)
     {
 
-        return $this->addUsingAlias(UserStatusPeer::ID, $keys, Criteria::IN);
+        return $this->addUsingAlias(FileStatusPeer::ID, $keys, Criteria::IN);
     }
 
     /**
@@ -256,18 +256,18 @@ abstract class BaseUserStatusQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return UserStatusQuery The current query, for fluid interface
+     * @return FileStatusQuery The current query, for fluid interface
      */
     public function filterById($id = null, $comparison = null)
     {
         if (is_array($id)) {
             $useMinMax = false;
             if (isset($id['min'])) {
-                $this->addUsingAlias(UserStatusPeer::ID, $id['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(FileStatusPeer::ID, $id['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($id['max'])) {
-                $this->addUsingAlias(UserStatusPeer::ID, $id['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(FileStatusPeer::ID, $id['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -278,7 +278,7 @@ abstract class BaseUserStatusQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(UserStatusPeer::ID, $id, $comparison);
+        return $this->addUsingAlias(FileStatusPeer::ID, $id, $comparison);
     }
 
     /**
@@ -298,18 +298,18 @@ abstract class BaseUserStatusQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return UserStatusQuery The current query, for fluid interface
+     * @return FileStatusQuery The current query, for fluid interface
      */
     public function filterByIsDeleted($isDeleted = null, $comparison = null)
     {
         if (is_array($isDeleted)) {
             $useMinMax = false;
             if (isset($isDeleted['min'])) {
-                $this->addUsingAlias(UserStatusPeer::IS_DELETED, $isDeleted['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(FileStatusPeer::IS_DELETED, $isDeleted['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($isDeleted['max'])) {
-                $this->addUsingAlias(UserStatusPeer::IS_DELETED, $isDeleted['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(FileStatusPeer::IS_DELETED, $isDeleted['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -320,7 +320,7 @@ abstract class BaseUserStatusQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(UserStatusPeer::IS_DELETED, $isDeleted, $comparison);
+        return $this->addUsingAlias(FileStatusPeer::IS_DELETED, $isDeleted, $comparison);
     }
 
     /**
@@ -341,18 +341,18 @@ abstract class BaseUserStatusQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return UserStatusQuery The current query, for fluid interface
+     * @return FileStatusQuery The current query, for fluid interface
      */
     public function filterByUpdatedAt($updatedAt = null, $comparison = null)
     {
         if (is_array($updatedAt)) {
             $useMinMax = false;
             if (isset($updatedAt['min'])) {
-                $this->addUsingAlias(UserStatusPeer::UPDATED_AT, $updatedAt['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(FileStatusPeer::UPDATED_AT, $updatedAt['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($updatedAt['max'])) {
-                $this->addUsingAlias(UserStatusPeer::UPDATED_AT, $updatedAt['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(FileStatusPeer::UPDATED_AT, $updatedAt['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -363,7 +363,7 @@ abstract class BaseUserStatusQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(UserStatusPeer::UPDATED_AT, $updatedAt, $comparison);
+        return $this->addUsingAlias(FileStatusPeer::UPDATED_AT, $updatedAt, $comparison);
     }
 
     /**
@@ -384,18 +384,18 @@ abstract class BaseUserStatusQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return UserStatusQuery The current query, for fluid interface
+     * @return FileStatusQuery The current query, for fluid interface
      */
     public function filterByDeletedAt($deletedAt = null, $comparison = null)
     {
         if (is_array($deletedAt)) {
             $useMinMax = false;
             if (isset($deletedAt['min'])) {
-                $this->addUsingAlias(UserStatusPeer::DELETED_AT, $deletedAt['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(FileStatusPeer::DELETED_AT, $deletedAt['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($deletedAt['max'])) {
-                $this->addUsingAlias(UserStatusPeer::DELETED_AT, $deletedAt['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(FileStatusPeer::DELETED_AT, $deletedAt['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -406,7 +406,7 @@ abstract class BaseUserStatusQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(UserStatusPeer::DELETED_AT, $deletedAt, $comparison);
+        return $this->addUsingAlias(FileStatusPeer::DELETED_AT, $deletedAt, $comparison);
     }
 
     /**
@@ -427,18 +427,18 @@ abstract class BaseUserStatusQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return UserStatusQuery The current query, for fluid interface
+     * @return FileStatusQuery The current query, for fluid interface
      */
     public function filterByCreatedAt($createdAt = null, $comparison = null)
     {
         if (is_array($createdAt)) {
             $useMinMax = false;
             if (isset($createdAt['min'])) {
-                $this->addUsingAlias(UserStatusPeer::CREATED_AT, $createdAt['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(FileStatusPeer::CREATED_AT, $createdAt['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($createdAt['max'])) {
-                $this->addUsingAlias(UserStatusPeer::CREATED_AT, $createdAt['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(FileStatusPeer::CREATED_AT, $createdAt['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -449,7 +449,7 @@ abstract class BaseUserStatusQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(UserStatusPeer::CREATED_AT, $createdAt, $comparison);
+        return $this->addUsingAlias(FileStatusPeer::CREATED_AT, $createdAt, $comparison);
     }
 
     /**
@@ -465,7 +465,7 @@ abstract class BaseUserStatusQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return UserStatusQuery The current query, for fluid interface
+     * @return FileStatusQuery The current query, for fluid interface
      */
     public function filterByName($name = null, $comparison = null)
     {
@@ -478,45 +478,45 @@ abstract class BaseUserStatusQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(UserStatusPeer::NAME, $name, $comparison);
+        return $this->addUsingAlias(FileStatusPeer::NAME, $name, $comparison);
     }
 
     /**
-     * Filter the query by a related User object
+     * Filter the query by a related File object
      *
-     * @param   User|PropelObjectCollection $user  the related object to use as filter
+     * @param   File|PropelObjectCollection $file  the related object to use as filter
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return                 UserStatusQuery The current query, for fluid interface
+     * @return                 FileStatusQuery The current query, for fluid interface
      * @throws PropelException - if the provided filter is invalid.
      */
-    public function filterByUser($user, $comparison = null)
+    public function filterByFile($file, $comparison = null)
     {
-        if ($user instanceof User) {
+        if ($file instanceof File) {
             return $this
-                ->addUsingAlias(UserStatusPeer::ID, $user->getUserStatusId(), $comparison);
-        } elseif ($user instanceof PropelObjectCollection) {
+                ->addUsingAlias(FileStatusPeer::ID, $file->getFileStatusId(), $comparison);
+        } elseif ($file instanceof PropelObjectCollection) {
             return $this
-                ->useUserQuery()
-                ->filterByPrimaryKeys($user->getPrimaryKeys())
+                ->useFileQuery()
+                ->filterByPrimaryKeys($file->getPrimaryKeys())
                 ->endUse();
         } else {
-            throw new PropelException('filterByUser() only accepts arguments of type User or PropelCollection');
+            throw new PropelException('filterByFile() only accepts arguments of type File or PropelCollection');
         }
     }
 
     /**
-     * Adds a JOIN clause to the query using the User relation
+     * Adds a JOIN clause to the query using the File relation
      *
      * @param     string $relationAlias optional alias for the relation
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return UserStatusQuery The current query, for fluid interface
+     * @return FileStatusQuery The current query, for fluid interface
      */
-    public function joinUser($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    public function joinFile($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
     {
         $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('User');
+        $relationMap = $tableMap->getRelation('File');
 
         // create a ModelJoin object for this join
         $join = new ModelJoin();
@@ -531,14 +531,14 @@ abstract class BaseUserStatusQuery extends ModelCriteria
             $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
             $this->addJoinObject($join, $relationAlias);
         } else {
-            $this->addJoinObject($join, 'User');
+            $this->addJoinObject($join, 'File');
         }
 
         return $this;
     }
 
     /**
-     * Use the User relation User object
+     * Use the File relation File object
      *
      * @see       useQuery()
      *
@@ -546,26 +546,26 @@ abstract class BaseUserStatusQuery extends ModelCriteria
      *                                   to be used as main alias in the secondary query
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return   UserQuery A secondary query class using the current class as primary query
+     * @return   FileQuery A secondary query class using the current class as primary query
      */
-    public function useUserQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    public function useFileQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
     {
         return $this
-            ->joinUser($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'User', 'UserQuery');
+            ->joinFile($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'File', 'FileQuery');
     }
 
     /**
      * Exclude object from result
      *
-     * @param   UserStatus $userStatus Object to remove from the list of results
+     * @param   FileStatus $fileStatus Object to remove from the list of results
      *
-     * @return UserStatusQuery The current query, for fluid interface
+     * @return FileStatusQuery The current query, for fluid interface
      */
-    public function prune($userStatus = null)
+    public function prune($fileStatus = null)
     {
-        if ($userStatus) {
-            $this->addUsingAlias(UserStatusPeer::ID, $userStatus->getId(), Criteria::NOT_EQUAL);
+        if ($fileStatus) {
+            $this->addUsingAlias(FileStatusPeer::ID, $fileStatus->getId(), Criteria::NOT_EQUAL);
         }
 
         return $this;

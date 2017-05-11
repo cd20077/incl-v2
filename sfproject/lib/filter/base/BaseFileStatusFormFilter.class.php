@@ -1,13 +1,13 @@
 <?php
 
 /**
- * UserLog filter form base class.
+ * FileStatus filter form base class.
  *
  * @package    incl2
  * @subpackage filter
  * @author     Your name here
  */
-abstract class BaseUserLogFormFilter extends BaseFormFilterPropel
+abstract class BaseFileStatusFormFilter extends BaseFormFilterPropel
 {
   public function setup()
   {
@@ -16,9 +16,7 @@ abstract class BaseUserLogFormFilter extends BaseFormFilterPropel
       'updated_at' => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
       'deleted_at' => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
       'created_at' => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
-      'title'      => new sfWidgetFormFilterInput(),
-      'user_id'    => new sfWidgetFormPropelChoice(array('model' => 'User', 'add_empty' => true)),
-      'group_id'   => new sfWidgetFormPropelChoice(array('model' => 'Group', 'add_empty' => true)),
+      'name'       => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -26,12 +24,10 @@ abstract class BaseUserLogFormFilter extends BaseFormFilterPropel
       'updated_at' => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'deleted_at' => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'created_at' => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
-      'title'      => new sfValidatorPass(array('required' => false)),
-      'user_id'    => new sfValidatorPropelChoice(array('required' => false, 'model' => 'User', 'column' => 'id')),
-      'group_id'   => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Group', 'column' => 'id')),
+      'name'       => new sfValidatorPass(array('required' => false)),
     ));
 
-    $this->widgetSchema->setNameFormat('user_log_filters[%s]');
+    $this->widgetSchema->setNameFormat('file_status_filters[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
@@ -40,7 +36,7 @@ abstract class BaseUserLogFormFilter extends BaseFormFilterPropel
 
   public function getModelName()
   {
-    return 'UserLog';
+    return 'FileStatus';
   }
 
   public function getFields()
@@ -51,9 +47,7 @@ abstract class BaseUserLogFormFilter extends BaseFormFilterPropel
       'updated_at' => 'Date',
       'deleted_at' => 'Date',
       'created_at' => 'Date',
-      'title'      => 'Text',
-      'user_id'    => 'ForeignKey',
-      'group_id'   => 'ForeignKey',
+      'name'       => 'Text',
     );
   }
 }

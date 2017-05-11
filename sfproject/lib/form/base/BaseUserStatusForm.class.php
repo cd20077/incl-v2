@@ -5,7 +5,7 @@
  *
  * @method UserStatus getObject() Returns the current form's model object
  *
- * @package    inclv2
+ * @package    incl2
  * @subpackage form
  * @author     Your name here
  */
@@ -24,7 +24,7 @@ abstract class BaseUserStatusForm extends BaseFormPropel
 
     $this->setValidators(array(
       'id'         => new sfValidatorChoice(array('choices' => array($this->getObject()->getId()), 'empty_value' => $this->getObject()->getId(), 'required' => false)),
-      'is_deleted' => new sfValidatorInteger(array('min' => -128, 'max' => 127)),
+      'is_deleted' => new sfValidatorInteger(array('min' => -32768, 'max' => 32767)),
       'updated_at' => new sfValidatorDateTime(array('required' => false)),
       'deleted_at' => new sfValidatorDateTime(array('required' => false)),
       'created_at' => new sfValidatorDateTime(),

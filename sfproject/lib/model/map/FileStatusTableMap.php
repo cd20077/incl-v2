@@ -3,7 +3,7 @@
 
 
 /**
- * This class defines the structure of the 'group_member' table.
+ * This class defines the structure of the 'file_status' table.
  *
  *
  *
@@ -14,13 +14,13 @@
  *
  * @package    propel.generator.lib.model.map
  */
-class GroupMemberTableMap extends TableMap
+class FileStatusTableMap extends TableMap
 {
 
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = 'lib.model.map.GroupMemberTableMap';
+    const CLASS_NAME = 'lib.model.map.FileStatusTableMap';
 
     /**
      * Initialize the table attributes, columns and validators
@@ -32,21 +32,19 @@ class GroupMemberTableMap extends TableMap
     public function initialize()
     {
         // attributes
-        $this->setName('group_member');
-        $this->setPhpName('GroupMember');
-        $this->setClassname('GroupMember');
+        $this->setName('file_status');
+        $this->setPhpName('FileStatus');
+        $this->setClassname('FileStatus');
         $this->setPackage('lib.model');
         $this->setUseIdGenerator(true);
-        $this->setPrimaryKeyMethodInfo('group_member_id_seq');
+        $this->setPrimaryKeyMethodInfo('file_status_id_seq');
         // columns
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
         $this->addColumn('is_deleted', 'IsDeleted', 'SMALLINT', true, null, 0);
         $this->addColumn('updated_at', 'UpdatedAt', 'TIMESTAMP', false, null, null);
         $this->addColumn('deleted_at', 'DeletedAt', 'TIMESTAMP', false, null, null);
         $this->addColumn('created_at', 'CreatedAt', 'TIMESTAMP', true, null, null);
-        $this->addForeignKey('user_id', 'UserId', 'INTEGER', 'user', 'id', false, null, null);
-        $this->addForeignKey('group_id', 'GroupId', 'INTEGER', 'group', 'id', false, null, null);
-        $this->addForeignKey('auth_level_status_id', 'AuthLevelStatusId', 'INTEGER', 'auth_level_status', 'id', false, null, 1);
+        $this->addColumn('name', 'Name', 'VARCHAR', false, 255, null);
         // validators
     } // initialize()
 
@@ -55,9 +53,7 @@ class GroupMemberTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('User', 'User', RelationMap::MANY_TO_ONE, array('user_id' => 'id', ), 'RESTRICT', 'RESTRICT');
-        $this->addRelation('Group', 'Group', RelationMap::MANY_TO_ONE, array('group_id' => 'id', ), 'RESTRICT', 'RESTRICT');
-        $this->addRelation('AuthLevelStatus', 'AuthLevelStatus', RelationMap::MANY_TO_ONE, array('auth_level_status_id' => 'id', ), 'RESTRICT', 'RESTRICT');
+        $this->addRelation('File', 'File', RelationMap::ONE_TO_MANY, array('id' => 'file_status_id', ), 'RESTRICT', 'RESTRICT', 'Files');
     } // buildRelations()
 
     /**
@@ -82,4 +78,4 @@ class GroupMemberTableMap extends TableMap
         );
     } // getBehaviors()
 
-} // GroupMemberTableMap
+} // FileStatusTableMap

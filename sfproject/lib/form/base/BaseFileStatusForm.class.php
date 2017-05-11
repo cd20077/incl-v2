@@ -1,15 +1,15 @@
 <?php
 
 /**
- * Mail form base class.
+ * FileStatus form base class.
  *
- * @method Mail getObject() Returns the current form's model object
+ * @method FileStatus getObject() Returns the current form's model object
  *
  * @package    incl2
  * @subpackage form
  * @author     Your name here
  */
-abstract class BaseMailForm extends BaseFormPropel
+abstract class BaseFileStatusForm extends BaseFormPropel
 {
   public function setup()
   {
@@ -19,8 +19,7 @@ abstract class BaseMailForm extends BaseFormPropel
       'updated_at' => new sfWidgetFormDateTime(),
       'deleted_at' => new sfWidgetFormDateTime(),
       'created_at' => new sfWidgetFormDateTime(),
-      'title'      => new sfWidgetFormInputText(),
-      'text'       => new sfWidgetFormTextarea(),
+      'name'       => new sfWidgetFormInputText(),
     ));
 
     $this->setValidators(array(
@@ -29,11 +28,10 @@ abstract class BaseMailForm extends BaseFormPropel
       'updated_at' => new sfValidatorDateTime(array('required' => false)),
       'deleted_at' => new sfValidatorDateTime(array('required' => false)),
       'created_at' => new sfValidatorDateTime(),
-      'title'      => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'text'       => new sfValidatorString(array('required' => false)),
+      'name'       => new sfValidatorString(array('max_length' => 255, 'required' => false)),
     ));
 
-    $this->widgetSchema->setNameFormat('mail[%s]');
+    $this->widgetSchema->setNameFormat('file_status[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
@@ -42,7 +40,7 @@ abstract class BaseMailForm extends BaseFormPropel
 
   public function getModelName()
   {
-    return 'Mail';
+    return 'FileStatus';
   }
 
 

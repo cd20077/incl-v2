@@ -3,7 +3,7 @@
 /**
  * SendMails filter form base class.
  *
- * @package    inclv2
+ * @package    incl2
  * @subpackage filter
  * @author     Your name here
  */
@@ -26,7 +26,7 @@ abstract class BaseSendMailsFormFilter extends BaseFormFilterPropel
       'group_code'          => new sfWidgetFormFilterInput(),
       'from_address'        => new sfWidgetFormFilterInput(),
       'finish_dt'           => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
-      'result'              => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
+      'result'              => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'send_date'           => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
       'send_time'           => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
       'fw_to'               => new sfWidgetFormFilterInput(),
@@ -50,7 +50,7 @@ abstract class BaseSendMailsFormFilter extends BaseFormFilterPropel
       'group_code'          => new sfValidatorPass(array('required' => false)),
       'from_address'        => new sfValidatorPass(array('required' => false)),
       'finish_dt'           => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
-      'result'              => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
+      'result'              => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'send_date'           => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'send_time'           => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'fw_to'               => new sfValidatorPass(array('required' => false)),
@@ -89,7 +89,7 @@ abstract class BaseSendMailsFormFilter extends BaseFormFilterPropel
       'group_code'          => 'Text',
       'from_address'        => 'Text',
       'finish_dt'           => 'Date',
-      'result'              => 'Boolean',
+      'result'              => 'Number',
       'send_date'           => 'Date',
       'send_time'           => 'Date',
       'fw_to'               => 'Text',

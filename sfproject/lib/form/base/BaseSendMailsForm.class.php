@@ -5,7 +5,7 @@
  *
  * @method SendMails getObject() Returns the current form's model object
  *
- * @package    inclv2
+ * @package    incl2
  * @subpackage form
  * @author     Your name here
  */
@@ -29,7 +29,7 @@ abstract class BaseSendMailsForm extends BaseFormPropel
       'group_code'          => new sfWidgetFormTextarea(),
       'from_address'        => new sfWidgetFormTextarea(),
       'finish_dt'           => new sfWidgetFormDateTime(),
-      'result'              => new sfWidgetFormInputCheckbox(),
+      'result'              => new sfWidgetFormInputText(),
       'send_date'           => new sfWidgetFormDate(),
       'send_time'           => new sfWidgetFormTime(),
       'fw_to'               => new sfWidgetFormTextarea(),
@@ -40,7 +40,7 @@ abstract class BaseSendMailsForm extends BaseFormPropel
 
     $this->setValidators(array(
       'id'                  => new sfValidatorChoice(array('choices' => array($this->getObject()->getId()), 'empty_value' => $this->getObject()->getId(), 'required' => false)),
-      'is_deleted'          => new sfValidatorInteger(array('min' => -128, 'max' => 127)),
+      'is_deleted'          => new sfValidatorInteger(array('min' => -32768, 'max' => 32767)),
       'updated_at'          => new sfValidatorDateTime(array('required' => false)),
       'deleted_at'          => new sfValidatorDateTime(array('required' => false)),
       'created_at'          => new sfValidatorDateTime(),
@@ -54,7 +54,7 @@ abstract class BaseSendMailsForm extends BaseFormPropel
       'group_code'          => new sfValidatorString(array('required' => false)),
       'from_address'        => new sfValidatorString(array('required' => false)),
       'finish_dt'           => new sfValidatorDateTime(array('required' => false)),
-      'result'              => new sfValidatorBoolean(array('required' => false)),
+      'result'              => new sfValidatorInteger(array('min' => -32768, 'max' => 32767)),
       'send_date'           => new sfValidatorDate(array('required' => false)),
       'send_time'           => new sfValidatorTime(array('required' => false)),
       'fw_to'               => new sfValidatorString(array('required' => false)),

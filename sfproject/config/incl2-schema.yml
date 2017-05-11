@@ -1,11 +1,11 @@
-inclv2:
+incl2:
   _attributes:
     package: lib.model
     defaultIdMethod: native
   auth_level_status:
     _attributes: { phpName: AuthLevelStatus, idMethod: native }
     id: { phpName: Id, type: INTEGER, primaryKey: true, autoIncrement: true, required: true }
-    is_deleted: { phpName: IsDeleted, type: TINYINT, required: true, defaultValue: '0' }
+    is_deleted: { phpName: IsDeleted, type: SMALLINT, required: true, defaultValue: '0' }
     updated_at: { phpName: UpdatedAt, type: TIMESTAMP, required: false }
     deleted_at: { phpName: DeletedAt, type: TIMESTAMP, required: false }
     created_at: { phpName: CreatedAt, type: TIMESTAMP, required: true }
@@ -13,7 +13,8 @@ inclv2:
   file:
     _attributes: { phpName: File, idMethod: native }
     id: { phpName: Id, type: INTEGER, primaryKey: true, autoIncrement: true, required: true }
-    is_deleted: { phpName: IsDeleted, type: TINYINT, required: true, defaultValue: '0' }
+    is_deleted: { phpName: IsDeleted, type: SMALLINT, required: true, defaultValue: '0' }
+    is_directory: { phpName: IsDirectory, type: SMALLINT, required: true, defaultValue: '0' }
     updated_at: { phpName: UpdatedAt, type: TIMESTAMP, required: false }
     deleted_at: { phpName: DeletedAt, type: TIMESTAMP, required: false }
     created_at: { phpName: CreatedAt, type: TIMESTAMP, required: true }
@@ -24,11 +25,20 @@ inclv2:
     group_id: { phpName: GroupId, type: INTEGER, required: false, foreignTable: group, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
     file_type: { phpName: FileType, type: VARCHAR, size: '255', required: false }
     parent_directory_id: { phpName: ParentDirectoryId, type: INTEGER, required: false, foreignTable: file, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    _indexes: { user_id: [user_id], group_id: [group_id], parent_directory_id: [parent_directory_id] }
+    file_status_id: { phpName: FileStatusId, type: INTEGER, required: false, defaultValue: '1', foreignTable: file_status, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    _indexes: { file_status_id: [file_status_id], group_id: [group_id], parent_directory_id: [parent_directory_id], user_id: [user_id] }
+  file_status:
+    _attributes: { phpName: FileStatus, idMethod: native }
+    id: { phpName: Id, type: INTEGER, primaryKey: true, autoIncrement: true, required: true }
+    is_deleted: { phpName: IsDeleted, type: SMALLINT, required: true, defaultValue: '0' }
+    updated_at: { phpName: UpdatedAt, type: TIMESTAMP, required: false }
+    deleted_at: { phpName: DeletedAt, type: TIMESTAMP, required: false }
+    created_at: { phpName: CreatedAt, type: TIMESTAMP, required: true }
+    name: { phpName: Name, type: VARCHAR, size: '255', required: false }
   group:
     _attributes: { phpName: Group, idMethod: native }
     id: { phpName: Id, type: INTEGER, primaryKey: true, autoIncrement: true, required: true }
-    is_deleted: { phpName: IsDeleted, type: TINYINT, required: true, defaultValue: '0' }
+    is_deleted: { phpName: IsDeleted, type: SMALLINT, required: true, defaultValue: '0' }
     updated_at: { phpName: UpdatedAt, type: TIMESTAMP, required: false }
     deleted_at: { phpName: DeletedAt, type: TIMESTAMP, required: false }
     created_at: { phpName: CreatedAt, type: TIMESTAMP, required: true }
@@ -38,22 +48,21 @@ inclv2:
     backimg: { phpName: Backimg, type: VARCHAR, size: '255', required: false }
     ranid: { phpName: Ranid, type: VARCHAR, size: '255', required: false }
     user_id: { phpName: UserId, type: INTEGER, required: false, foreignTable: user, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    _indexes: { user_id: [user_id] }
   group_member:
     _attributes: { phpName: GroupMember, idMethod: native }
     id: { phpName: Id, type: INTEGER, primaryKey: true, autoIncrement: true, required: true }
-    is_deleted: { phpName: IsDeleted, type: TINYINT, required: true, defaultValue: '0' }
+    is_deleted: { phpName: IsDeleted, type: SMALLINT, required: true, defaultValue: '0' }
     updated_at: { phpName: UpdatedAt, type: TIMESTAMP, required: false }
     deleted_at: { phpName: DeletedAt, type: TIMESTAMP, required: false }
     created_at: { phpName: CreatedAt, type: TIMESTAMP, required: true }
     user_id: { phpName: UserId, type: INTEGER, required: false, foreignTable: user, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
     group_id: { phpName: GroupId, type: INTEGER, required: false, foreignTable: group, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
     auth_level_status_id: { phpName: AuthLevelStatusId, type: INTEGER, required: false, defaultValue: '1', foreignTable: auth_level_status, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    _indexes: { user_id: [user_id], group_id: [group_id], auth_level_status_id: [auth_level_status_id] }
+    _indexes: { auth_level_status_id: [auth_level_status_id] }
   mail:
     _attributes: { phpName: Mail, idMethod: native }
     id: { phpName: Id, type: INTEGER, primaryKey: true, autoIncrement: true, required: true }
-    is_deleted: { phpName: IsDeleted, type: TINYINT, required: true, defaultValue: '0' }
+    is_deleted: { phpName: IsDeleted, type: SMALLINT, required: true, defaultValue: '0' }
     updated_at: { phpName: UpdatedAt, type: TIMESTAMP, required: false }
     deleted_at: { phpName: DeletedAt, type: TIMESTAMP, required: false }
     created_at: { phpName: CreatedAt, type: TIMESTAMP, required: true }
@@ -62,7 +71,7 @@ inclv2:
   send_mail_status:
     _attributes: { phpName: SendMailStatus, idMethod: native }
     id: { phpName: Id, type: INTEGER, primaryKey: true, autoIncrement: true, required: true }
-    is_deleted: { phpName: IsDeleted, type: TINYINT, required: true, defaultValue: '0' }
+    is_deleted: { phpName: IsDeleted, type: SMALLINT, required: true, defaultValue: '0' }
     updated_at: { phpName: UpdatedAt, type: TIMESTAMP, required: false }
     deleted_at: { phpName: DeletedAt, type: TIMESTAMP, required: false }
     created_at: { phpName: CreatedAt, type: TIMESTAMP, required: true }
@@ -71,7 +80,7 @@ inclv2:
   send_mails:
     _attributes: { phpName: SendMails, idMethod: native }
     id: { phpName: Id, type: INTEGER, primaryKey: true, autoIncrement: true, required: true }
-    is_deleted: { phpName: IsDeleted, type: TINYINT, required: true, defaultValue: '0' }
+    is_deleted: { phpName: IsDeleted, type: SMALLINT, required: true, defaultValue: '0' }
     updated_at: { phpName: UpdatedAt, type: TIMESTAMP, required: false }
     deleted_at: { phpName: DeletedAt, type: TIMESTAMP, required: false }
     created_at: { phpName: CreatedAt, type: TIMESTAMP, required: true }
@@ -85,7 +94,7 @@ inclv2:
     group_code: { phpName: GroupCode, type: LONGVARCHAR, required: false }
     from_address: { phpName: FromAddress, type: LONGVARCHAR, required: false }
     finish_dt: { phpName: FinishDt, type: TIMESTAMP, required: false }
-    result: { phpName: Result, type: BOOLEAN, size: '1', required: false }
+    result: { phpName: Result, type: SMALLINT, required: true, defaultValue: '0' }
     send_date: { phpName: SendDate, type: DATE, required: false }
     send_time: { phpName: SendTime, type: TIME, required: false }
     fw_to: { phpName: FwTo, type: LONGVARCHAR, required: false }
@@ -95,7 +104,7 @@ inclv2:
   user:
     _attributes: { phpName: User, idMethod: native }
     id: { phpName: Id, type: INTEGER, primaryKey: true, autoIncrement: true, required: true }
-    is_deleted: { phpName: IsDeleted, type: TINYINT, required: true, defaultValue: '0' }
+    is_deleted: { phpName: IsDeleted, type: SMALLINT, required: true, defaultValue: '0' }
     updated_at: { phpName: UpdatedAt, type: TIMESTAMP, required: false }
     deleted_at: { phpName: DeletedAt, type: TIMESTAMP, required: false }
     created_at: { phpName: CreatedAt, type: TIMESTAMP, required: true }
@@ -114,18 +123,17 @@ inclv2:
   user_log:
     _attributes: { phpName: UserLog, idMethod: native }
     id: { phpName: Id, type: INTEGER, primaryKey: true, autoIncrement: true, required: true }
-    is_deleted: { phpName: IsDeleted, type: TINYINT, required: true, defaultValue: '0' }
+    is_deleted: { phpName: IsDeleted, type: SMALLINT, required: true, defaultValue: '0' }
     updated_at: { phpName: UpdatedAt, type: TIMESTAMP, required: false }
     deleted_at: { phpName: DeletedAt, type: TIMESTAMP, required: false }
     created_at: { phpName: CreatedAt, type: TIMESTAMP, required: true }
     title: { phpName: Title, type: VARCHAR, size: '255', required: false }
     user_id: { phpName: UserId, type: INTEGER, required: false, foreignTable: user, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
     group_id: { phpName: GroupId, type: INTEGER, required: false, foreignTable: group, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    _indexes: { user_id: [user_id], group_id: [group_id] }
   user_status:
     _attributes: { phpName: UserStatus, idMethod: native }
     id: { phpName: Id, type: INTEGER, primaryKey: true, autoIncrement: true, required: true }
-    is_deleted: { phpName: IsDeleted, type: TINYINT, required: true, defaultValue: '0' }
+    is_deleted: { phpName: IsDeleted, type: SMALLINT, required: true, defaultValue: '0' }
     updated_at: { phpName: UpdatedAt, type: TIMESTAMP, required: false }
     deleted_at: { phpName: DeletedAt, type: TIMESTAMP, required: false }
     created_at: { phpName: CreatedAt, type: TIMESTAMP, required: true }
