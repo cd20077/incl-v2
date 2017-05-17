@@ -43,7 +43,7 @@ CREATE TABLE "account_log"
     "created_at" TIMESTAMP NOT NULL,
     "title" VARCHAR(255),
     "account_id" INTEGER,
-    "group_id" INTEGER,
+    "project_id" INTEGER,
     PRIMARY KEY ("id")
 );
 
@@ -82,12 +82,12 @@ CREATE TABLE "auth_level_status"
 );
 
 -----------------------------------------------------------------------
--- file
+-- content
 -----------------------------------------------------------------------
 
-DROP TABLE IF EXISTS "file" CASCADE;
+DROP TABLE IF EXISTS "content" CASCADE;
 
-CREATE TABLE "file"
+CREATE TABLE "content"
 (
     "id" serial NOT NULL,
     "is_deleted" INT2 DEFAULT 0 NOT NULL,
@@ -99,28 +99,28 @@ CREATE TABLE "file"
     "encrypt_name" VARCHAR(255),
     "size" INTEGER DEFAULT 0,
     "account_id" INTEGER,
-    "group_id" INTEGER,
-    "file_type" VARCHAR(255),
+    "project_id" INTEGER,
+    "content_type" VARCHAR(255),
     "parent_directory_id" INTEGER,
-    "file_status_id" INTEGER DEFAULT 1,
+    "content_status_id" INTEGER DEFAULT 1,
     PRIMARY KEY ("id")
 );
 
-CREATE INDEX "account_id" ON "file" ("account_id");
+CREATE INDEX "account_id" ON "content" ("account_id");
 
-CREATE INDEX "file_status_id" ON "file" ("file_status_id");
+CREATE INDEX "content_status_id" ON "content" ("content_status_id");
 
-CREATE INDEX "group_id" ON "file" ("group_id");
+CREATE INDEX "project_id" ON "content" ("project_id");
 
-CREATE INDEX "parent_directory_id" ON "file" ("parent_directory_id");
+CREATE INDEX "parent_directory_id" ON "content" ("parent_directory_id");
 
 -----------------------------------------------------------------------
--- file_status
+-- content_status
 -----------------------------------------------------------------------
 
-DROP TABLE IF EXISTS "file_status" CASCADE;
+DROP TABLE IF EXISTS "content_status" CASCADE;
 
-CREATE TABLE "file_status"
+CREATE TABLE "content_status"
 (
     "id" serial NOT NULL,
     "is_deleted" INT2 DEFAULT 0 NOT NULL,
@@ -132,12 +132,12 @@ CREATE TABLE "file_status"
 );
 
 -----------------------------------------------------------------------
--- group
+-- project
 -----------------------------------------------------------------------
 
-DROP TABLE IF EXISTS "group" CASCADE;
+DROP TABLE IF EXISTS "project" CASCADE;
 
-CREATE TABLE "group"
+CREATE TABLE "project"
 (
     "id" serial NOT NULL,
     "is_deleted" INT2 DEFAULT 0 NOT NULL,
@@ -154,12 +154,12 @@ CREATE TABLE "group"
 );
 
 -----------------------------------------------------------------------
--- group_member
+-- project_member
 -----------------------------------------------------------------------
 
-DROP TABLE IF EXISTS "group_member" CASCADE;
+DROP TABLE IF EXISTS "project_member" CASCADE;
 
-CREATE TABLE "group_member"
+CREATE TABLE "project_member"
 (
     "id" serial NOT NULL,
     "is_deleted" INT2 DEFAULT 0 NOT NULL,
@@ -167,12 +167,12 @@ CREATE TABLE "group_member"
     "deleted_at" TIMESTAMP,
     "created_at" TIMESTAMP NOT NULL,
     "account_id" INTEGER,
-    "group_id" INTEGER,
+    "project_id" INTEGER,
     "auth_level_status_id" INTEGER DEFAULT 1,
     PRIMARY KEY ("id")
 );
 
-CREATE INDEX "auth_level_status_id" ON "group_member" ("auth_level_status_id");
+CREATE INDEX "auth_level_status_id" ON "project_member" ("auth_level_status_id");
 
 -----------------------------------------------------------------------
 -- mail
@@ -256,54 +256,54 @@ ALTER TABLE "account_log" ADD CONSTRAINT "account_log_FK_1"
     ON DELETE RESTRICT;
 
 ALTER TABLE "account_log" ADD CONSTRAINT "account_log_FK_2"
-    FOREIGN KEY ("group_id")
-    REFERENCES "group" ("id")
+    FOREIGN KEY ("project_id")
+    REFERENCES "project" ("id")
     ON UPDATE RESTRICT
     ON DELETE RESTRICT;
 
-ALTER TABLE "file" ADD CONSTRAINT "file_FK_1"
+ALTER TABLE "content" ADD CONSTRAINT "content_FK_1"
     FOREIGN KEY ("account_id")
     REFERENCES "account" ("id")
     ON UPDATE RESTRICT
     ON DELETE RESTRICT;
 
-ALTER TABLE "file" ADD CONSTRAINT "file_FK_2"
-    FOREIGN KEY ("group_id")
-    REFERENCES "group" ("id")
+ALTER TABLE "content" ADD CONSTRAINT "content_FK_2"
+    FOREIGN KEY ("project_id")
+    REFERENCES "project" ("id")
     ON UPDATE RESTRICT
     ON DELETE RESTRICT;
 
-ALTER TABLE "file" ADD CONSTRAINT "file_FK_3"
+ALTER TABLE "content" ADD CONSTRAINT "content_FK_3"
     FOREIGN KEY ("parent_directory_id")
-    REFERENCES "file" ("id")
+    REFERENCES "content" ("id")
     ON UPDATE RESTRICT
     ON DELETE RESTRICT;
 
-ALTER TABLE "file" ADD CONSTRAINT "file_FK_4"
-    FOREIGN KEY ("file_status_id")
-    REFERENCES "file_status" ("id")
+ALTER TABLE "content" ADD CONSTRAINT "content_FK_4"
+    FOREIGN KEY ("content_status_id")
+    REFERENCES "content_status" ("id")
     ON UPDATE RESTRICT
     ON DELETE RESTRICT;
 
-ALTER TABLE "group" ADD CONSTRAINT "group_FK_1"
+ALTER TABLE "project" ADD CONSTRAINT "project_FK_1"
     FOREIGN KEY ("account_id")
     REFERENCES "account" ("id")
     ON UPDATE RESTRICT
     ON DELETE RESTRICT;
 
-ALTER TABLE "group_member" ADD CONSTRAINT "group_member_FK_1"
+ALTER TABLE "project_member" ADD CONSTRAINT "project_member_FK_1"
     FOREIGN KEY ("account_id")
     REFERENCES "account" ("id")
     ON UPDATE RESTRICT
     ON DELETE RESTRICT;
 
-ALTER TABLE "group_member" ADD CONSTRAINT "group_member_FK_2"
-    FOREIGN KEY ("group_id")
-    REFERENCES "group" ("id")
+ALTER TABLE "project_member" ADD CONSTRAINT "project_member_FK_2"
+    FOREIGN KEY ("project_id")
+    REFERENCES "project" ("id")
     ON UPDATE RESTRICT
     ON DELETE RESTRICT;
 
-ALTER TABLE "group_member" ADD CONSTRAINT "group_member_FK_3"
+ALTER TABLE "project_member" ADD CONSTRAINT "project_member_FK_3"
     FOREIGN KEY ("auth_level_status_id")
     REFERENCES "auth_level_status" ("id")
     ON UPDATE RESTRICT

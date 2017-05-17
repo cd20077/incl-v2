@@ -1,13 +1,13 @@
 <?php
 
 /**
- * AccountLog filter form base class.
+ * ContentStatus filter form base class.
  *
  * @package    incl2
  * @subpackage filter
  * @author     Your name here
  */
-abstract class BaseAccountLogFormFilter extends BaseFormFilterPropel
+abstract class BaseContentStatusFormFilter extends BaseFormFilterPropel
 {
   public function setup()
   {
@@ -16,9 +16,7 @@ abstract class BaseAccountLogFormFilter extends BaseFormFilterPropel
       'updated_at' => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
       'deleted_at' => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
       'created_at' => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
-      'title'      => new sfWidgetFormFilterInput(),
-      'account_id' => new sfWidgetFormPropelChoice(array('model' => 'Account', 'add_empty' => true)),
-      'project_id' => new sfWidgetFormPropelChoice(array('model' => 'Project', 'add_empty' => true)),
+      'name'       => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -26,12 +24,10 @@ abstract class BaseAccountLogFormFilter extends BaseFormFilterPropel
       'updated_at' => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'deleted_at' => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'created_at' => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
-      'title'      => new sfValidatorPass(array('required' => false)),
-      'account_id' => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Account', 'column' => 'id')),
-      'project_id' => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Project', 'column' => 'id')),
+      'name'       => new sfValidatorPass(array('required' => false)),
     ));
 
-    $this->widgetSchema->setNameFormat('account_log_filters[%s]');
+    $this->widgetSchema->setNameFormat('content_status_filters[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
@@ -40,7 +36,7 @@ abstract class BaseAccountLogFormFilter extends BaseFormFilterPropel
 
   public function getModelName()
   {
-    return 'AccountLog';
+    return 'ContentStatus';
   }
 
   public function getFields()
@@ -51,9 +47,7 @@ abstract class BaseAccountLogFormFilter extends BaseFormFilterPropel
       'updated_at' => 'Date',
       'deleted_at' => 'Date',
       'created_at' => 'Date',
-      'title'      => 'Text',
-      'account_id' => 'ForeignKey',
-      'project_id' => 'ForeignKey',
+      'name'       => 'Text',
     );
   }
 }

@@ -53,7 +53,7 @@ class AuthLevelStatusTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('GroupMember', 'GroupMember', RelationMap::ONE_TO_MANY, array('id' => 'auth_level_status_id', ), 'RESTRICT', 'RESTRICT', 'GroupMembers');
+        $this->addRelation('ProjectMember', 'ProjectMember', RelationMap::ONE_TO_MANY, array('id' => 'auth_level_status_id', ), 'RESTRICT', 'RESTRICT', 'ProjectMembers');
     } // buildRelations()
 
     /**

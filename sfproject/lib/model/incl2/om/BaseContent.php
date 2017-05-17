@@ -2,24 +2,24 @@
 
 
 /**
- * Base class that represents a row from the 'account_log' table.
+ * Base class that represents a row from the 'content' table.
  *
  *
  *
  * @package    propel.generator.lib.model.incl2.om
  */
-abstract class BaseAccountLog extends BaseObject implements Persistent
+abstract class BaseContent extends BaseObject implements Persistent
 {
     /**
      * Peer class name
      */
-    const PEER = 'AccountLogPeer';
+    const PEER = 'ContentPeer';
 
     /**
      * The Peer class.
      * Instance provides a convenient way of calling static methods on a class
      * that calling code may not be able to identify.
-     * @var        AccountLogPeer
+     * @var        ContentPeer
      */
     protected static $peer;
 
@@ -43,6 +43,13 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
     protected $is_deleted;
 
     /**
+     * The value for the is_directory field.
+     * Note: this column has a database default value of: 0
+     * @var        int
+     */
+    protected $is_directory;
+
+    /**
      * The value for the updated_at field.
      * @var        string
      */
@@ -61,10 +68,23 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
     protected $created_at;
 
     /**
-     * The value for the title field.
+     * The value for the origin_name field.
      * @var        string
      */
-    protected $title;
+    protected $origin_name;
+
+    /**
+     * The value for the encrypt_name field.
+     * @var        string
+     */
+    protected $encrypt_name;
+
+    /**
+     * The value for the size field.
+     * Note: this column has a database default value of: 0
+     * @var        int
+     */
+    protected $size;
 
     /**
      * The value for the account_id field.
@@ -79,6 +99,25 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
     protected $project_id;
 
     /**
+     * The value for the content_type field.
+     * @var        string
+     */
+    protected $content_type;
+
+    /**
+     * The value for the parent_directory_id field.
+     * @var        int
+     */
+    protected $parent_directory_id;
+
+    /**
+     * The value for the content_status_id field.
+     * Note: this column has a database default value of: 1
+     * @var        int
+     */
+    protected $content_status_id;
+
+    /**
      * @var        Account
      */
     protected $aAccount;
@@ -87,6 +126,22 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
      * @var        Project
      */
     protected $aProject;
+
+    /**
+     * @var        Content
+     */
+    protected $aContentRelatedByParentDirectoryId;
+
+    /**
+     * @var        ContentStatus
+     */
+    protected $aContentStatus;
+
+    /**
+     * @var        PropelObjectCollection|Content[] Collection to store aggregation of Content objects.
+     */
+    protected $collContentsRelatedById;
+    protected $collContentsRelatedByIdPartial;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -109,6 +164,12 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
     protected $alreadyInClearAllReferencesDeep = false;
 
     /**
+     * An array of objects scheduled for deletion.
+     * @var		PropelObjectCollection
+     */
+    protected $contentsRelatedByIdScheduledForDeletion = null;
+
+    /**
      * Applies default values to this object.
      * This method should be called from the object's constructor (or
      * equivalent initialization method).
@@ -117,10 +178,13 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
     public function applyDefaultValues()
     {
         $this->is_deleted = 0;
+        $this->is_directory = 0;
+        $this->size = 0;
+        $this->content_status_id = 1;
     }
 
     /**
-     * Initializes internal state of BaseAccountLog object.
+     * Initializes internal state of BaseContent object.
      * @see        applyDefaults()
      */
     public function __construct()
@@ -149,6 +213,17 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
     {
 
         return $this->is_deleted;
+    }
+
+    /**
+     * Get the [is_directory] column value.
+     *
+     * @return int
+     */
+    public function getIsDirectory()
+    {
+
+        return $this->is_directory;
     }
 
     /**
@@ -257,14 +332,36 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
     }
 
     /**
-     * Get the [title] column value.
+     * Get the [origin_name] column value.
      *
      * @return string
      */
-    public function getTitle()
+    public function getOriginName()
     {
 
-        return $this->title;
+        return $this->origin_name;
+    }
+
+    /**
+     * Get the [encrypt_name] column value.
+     *
+     * @return string
+     */
+    public function getEncryptName()
+    {
+
+        return $this->encrypt_name;
+    }
+
+    /**
+     * Get the [size] column value.
+     *
+     * @return int
+     */
+    public function getSize()
+    {
+
+        return $this->size;
     }
 
     /**
@@ -290,10 +387,43 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
     }
 
     /**
+     * Get the [content_type] column value.
+     *
+     * @return string
+     */
+    public function getContentType()
+    {
+
+        return $this->content_type;
+    }
+
+    /**
+     * Get the [parent_directory_id] column value.
+     *
+     * @return int
+     */
+    public function getParentDirectoryId()
+    {
+
+        return $this->parent_directory_id;
+    }
+
+    /**
+     * Get the [content_status_id] column value.
+     *
+     * @return int
+     */
+    public function getContentStatusId()
+    {
+
+        return $this->content_status_id;
+    }
+
+    /**
      * Set the value of [id] column.
      *
      * @param  int $v new value
-     * @return AccountLog The current object (for fluent API support)
+     * @return Content The current object (for fluent API support)
      */
     public function setId($v)
     {
@@ -303,7 +433,7 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
 
         if ($this->id !== $v) {
             $this->id = $v;
-            $this->modifiedColumns[] = AccountLogPeer::ID;
+            $this->modifiedColumns[] = ContentPeer::ID;
         }
 
 
@@ -314,7 +444,7 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
      * Set the value of [is_deleted] column.
      *
      * @param  int $v new value
-     * @return AccountLog The current object (for fluent API support)
+     * @return Content The current object (for fluent API support)
      */
     public function setIsDeleted($v)
     {
@@ -324,7 +454,7 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
 
         if ($this->is_deleted !== $v) {
             $this->is_deleted = $v;
-            $this->modifiedColumns[] = AccountLogPeer::IS_DELETED;
+            $this->modifiedColumns[] = ContentPeer::IS_DELETED;
         }
 
 
@@ -332,11 +462,32 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
     } // setIsDeleted()
 
     /**
+     * Set the value of [is_directory] column.
+     *
+     * @param  int $v new value
+     * @return Content The current object (for fluent API support)
+     */
+    public function setIsDirectory($v)
+    {
+        if ($v !== null && is_numeric($v)) {
+            $v = (int) $v;
+        }
+
+        if ($this->is_directory !== $v) {
+            $this->is_directory = $v;
+            $this->modifiedColumns[] = ContentPeer::IS_DIRECTORY;
+        }
+
+
+        return $this;
+    } // setIsDirectory()
+
+    /**
      * Sets the value of [updated_at] column to a normalized version of the date/time value specified.
      *
      * @param mixed $v string, integer (timestamp), or DateTime value.
      *               Empty strings are treated as null.
-     * @return AccountLog The current object (for fluent API support)
+     * @return Content The current object (for fluent API support)
      */
     public function setUpdatedAt($v)
     {
@@ -346,7 +497,7 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
             $newDateAsString = $dt ? $dt->format('Y-m-d H:i:s') : null;
             if ($currentDateAsString !== $newDateAsString) {
                 $this->updated_at = $newDateAsString;
-                $this->modifiedColumns[] = AccountLogPeer::UPDATED_AT;
+                $this->modifiedColumns[] = ContentPeer::UPDATED_AT;
             }
         } // if either are not null
 
@@ -359,7 +510,7 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
      *
      * @param mixed $v string, integer (timestamp), or DateTime value.
      *               Empty strings are treated as null.
-     * @return AccountLog The current object (for fluent API support)
+     * @return Content The current object (for fluent API support)
      */
     public function setDeletedAt($v)
     {
@@ -369,7 +520,7 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
             $newDateAsString = $dt ? $dt->format('Y-m-d H:i:s') : null;
             if ($currentDateAsString !== $newDateAsString) {
                 $this->deleted_at = $newDateAsString;
-                $this->modifiedColumns[] = AccountLogPeer::DELETED_AT;
+                $this->modifiedColumns[] = ContentPeer::DELETED_AT;
             }
         } // if either are not null
 
@@ -382,7 +533,7 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
      *
      * @param mixed $v string, integer (timestamp), or DateTime value.
      *               Empty strings are treated as null.
-     * @return AccountLog The current object (for fluent API support)
+     * @return Content The current object (for fluent API support)
      */
     public function setCreatedAt($v)
     {
@@ -392,7 +543,7 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
             $newDateAsString = $dt ? $dt->format('Y-m-d H:i:s') : null;
             if ($currentDateAsString !== $newDateAsString) {
                 $this->created_at = $newDateAsString;
-                $this->modifiedColumns[] = AccountLogPeer::CREATED_AT;
+                $this->modifiedColumns[] = ContentPeer::CREATED_AT;
             }
         } // if either are not null
 
@@ -401,31 +552,73 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
     } // setCreatedAt()
 
     /**
-     * Set the value of [title] column.
+     * Set the value of [origin_name] column.
      *
      * @param  string $v new value
-     * @return AccountLog The current object (for fluent API support)
+     * @return Content The current object (for fluent API support)
      */
-    public function setTitle($v)
+    public function setOriginName($v)
     {
         if ($v !== null) {
             $v = (string) $v;
         }
 
-        if ($this->title !== $v) {
-            $this->title = $v;
-            $this->modifiedColumns[] = AccountLogPeer::TITLE;
+        if ($this->origin_name !== $v) {
+            $this->origin_name = $v;
+            $this->modifiedColumns[] = ContentPeer::ORIGIN_NAME;
         }
 
 
         return $this;
-    } // setTitle()
+    } // setOriginName()
+
+    /**
+     * Set the value of [encrypt_name] column.
+     *
+     * @param  string $v new value
+     * @return Content The current object (for fluent API support)
+     */
+    public function setEncryptName($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->encrypt_name !== $v) {
+            $this->encrypt_name = $v;
+            $this->modifiedColumns[] = ContentPeer::ENCRYPT_NAME;
+        }
+
+
+        return $this;
+    } // setEncryptName()
+
+    /**
+     * Set the value of [size] column.
+     *
+     * @param  int $v new value
+     * @return Content The current object (for fluent API support)
+     */
+    public function setSize($v)
+    {
+        if ($v !== null && is_numeric($v)) {
+            $v = (int) $v;
+        }
+
+        if ($this->size !== $v) {
+            $this->size = $v;
+            $this->modifiedColumns[] = ContentPeer::SIZE;
+        }
+
+
+        return $this;
+    } // setSize()
 
     /**
      * Set the value of [account_id] column.
      *
      * @param  int $v new value
-     * @return AccountLog The current object (for fluent API support)
+     * @return Content The current object (for fluent API support)
      */
     public function setAccountId($v)
     {
@@ -435,7 +628,7 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
 
         if ($this->account_id !== $v) {
             $this->account_id = $v;
-            $this->modifiedColumns[] = AccountLogPeer::ACCOUNT_ID;
+            $this->modifiedColumns[] = ContentPeer::ACCOUNT_ID;
         }
 
         if ($this->aAccount !== null && $this->aAccount->getId() !== $v) {
@@ -450,7 +643,7 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
      * Set the value of [project_id] column.
      *
      * @param  int $v new value
-     * @return AccountLog The current object (for fluent API support)
+     * @return Content The current object (for fluent API support)
      */
     public function setProjectId($v)
     {
@@ -460,7 +653,7 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
 
         if ($this->project_id !== $v) {
             $this->project_id = $v;
-            $this->modifiedColumns[] = AccountLogPeer::PROJECT_ID;
+            $this->modifiedColumns[] = ContentPeer::PROJECT_ID;
         }
 
         if ($this->aProject !== null && $this->aProject->getId() !== $v) {
@@ -470,6 +663,77 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
 
         return $this;
     } // setProjectId()
+
+    /**
+     * Set the value of [content_type] column.
+     *
+     * @param  string $v new value
+     * @return Content The current object (for fluent API support)
+     */
+    public function setContentType($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->content_type !== $v) {
+            $this->content_type = $v;
+            $this->modifiedColumns[] = ContentPeer::CONTENT_TYPE;
+        }
+
+
+        return $this;
+    } // setContentType()
+
+    /**
+     * Set the value of [parent_directory_id] column.
+     *
+     * @param  int $v new value
+     * @return Content The current object (for fluent API support)
+     */
+    public function setParentDirectoryId($v)
+    {
+        if ($v !== null && is_numeric($v)) {
+            $v = (int) $v;
+        }
+
+        if ($this->parent_directory_id !== $v) {
+            $this->parent_directory_id = $v;
+            $this->modifiedColumns[] = ContentPeer::PARENT_DIRECTORY_ID;
+        }
+
+        if ($this->aContentRelatedByParentDirectoryId !== null && $this->aContentRelatedByParentDirectoryId->getId() !== $v) {
+            $this->aContentRelatedByParentDirectoryId = null;
+        }
+
+
+        return $this;
+    } // setParentDirectoryId()
+
+    /**
+     * Set the value of [content_status_id] column.
+     *
+     * @param  int $v new value
+     * @return Content The current object (for fluent API support)
+     */
+    public function setContentStatusId($v)
+    {
+        if ($v !== null && is_numeric($v)) {
+            $v = (int) $v;
+        }
+
+        if ($this->content_status_id !== $v) {
+            $this->content_status_id = $v;
+            $this->modifiedColumns[] = ContentPeer::CONTENT_STATUS_ID;
+        }
+
+        if ($this->aContentStatus !== null && $this->aContentStatus->getId() !== $v) {
+            $this->aContentStatus = null;
+        }
+
+
+        return $this;
+    } // setContentStatusId()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -482,6 +746,18 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
     public function hasOnlyDefaultValues()
     {
             if ($this->is_deleted !== 0) {
+                return false;
+            }
+
+            if ($this->is_directory !== 0) {
+                return false;
+            }
+
+            if ($this->size !== 0) {
+                return false;
+            }
+
+            if ($this->content_status_id !== 1) {
                 return false;
             }
 
@@ -509,12 +785,18 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
 
             $this->id = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
             $this->is_deleted = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
-            $this->updated_at = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
-            $this->deleted_at = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
-            $this->created_at = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
-            $this->title = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
-            $this->account_id = ($row[$startcol + 6] !== null) ? (int) $row[$startcol + 6] : null;
-            $this->project_id = ($row[$startcol + 7] !== null) ? (int) $row[$startcol + 7] : null;
+            $this->is_directory = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
+            $this->updated_at = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
+            $this->deleted_at = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
+            $this->created_at = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
+            $this->origin_name = ($row[$startcol + 6] !== null) ? (string) $row[$startcol + 6] : null;
+            $this->encrypt_name = ($row[$startcol + 7] !== null) ? (string) $row[$startcol + 7] : null;
+            $this->size = ($row[$startcol + 8] !== null) ? (int) $row[$startcol + 8] : null;
+            $this->account_id = ($row[$startcol + 9] !== null) ? (int) $row[$startcol + 9] : null;
+            $this->project_id = ($row[$startcol + 10] !== null) ? (int) $row[$startcol + 10] : null;
+            $this->content_type = ($row[$startcol + 11] !== null) ? (string) $row[$startcol + 11] : null;
+            $this->parent_directory_id = ($row[$startcol + 12] !== null) ? (int) $row[$startcol + 12] : null;
+            $this->content_status_id = ($row[$startcol + 13] !== null) ? (int) $row[$startcol + 13] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -524,10 +806,10 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
             }
             $this->postHydrate($row, $startcol, $rehydrate);
 
-            return $startcol + 8; // 8 = AccountLogPeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 14; // 14 = ContentPeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
-            throw new PropelException("Error populating AccountLog object", $e);
+            throw new PropelException("Error populating Content object", $e);
         }
     }
 
@@ -553,6 +835,12 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
         if ($this->aProject !== null && $this->project_id !== $this->aProject->getId()) {
             $this->aProject = null;
         }
+        if ($this->aContentRelatedByParentDirectoryId !== null && $this->parent_directory_id !== $this->aContentRelatedByParentDirectoryId->getId()) {
+            $this->aContentRelatedByParentDirectoryId = null;
+        }
+        if ($this->aContentStatus !== null && $this->content_status_id !== $this->aContentStatus->getId()) {
+            $this->aContentStatus = null;
+        }
     } // ensureConsistency
 
     /**
@@ -576,13 +864,13 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(AccountLogPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(ContentPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
         // We don't need to alter the object instance pool; we're just modifying this instance
         // already in the pool.
 
-        $stmt = AccountLogPeer::doSelectStmt($this->buildPkeyCriteria(), $con);
+        $stmt = ContentPeer::doSelectStmt($this->buildPkeyCriteria(), $con);
         $row = $stmt->fetch(PDO::FETCH_NUM);
         $stmt->closeCursor();
         if (!$row) {
@@ -594,6 +882,10 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
 
             $this->aAccount = null;
             $this->aProject = null;
+            $this->aContentRelatedByParentDirectoryId = null;
+            $this->aContentStatus = null;
+            $this->collContentsRelatedById = null;
+
         } // if (deep)
     }
 
@@ -614,16 +906,16 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(AccountLogPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(ContentPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         $con->beginTransaction();
         try {
-            $deleteQuery = AccountLogQuery::create()
+            $deleteQuery = ContentQuery::create()
                 ->filterByPrimaryKey($this->getPrimaryKey());
             $ret = $this->preDelete($con);
             // symfony_behaviors behavior
-            foreach (sfMixer::getCallables('BaseAccountLog:delete:pre') as $callable)
+            foreach (sfMixer::getCallables('BaseContent:delete:pre') as $callable)
             {
               if (call_user_func($callable, $this, $con))
               {
@@ -636,7 +928,7 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
                 $deleteQuery->delete($con);
                 $this->postDelete($con);
                 // symfony_behaviors behavior
-                foreach (sfMixer::getCallables('BaseAccountLog:delete:post') as $callable)
+                foreach (sfMixer::getCallables('BaseContent:delete:post') as $callable)
                 {
                   call_user_func($callable, $this, $con);
                 }
@@ -673,7 +965,7 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(AccountLogPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(ContentPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         $con->beginTransaction();
@@ -681,7 +973,7 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
         try {
             $ret = $this->preSave($con);
             // symfony_behaviors behavior
-            foreach (sfMixer::getCallables('BaseAccountLog:save:pre') as $callable)
+            foreach (sfMixer::getCallables('BaseContent:save:pre') as $callable)
             {
               if (is_integer($affectedRows = call_user_func($callable, $this, $con)))
               {
@@ -691,14 +983,14 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
             }
 
             // symfony_timestampable behavior
-            if ($this->isModified() && !$this->isColumnModified(AccountLogPeer::UPDATED_AT))
+            if ($this->isModified() && !$this->isColumnModified(ContentPeer::UPDATED_AT))
             {
                 $this->setUpdatedAt(time());
             }
             if ($isInsert) {
                 $ret = $ret && $this->preInsert($con);
                 // symfony_timestampable behavior
-                if (!$this->isColumnModified(AccountLogPeer::CREATED_AT))
+                if (!$this->isColumnModified(ContentPeer::CREATED_AT))
                 {
                   $this->setCreatedAt(time());
                 }
@@ -715,12 +1007,12 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
                 }
                 $this->postSave($con);
                 // symfony_behaviors behavior
-                foreach (sfMixer::getCallables('BaseAccountLog:save:post') as $callable)
+                foreach (sfMixer::getCallables('BaseContent:save:post') as $callable)
                 {
                   call_user_func($callable, $this, $con, $affectedRows);
                 }
 
-                AccountLogPeer::addInstanceToPool($this);
+                ContentPeer::addInstanceToPool($this);
             } else {
                 $affectedRows = 0;
             }
@@ -769,6 +1061,20 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
                 $this->setProject($this->aProject);
             }
 
+            if ($this->aContentRelatedByParentDirectoryId !== null) {
+                if ($this->aContentRelatedByParentDirectoryId->isModified() || $this->aContentRelatedByParentDirectoryId->isNew()) {
+                    $affectedRows += $this->aContentRelatedByParentDirectoryId->save($con);
+                }
+                $this->setContentRelatedByParentDirectoryId($this->aContentRelatedByParentDirectoryId);
+            }
+
+            if ($this->aContentStatus !== null) {
+                if ($this->aContentStatus->isModified() || $this->aContentStatus->isNew()) {
+                    $affectedRows += $this->aContentStatus->save($con);
+                }
+                $this->setContentStatus($this->aContentStatus);
+            }
+
             if ($this->isNew() || $this->isModified()) {
                 // persist changes
                 if ($this->isNew()) {
@@ -778,6 +1084,24 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
                 }
                 $affectedRows += 1;
                 $this->resetModified();
+            }
+
+            if ($this->contentsRelatedByIdScheduledForDeletion !== null) {
+                if (!$this->contentsRelatedByIdScheduledForDeletion->isEmpty()) {
+                    foreach ($this->contentsRelatedByIdScheduledForDeletion as $contentRelatedById) {
+                        // need to save related object because we set the relation to null
+                        $contentRelatedById->save($con);
+                    }
+                    $this->contentsRelatedByIdScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collContentsRelatedById !== null) {
+                foreach ($this->collContentsRelatedById as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
             }
 
             $this->alreadyInSave = false;
@@ -800,13 +1124,13 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
         $modifiedColumns = array();
         $index = 0;
 
-        $this->modifiedColumns[] = AccountLogPeer::ID;
+        $this->modifiedColumns[] = ContentPeer::ID;
         if (null !== $this->id) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key (' . AccountLogPeer::ID . ')');
+            throw new PropelException('Cannot insert a value for auto-increment primary key (' . ContentPeer::ID . ')');
         }
         if (null === $this->id) {
             try {
-                $stmt = $con->query("SELECT nextval('account_log_id_seq')");
+                $stmt = $con->query("SELECT nextval('content_id_seq')");
                 $row = $stmt->fetch(PDO::FETCH_NUM);
                 $this->id = $row[0];
             } catch (Exception $e) {
@@ -816,33 +1140,51 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
 
 
          // check the columns in natural order for more readable SQL queries
-        if ($this->isColumnModified(AccountLogPeer::ID)) {
+        if ($this->isColumnModified(ContentPeer::ID)) {
             $modifiedColumns[':p' . $index++]  = '"id"';
         }
-        if ($this->isColumnModified(AccountLogPeer::IS_DELETED)) {
+        if ($this->isColumnModified(ContentPeer::IS_DELETED)) {
             $modifiedColumns[':p' . $index++]  = '"is_deleted"';
         }
-        if ($this->isColumnModified(AccountLogPeer::UPDATED_AT)) {
+        if ($this->isColumnModified(ContentPeer::IS_DIRECTORY)) {
+            $modifiedColumns[':p' . $index++]  = '"is_directory"';
+        }
+        if ($this->isColumnModified(ContentPeer::UPDATED_AT)) {
             $modifiedColumns[':p' . $index++]  = '"updated_at"';
         }
-        if ($this->isColumnModified(AccountLogPeer::DELETED_AT)) {
+        if ($this->isColumnModified(ContentPeer::DELETED_AT)) {
             $modifiedColumns[':p' . $index++]  = '"deleted_at"';
         }
-        if ($this->isColumnModified(AccountLogPeer::CREATED_AT)) {
+        if ($this->isColumnModified(ContentPeer::CREATED_AT)) {
             $modifiedColumns[':p' . $index++]  = '"created_at"';
         }
-        if ($this->isColumnModified(AccountLogPeer::TITLE)) {
-            $modifiedColumns[':p' . $index++]  = '"title"';
+        if ($this->isColumnModified(ContentPeer::ORIGIN_NAME)) {
+            $modifiedColumns[':p' . $index++]  = '"origin_name"';
         }
-        if ($this->isColumnModified(AccountLogPeer::ACCOUNT_ID)) {
+        if ($this->isColumnModified(ContentPeer::ENCRYPT_NAME)) {
+            $modifiedColumns[':p' . $index++]  = '"encrypt_name"';
+        }
+        if ($this->isColumnModified(ContentPeer::SIZE)) {
+            $modifiedColumns[':p' . $index++]  = '"size"';
+        }
+        if ($this->isColumnModified(ContentPeer::ACCOUNT_ID)) {
             $modifiedColumns[':p' . $index++]  = '"account_id"';
         }
-        if ($this->isColumnModified(AccountLogPeer::PROJECT_ID)) {
+        if ($this->isColumnModified(ContentPeer::PROJECT_ID)) {
             $modifiedColumns[':p' . $index++]  = '"project_id"';
+        }
+        if ($this->isColumnModified(ContentPeer::CONTENT_TYPE)) {
+            $modifiedColumns[':p' . $index++]  = '"content_type"';
+        }
+        if ($this->isColumnModified(ContentPeer::PARENT_DIRECTORY_ID)) {
+            $modifiedColumns[':p' . $index++]  = '"parent_directory_id"';
+        }
+        if ($this->isColumnModified(ContentPeer::CONTENT_STATUS_ID)) {
+            $modifiedColumns[':p' . $index++]  = '"content_status_id"';
         }
 
         $sql = sprintf(
-            'INSERT INTO "account_log" (%s) VALUES (%s)',
+            'INSERT INTO "content" (%s) VALUES (%s)',
             implode(', ', $modifiedColumns),
             implode(', ', array_keys($modifiedColumns))
         );
@@ -857,6 +1199,9 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
                     case '"is_deleted"':
                         $stmt->bindValue($identifier, $this->is_deleted, PDO::PARAM_INT);
                         break;
+                    case '"is_directory"':
+                        $stmt->bindValue($identifier, $this->is_directory, PDO::PARAM_INT);
+                        break;
                     case '"updated_at"':
                         $stmt->bindValue($identifier, $this->updated_at, PDO::PARAM_STR);
                         break;
@@ -866,14 +1211,29 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
                     case '"created_at"':
                         $stmt->bindValue($identifier, $this->created_at, PDO::PARAM_STR);
                         break;
-                    case '"title"':
-                        $stmt->bindValue($identifier, $this->title, PDO::PARAM_STR);
+                    case '"origin_name"':
+                        $stmt->bindValue($identifier, $this->origin_name, PDO::PARAM_STR);
+                        break;
+                    case '"encrypt_name"':
+                        $stmt->bindValue($identifier, $this->encrypt_name, PDO::PARAM_STR);
+                        break;
+                    case '"size"':
+                        $stmt->bindValue($identifier, $this->size, PDO::PARAM_INT);
                         break;
                     case '"account_id"':
                         $stmt->bindValue($identifier, $this->account_id, PDO::PARAM_INT);
                         break;
                     case '"project_id"':
                         $stmt->bindValue($identifier, $this->project_id, PDO::PARAM_INT);
+                        break;
+                    case '"content_type"':
+                        $stmt->bindValue($identifier, $this->content_type, PDO::PARAM_STR);
+                        break;
+                    case '"parent_directory_id"':
+                        $stmt->bindValue($identifier, $this->parent_directory_id, PDO::PARAM_INT);
+                        break;
+                    case '"content_status_id"':
+                        $stmt->bindValue($identifier, $this->content_status_id, PDO::PARAM_INT);
                         break;
                 }
             }
@@ -979,11 +1339,31 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
                 }
             }
 
+            if ($this->aContentRelatedByParentDirectoryId !== null) {
+                if (!$this->aContentRelatedByParentDirectoryId->validate($columns)) {
+                    $failureMap = array_merge($failureMap, $this->aContentRelatedByParentDirectoryId->getValidationFailures());
+                }
+            }
 
-            if (($retval = AccountLogPeer::doValidate($this, $columns)) !== true) {
+            if ($this->aContentStatus !== null) {
+                if (!$this->aContentStatus->validate($columns)) {
+                    $failureMap = array_merge($failureMap, $this->aContentStatus->getValidationFailures());
+                }
+            }
+
+
+            if (($retval = ContentPeer::doValidate($this, $columns)) !== true) {
                 $failureMap = array_merge($failureMap, $retval);
             }
 
+
+                if ($this->collContentsRelatedById !== null) {
+                    foreach ($this->collContentsRelatedById as $referrerFK) {
+                        if (!$referrerFK->validate($columns)) {
+                            $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+                        }
+                    }
+                }
 
 
             $this->alreadyInValidation = false;
@@ -1004,7 +1384,7 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
      */
     public function getByName($name, $type = BasePeer::TYPE_PHPNAME)
     {
-        $pos = AccountLogPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+        $pos = ContentPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
         $field = $this->getByPosition($pos);
 
         return $field;
@@ -1027,22 +1407,40 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
                 return $this->getIsDeleted();
                 break;
             case 2:
-                return $this->getUpdatedAt();
+                return $this->getIsDirectory();
                 break;
             case 3:
-                return $this->getDeletedAt();
+                return $this->getUpdatedAt();
                 break;
             case 4:
-                return $this->getCreatedAt();
+                return $this->getDeletedAt();
                 break;
             case 5:
-                return $this->getTitle();
+                return $this->getCreatedAt();
                 break;
             case 6:
-                return $this->getAccountId();
+                return $this->getOriginName();
                 break;
             case 7:
+                return $this->getEncryptName();
+                break;
+            case 8:
+                return $this->getSize();
+                break;
+            case 9:
+                return $this->getAccountId();
+                break;
+            case 10:
                 return $this->getProjectId();
+                break;
+            case 11:
+                return $this->getContentType();
+                break;
+            case 12:
+                return $this->getParentDirectoryId();
+                break;
+            case 13:
+                return $this->getContentStatusId();
                 break;
             default:
                 return null;
@@ -1067,20 +1465,26 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
      */
     public function toArray($keyType = BasePeer::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array(), $includeForeignObjects = false)
     {
-        if (isset($alreadyDumpedObjects['AccountLog'][$this->getPrimaryKey()])) {
+        if (isset($alreadyDumpedObjects['Content'][$this->getPrimaryKey()])) {
             return '*RECURSION*';
         }
-        $alreadyDumpedObjects['AccountLog'][$this->getPrimaryKey()] = true;
-        $keys = AccountLogPeer::getFieldNames($keyType);
+        $alreadyDumpedObjects['Content'][$this->getPrimaryKey()] = true;
+        $keys = ContentPeer::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getId(),
             $keys[1] => $this->getIsDeleted(),
-            $keys[2] => $this->getUpdatedAt(),
-            $keys[3] => $this->getDeletedAt(),
-            $keys[4] => $this->getCreatedAt(),
-            $keys[5] => $this->getTitle(),
-            $keys[6] => $this->getAccountId(),
-            $keys[7] => $this->getProjectId(),
+            $keys[2] => $this->getIsDirectory(),
+            $keys[3] => $this->getUpdatedAt(),
+            $keys[4] => $this->getDeletedAt(),
+            $keys[5] => $this->getCreatedAt(),
+            $keys[6] => $this->getOriginName(),
+            $keys[7] => $this->getEncryptName(),
+            $keys[8] => $this->getSize(),
+            $keys[9] => $this->getAccountId(),
+            $keys[10] => $this->getProjectId(),
+            $keys[11] => $this->getContentType(),
+            $keys[12] => $this->getParentDirectoryId(),
+            $keys[13] => $this->getContentStatusId(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -1093,6 +1497,15 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
             }
             if (null !== $this->aProject) {
                 $result['Project'] = $this->aProject->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
+            if (null !== $this->aContentRelatedByParentDirectoryId) {
+                $result['ContentRelatedByParentDirectoryId'] = $this->aContentRelatedByParentDirectoryId->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
+            if (null !== $this->aContentStatus) {
+                $result['ContentStatus'] = $this->aContentStatus->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
+            if (null !== $this->collContentsRelatedById) {
+                $result['ContentsRelatedById'] = $this->collContentsRelatedById->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
         }
 
@@ -1112,7 +1525,7 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
      */
     public function setByName($name, $value, $type = BasePeer::TYPE_PHPNAME)
     {
-        $pos = AccountLogPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+        $pos = ContentPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
 
         $this->setByPosition($pos, $value);
     }
@@ -1135,22 +1548,40 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
                 $this->setIsDeleted($value);
                 break;
             case 2:
-                $this->setUpdatedAt($value);
+                $this->setIsDirectory($value);
                 break;
             case 3:
-                $this->setDeletedAt($value);
+                $this->setUpdatedAt($value);
                 break;
             case 4:
-                $this->setCreatedAt($value);
+                $this->setDeletedAt($value);
                 break;
             case 5:
-                $this->setTitle($value);
+                $this->setCreatedAt($value);
                 break;
             case 6:
-                $this->setAccountId($value);
+                $this->setOriginName($value);
                 break;
             case 7:
+                $this->setEncryptName($value);
+                break;
+            case 8:
+                $this->setSize($value);
+                break;
+            case 9:
+                $this->setAccountId($value);
+                break;
+            case 10:
                 $this->setProjectId($value);
+                break;
+            case 11:
+                $this->setContentType($value);
+                break;
+            case 12:
+                $this->setParentDirectoryId($value);
+                break;
+            case 13:
+                $this->setContentStatusId($value);
                 break;
         } // switch()
     }
@@ -1174,16 +1605,22 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
      */
     public function fromArray($arr, $keyType = BasePeer::TYPE_PHPNAME)
     {
-        $keys = AccountLogPeer::getFieldNames($keyType);
+        $keys = ContentPeer::getFieldNames($keyType);
 
         if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
         if (array_key_exists($keys[1], $arr)) $this->setIsDeleted($arr[$keys[1]]);
-        if (array_key_exists($keys[2], $arr)) $this->setUpdatedAt($arr[$keys[2]]);
-        if (array_key_exists($keys[3], $arr)) $this->setDeletedAt($arr[$keys[3]]);
-        if (array_key_exists($keys[4], $arr)) $this->setCreatedAt($arr[$keys[4]]);
-        if (array_key_exists($keys[5], $arr)) $this->setTitle($arr[$keys[5]]);
-        if (array_key_exists($keys[6], $arr)) $this->setAccountId($arr[$keys[6]]);
-        if (array_key_exists($keys[7], $arr)) $this->setProjectId($arr[$keys[7]]);
+        if (array_key_exists($keys[2], $arr)) $this->setIsDirectory($arr[$keys[2]]);
+        if (array_key_exists($keys[3], $arr)) $this->setUpdatedAt($arr[$keys[3]]);
+        if (array_key_exists($keys[4], $arr)) $this->setDeletedAt($arr[$keys[4]]);
+        if (array_key_exists($keys[5], $arr)) $this->setCreatedAt($arr[$keys[5]]);
+        if (array_key_exists($keys[6], $arr)) $this->setOriginName($arr[$keys[6]]);
+        if (array_key_exists($keys[7], $arr)) $this->setEncryptName($arr[$keys[7]]);
+        if (array_key_exists($keys[8], $arr)) $this->setSize($arr[$keys[8]]);
+        if (array_key_exists($keys[9], $arr)) $this->setAccountId($arr[$keys[9]]);
+        if (array_key_exists($keys[10], $arr)) $this->setProjectId($arr[$keys[10]]);
+        if (array_key_exists($keys[11], $arr)) $this->setContentType($arr[$keys[11]]);
+        if (array_key_exists($keys[12], $arr)) $this->setParentDirectoryId($arr[$keys[12]]);
+        if (array_key_exists($keys[13], $arr)) $this->setContentStatusId($arr[$keys[13]]);
     }
 
     /**
@@ -1193,16 +1630,22 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
      */
     public function buildCriteria()
     {
-        $criteria = new Criteria(AccountLogPeer::DATABASE_NAME);
+        $criteria = new Criteria(ContentPeer::DATABASE_NAME);
 
-        if ($this->isColumnModified(AccountLogPeer::ID)) $criteria->add(AccountLogPeer::ID, $this->id);
-        if ($this->isColumnModified(AccountLogPeer::IS_DELETED)) $criteria->add(AccountLogPeer::IS_DELETED, $this->is_deleted);
-        if ($this->isColumnModified(AccountLogPeer::UPDATED_AT)) $criteria->add(AccountLogPeer::UPDATED_AT, $this->updated_at);
-        if ($this->isColumnModified(AccountLogPeer::DELETED_AT)) $criteria->add(AccountLogPeer::DELETED_AT, $this->deleted_at);
-        if ($this->isColumnModified(AccountLogPeer::CREATED_AT)) $criteria->add(AccountLogPeer::CREATED_AT, $this->created_at);
-        if ($this->isColumnModified(AccountLogPeer::TITLE)) $criteria->add(AccountLogPeer::TITLE, $this->title);
-        if ($this->isColumnModified(AccountLogPeer::ACCOUNT_ID)) $criteria->add(AccountLogPeer::ACCOUNT_ID, $this->account_id);
-        if ($this->isColumnModified(AccountLogPeer::PROJECT_ID)) $criteria->add(AccountLogPeer::PROJECT_ID, $this->project_id);
+        if ($this->isColumnModified(ContentPeer::ID)) $criteria->add(ContentPeer::ID, $this->id);
+        if ($this->isColumnModified(ContentPeer::IS_DELETED)) $criteria->add(ContentPeer::IS_DELETED, $this->is_deleted);
+        if ($this->isColumnModified(ContentPeer::IS_DIRECTORY)) $criteria->add(ContentPeer::IS_DIRECTORY, $this->is_directory);
+        if ($this->isColumnModified(ContentPeer::UPDATED_AT)) $criteria->add(ContentPeer::UPDATED_AT, $this->updated_at);
+        if ($this->isColumnModified(ContentPeer::DELETED_AT)) $criteria->add(ContentPeer::DELETED_AT, $this->deleted_at);
+        if ($this->isColumnModified(ContentPeer::CREATED_AT)) $criteria->add(ContentPeer::CREATED_AT, $this->created_at);
+        if ($this->isColumnModified(ContentPeer::ORIGIN_NAME)) $criteria->add(ContentPeer::ORIGIN_NAME, $this->origin_name);
+        if ($this->isColumnModified(ContentPeer::ENCRYPT_NAME)) $criteria->add(ContentPeer::ENCRYPT_NAME, $this->encrypt_name);
+        if ($this->isColumnModified(ContentPeer::SIZE)) $criteria->add(ContentPeer::SIZE, $this->size);
+        if ($this->isColumnModified(ContentPeer::ACCOUNT_ID)) $criteria->add(ContentPeer::ACCOUNT_ID, $this->account_id);
+        if ($this->isColumnModified(ContentPeer::PROJECT_ID)) $criteria->add(ContentPeer::PROJECT_ID, $this->project_id);
+        if ($this->isColumnModified(ContentPeer::CONTENT_TYPE)) $criteria->add(ContentPeer::CONTENT_TYPE, $this->content_type);
+        if ($this->isColumnModified(ContentPeer::PARENT_DIRECTORY_ID)) $criteria->add(ContentPeer::PARENT_DIRECTORY_ID, $this->parent_directory_id);
+        if ($this->isColumnModified(ContentPeer::CONTENT_STATUS_ID)) $criteria->add(ContentPeer::CONTENT_STATUS_ID, $this->content_status_id);
 
         return $criteria;
     }
@@ -1217,8 +1660,8 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
      */
     public function buildPkeyCriteria()
     {
-        $criteria = new Criteria(AccountLogPeer::DATABASE_NAME);
-        $criteria->add(AccountLogPeer::ID, $this->id);
+        $criteria = new Criteria(ContentPeer::DATABASE_NAME);
+        $criteria->add(ContentPeer::ID, $this->id);
 
         return $criteria;
     }
@@ -1259,7 +1702,7 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
      * If desired, this method can also make copies of all associated (fkey referrers)
      * objects.
      *
-     * @param object $copyObj An object of AccountLog (or compatible) type.
+     * @param object $copyObj An object of Content (or compatible) type.
      * @param boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
      * @param boolean $makeNew Whether to reset autoincrement PKs and make the object new.
      * @throws PropelException
@@ -1267,12 +1710,18 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
         $copyObj->setIsDeleted($this->getIsDeleted());
+        $copyObj->setIsDirectory($this->getIsDirectory());
         $copyObj->setUpdatedAt($this->getUpdatedAt());
         $copyObj->setDeletedAt($this->getDeletedAt());
         $copyObj->setCreatedAt($this->getCreatedAt());
-        $copyObj->setTitle($this->getTitle());
+        $copyObj->setOriginName($this->getOriginName());
+        $copyObj->setEncryptName($this->getEncryptName());
+        $copyObj->setSize($this->getSize());
         $copyObj->setAccountId($this->getAccountId());
         $copyObj->setProjectId($this->getProjectId());
+        $copyObj->setContentType($this->getContentType());
+        $copyObj->setParentDirectoryId($this->getParentDirectoryId());
+        $copyObj->setContentStatusId($this->getContentStatusId());
 
         if ($deepCopy && !$this->startCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -1280,6 +1729,12 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
             $copyObj->setNew(false);
             // store object hash to prevent cycle
             $this->startCopy = true;
+
+            foreach ($this->getContentsRelatedById() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addContentRelatedById($relObj->copy($deepCopy));
+                }
+            }
 
             //unflag object copy
             $this->startCopy = false;
@@ -1300,7 +1755,7 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
      * objects.
      *
      * @param boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-     * @return AccountLog Clone of current object.
+     * @return Content Clone of current object.
      * @throws PropelException
      */
     public function copy($deepCopy = false)
@@ -1320,12 +1775,12 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
      * same instance for all member of this class. The method could therefore
      * be static, but this would prevent one from overriding the behavior.
      *
-     * @return AccountLogPeer
+     * @return ContentPeer
      */
     public function getPeer()
     {
         if (self::$peer === null) {
-            self::$peer = new AccountLogPeer();
+            self::$peer = new ContentPeer();
         }
 
         return self::$peer;
@@ -1335,7 +1790,7 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
      * Declares an association between this object and a Account object.
      *
      * @param                  Account $v
-     * @return AccountLog The current object (for fluent API support)
+     * @return Content The current object (for fluent API support)
      * @throws PropelException
      */
     public function setAccount(Account $v = null)
@@ -1351,7 +1806,7 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
         // Add binding for other direction of this n:n relationship.
         // If this object has already been added to the Account object, it will not be re-added.
         if ($v !== null) {
-            $v->addAccountLog($this);
+            $v->addContent($this);
         }
 
 
@@ -1376,7 +1831,7 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
                 to this object.  This level of coupling may, however, be
                 undesirable since it could result in an only partially populated collection
                 in the referenced object.
-                $this->aAccount->addAccountLogs($this);
+                $this->aAccount->addContents($this);
              */
         }
 
@@ -1387,7 +1842,7 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
      * Declares an association between this object and a Project object.
      *
      * @param                  Project $v
-     * @return AccountLog The current object (for fluent API support)
+     * @return Content The current object (for fluent API support)
      * @throws PropelException
      */
     public function setProject(Project $v = null)
@@ -1403,7 +1858,7 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
         // Add binding for other direction of this n:n relationship.
         // If this object has already been added to the Project object, it will not be re-added.
         if ($v !== null) {
-            $v->addAccountLog($this);
+            $v->addContent($this);
         }
 
 
@@ -1428,11 +1883,431 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
                 to this object.  This level of coupling may, however, be
                 undesirable since it could result in an only partially populated collection
                 in the referenced object.
-                $this->aProject->addAccountLogs($this);
+                $this->aProject->addContents($this);
              */
         }
 
         return $this->aProject;
+    }
+
+    /**
+     * Declares an association between this object and a Content object.
+     *
+     * @param                  Content $v
+     * @return Content The current object (for fluent API support)
+     * @throws PropelException
+     */
+    public function setContentRelatedByParentDirectoryId(Content $v = null)
+    {
+        if ($v === null) {
+            $this->setParentDirectoryId(NULL);
+        } else {
+            $this->setParentDirectoryId($v->getId());
+        }
+
+        $this->aContentRelatedByParentDirectoryId = $v;
+
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the Content object, it will not be re-added.
+        if ($v !== null) {
+            $v->addContentRelatedById($this);
+        }
+
+
+        return $this;
+    }
+
+
+    /**
+     * Get the associated Content object
+     *
+     * @param PropelPDO $con Optional Connection object.
+     * @param $doQuery Executes a query to get the object if required
+     * @return Content The associated Content object.
+     * @throws PropelException
+     */
+    public function getContentRelatedByParentDirectoryId(PropelPDO $con = null, $doQuery = true)
+    {
+        if ($this->aContentRelatedByParentDirectoryId === null && ($this->parent_directory_id !== null) && $doQuery) {
+            $this->aContentRelatedByParentDirectoryId = ContentQuery::create()->findPk($this->parent_directory_id, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aContentRelatedByParentDirectoryId->addContentsRelatedById($this);
+             */
+        }
+
+        return $this->aContentRelatedByParentDirectoryId;
+    }
+
+    /**
+     * Declares an association between this object and a ContentStatus object.
+     *
+     * @param                  ContentStatus $v
+     * @return Content The current object (for fluent API support)
+     * @throws PropelException
+     */
+    public function setContentStatus(ContentStatus $v = null)
+    {
+        if ($v === null) {
+            $this->setContentStatusId(1);
+        } else {
+            $this->setContentStatusId($v->getId());
+        }
+
+        $this->aContentStatus = $v;
+
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the ContentStatus object, it will not be re-added.
+        if ($v !== null) {
+            $v->addContent($this);
+        }
+
+
+        return $this;
+    }
+
+
+    /**
+     * Get the associated ContentStatus object
+     *
+     * @param PropelPDO $con Optional Connection object.
+     * @param $doQuery Executes a query to get the object if required
+     * @return ContentStatus The associated ContentStatus object.
+     * @throws PropelException
+     */
+    public function getContentStatus(PropelPDO $con = null, $doQuery = true)
+    {
+        if ($this->aContentStatus === null && ($this->content_status_id !== null) && $doQuery) {
+            $this->aContentStatus = ContentStatusQuery::create()->findPk($this->content_status_id, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aContentStatus->addContents($this);
+             */
+        }
+
+        return $this->aContentStatus;
+    }
+
+
+    /**
+     * Initializes a collection based on the name of a relation.
+     * Avoids crafting an 'init[$relationName]s' method name
+     * that wouldn't work when StandardEnglishPluralizer is used.
+     *
+     * @param string $relationName The name of the relation to initialize
+     * @return void
+     */
+    public function initRelation($relationName)
+    {
+        if ('ContentRelatedById' == $relationName) {
+            $this->initContentsRelatedById();
+        }
+    }
+
+    /**
+     * Clears out the collContentsRelatedById collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return Content The current object (for fluent API support)
+     * @see        addContentsRelatedById()
+     */
+    public function clearContentsRelatedById()
+    {
+        $this->collContentsRelatedById = null; // important to set this to null since that means it is uninitialized
+        $this->collContentsRelatedByIdPartial = null;
+
+        return $this;
+    }
+
+    /**
+     * reset is the collContentsRelatedById collection loaded partially
+     *
+     * @return void
+     */
+    public function resetPartialContentsRelatedById($v = true)
+    {
+        $this->collContentsRelatedByIdPartial = $v;
+    }
+
+    /**
+     * Initializes the collContentsRelatedById collection.
+     *
+     * By default this just sets the collContentsRelatedById collection to an empty array (like clearcollContentsRelatedById());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initContentsRelatedById($overrideExisting = true)
+    {
+        if (null !== $this->collContentsRelatedById && !$overrideExisting) {
+            return;
+        }
+        $this->collContentsRelatedById = new PropelObjectCollection();
+        $this->collContentsRelatedById->setModel('Content');
+    }
+
+    /**
+     * Gets an array of Content objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this Content is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param Criteria $criteria optional Criteria object to narrow the query
+     * @param PropelPDO $con optional connection object
+     * @return PropelObjectCollection|Content[] List of Content objects
+     * @throws PropelException
+     */
+    public function getContentsRelatedById($criteria = null, PropelPDO $con = null)
+    {
+        $partial = $this->collContentsRelatedByIdPartial && !$this->isNew();
+        if (null === $this->collContentsRelatedById || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collContentsRelatedById) {
+                // return empty collection
+                $this->initContentsRelatedById();
+            } else {
+                $collContentsRelatedById = ContentQuery::create(null, $criteria)
+                    ->filterByContentRelatedByParentDirectoryId($this)
+                    ->find($con);
+                if (null !== $criteria) {
+                    if (false !== $this->collContentsRelatedByIdPartial && count($collContentsRelatedById)) {
+                      $this->initContentsRelatedById(false);
+
+                      foreach ($collContentsRelatedById as $obj) {
+                        if (false == $this->collContentsRelatedById->contains($obj)) {
+                          $this->collContentsRelatedById->append($obj);
+                        }
+                      }
+
+                      $this->collContentsRelatedByIdPartial = true;
+                    }
+
+                    $collContentsRelatedById->getInternalIterator()->rewind();
+
+                    return $collContentsRelatedById;
+                }
+
+                if ($partial && $this->collContentsRelatedById) {
+                    foreach ($this->collContentsRelatedById as $obj) {
+                        if ($obj->isNew()) {
+                            $collContentsRelatedById[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collContentsRelatedById = $collContentsRelatedById;
+                $this->collContentsRelatedByIdPartial = false;
+            }
+        }
+
+        return $this->collContentsRelatedById;
+    }
+
+    /**
+     * Sets a collection of ContentRelatedById objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param PropelCollection $contentsRelatedById A Propel collection.
+     * @param PropelPDO $con Optional connection object
+     * @return Content The current object (for fluent API support)
+     */
+    public function setContentsRelatedById(PropelCollection $contentsRelatedById, PropelPDO $con = null)
+    {
+        $contentsRelatedByIdToDelete = $this->getContentsRelatedById(new Criteria(), $con)->diff($contentsRelatedById);
+
+
+        $this->contentsRelatedByIdScheduledForDeletion = $contentsRelatedByIdToDelete;
+
+        foreach ($contentsRelatedByIdToDelete as $contentRelatedByIdRemoved) {
+            $contentRelatedByIdRemoved->setContentRelatedByParentDirectoryId(null);
+        }
+
+        $this->collContentsRelatedById = null;
+        foreach ($contentsRelatedById as $contentRelatedById) {
+            $this->addContentRelatedById($contentRelatedById);
+        }
+
+        $this->collContentsRelatedById = $contentsRelatedById;
+        $this->collContentsRelatedByIdPartial = false;
+
+        return $this;
+    }
+
+    /**
+     * Returns the number of related Content objects.
+     *
+     * @param Criteria $criteria
+     * @param boolean $distinct
+     * @param PropelPDO $con
+     * @return int             Count of related Content objects.
+     * @throws PropelException
+     */
+    public function countContentsRelatedById(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+    {
+        $partial = $this->collContentsRelatedByIdPartial && !$this->isNew();
+        if (null === $this->collContentsRelatedById || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collContentsRelatedById) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getContentsRelatedById());
+            }
+            $query = ContentQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByContentRelatedByParentDirectoryId($this)
+                ->count($con);
+        }
+
+        return count($this->collContentsRelatedById);
+    }
+
+    /**
+     * Method called to associate a Content object to this object
+     * through the Content foreign key attribute.
+     *
+     * @param    Content $l Content
+     * @return Content The current object (for fluent API support)
+     */
+    public function addContentRelatedById(Content $l)
+    {
+        if ($this->collContentsRelatedById === null) {
+            $this->initContentsRelatedById();
+            $this->collContentsRelatedByIdPartial = true;
+        }
+
+        if (!in_array($l, $this->collContentsRelatedById->getArrayCopy(), true)) { // only add it if the **same** object is not already associated
+            $this->doAddContentRelatedById($l);
+
+            if ($this->contentsRelatedByIdScheduledForDeletion and $this->contentsRelatedByIdScheduledForDeletion->contains($l)) {
+                $this->contentsRelatedByIdScheduledForDeletion->remove($this->contentsRelatedByIdScheduledForDeletion->search($l));
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param	ContentRelatedById $contentRelatedById The contentRelatedById object to add.
+     */
+    protected function doAddContentRelatedById($contentRelatedById)
+    {
+        $this->collContentsRelatedById[]= $contentRelatedById;
+        $contentRelatedById->setContentRelatedByParentDirectoryId($this);
+    }
+
+    /**
+     * @param	ContentRelatedById $contentRelatedById The contentRelatedById object to remove.
+     * @return Content The current object (for fluent API support)
+     */
+    public function removeContentRelatedById($contentRelatedById)
+    {
+        if ($this->getContentsRelatedById()->contains($contentRelatedById)) {
+            $this->collContentsRelatedById->remove($this->collContentsRelatedById->search($contentRelatedById));
+            if (null === $this->contentsRelatedByIdScheduledForDeletion) {
+                $this->contentsRelatedByIdScheduledForDeletion = clone $this->collContentsRelatedById;
+                $this->contentsRelatedByIdScheduledForDeletion->clear();
+            }
+            $this->contentsRelatedByIdScheduledForDeletion[]= $contentRelatedById;
+            $contentRelatedById->setContentRelatedByParentDirectoryId(null);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Content is new, it will return
+     * an empty collection; or if this Content has previously
+     * been saved, it will retrieve related ContentsRelatedById from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Content.
+     *
+     * @param Criteria $criteria optional Criteria object to narrow the query
+     * @param PropelPDO $con optional connection object
+     * @param string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return PropelObjectCollection|Content[] List of Content objects
+     */
+    public function getContentsRelatedByIdJoinAccount($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        $query = ContentQuery::create(null, $criteria);
+        $query->joinWith('Account', $join_behavior);
+
+        return $this->getContentsRelatedById($query, $con);
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Content is new, it will return
+     * an empty collection; or if this Content has previously
+     * been saved, it will retrieve related ContentsRelatedById from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Content.
+     *
+     * @param Criteria $criteria optional Criteria object to narrow the query
+     * @param PropelPDO $con optional connection object
+     * @param string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return PropelObjectCollection|Content[] List of Content objects
+     */
+    public function getContentsRelatedByIdJoinProject($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        $query = ContentQuery::create(null, $criteria);
+        $query->joinWith('Project', $join_behavior);
+
+        return $this->getContentsRelatedById($query, $con);
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Content is new, it will return
+     * an empty collection; or if this Content has previously
+     * been saved, it will retrieve related ContentsRelatedById from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Content.
+     *
+     * @param Criteria $criteria optional Criteria object to narrow the query
+     * @param PropelPDO $con optional connection object
+     * @param string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return PropelObjectCollection|Content[] List of Content objects
+     */
+    public function getContentsRelatedByIdJoinContentStatus($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        $query = ContentQuery::create(null, $criteria);
+        $query->joinWith('ContentStatus', $join_behavior);
+
+        return $this->getContentsRelatedById($query, $con);
     }
 
     /**
@@ -1442,12 +2317,18 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
     {
         $this->id = null;
         $this->is_deleted = null;
+        $this->is_directory = null;
         $this->updated_at = null;
         $this->deleted_at = null;
         $this->created_at = null;
-        $this->title = null;
+        $this->origin_name = null;
+        $this->encrypt_name = null;
+        $this->size = null;
         $this->account_id = null;
         $this->project_id = null;
+        $this->content_type = null;
+        $this->parent_directory_id = null;
+        $this->content_status_id = null;
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
         $this->alreadyInClearAllReferencesDeep = false;
@@ -1471,18 +2352,35 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
     {
         if ($deep && !$this->alreadyInClearAllReferencesDeep) {
             $this->alreadyInClearAllReferencesDeep = true;
+            if ($this->collContentsRelatedById) {
+                foreach ($this->collContentsRelatedById as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
             if ($this->aAccount instanceof Persistent) {
               $this->aAccount->clearAllReferences($deep);
             }
             if ($this->aProject instanceof Persistent) {
               $this->aProject->clearAllReferences($deep);
             }
+            if ($this->aContentRelatedByParentDirectoryId instanceof Persistent) {
+              $this->aContentRelatedByParentDirectoryId->clearAllReferences($deep);
+            }
+            if ($this->aContentStatus instanceof Persistent) {
+              $this->aContentStatus->clearAllReferences($deep);
+            }
 
             $this->alreadyInClearAllReferencesDeep = false;
         } // if ($deep)
 
+        if ($this->collContentsRelatedById instanceof PropelCollection) {
+            $this->collContentsRelatedById->clearIterator();
+        }
+        $this->collContentsRelatedById = null;
         $this->aAccount = null;
         $this->aProject = null;
+        $this->aContentRelatedByParentDirectoryId = null;
+        $this->aContentStatus = null;
     }
 
     /**
@@ -1492,7 +2390,7 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
      */
     public function __toString()
     {
-        return (string) $this->exportTo(AccountLogPeer::DEFAULT_STRING_FORMAT);
+        return (string) $this->exportTo(ContentPeer::DEFAULT_STRING_FORMAT);
     }
 
     /**
@@ -1512,7 +2410,7 @@ abstract class BaseAccountLog extends BaseObject implements Persistent
     {
 
         // symfony_behaviors behavior
-        if ($callable = sfMixer::getCallable('BaseAccountLog:' . $name))
+        if ($callable = sfMixer::getCallable('BaseContent:' . $name))
         {
           array_unshift($params, $this);
           return call_user_func_array($callable, $params);

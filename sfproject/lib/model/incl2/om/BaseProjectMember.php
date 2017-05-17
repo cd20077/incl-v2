@@ -2,24 +2,24 @@
 
 
 /**
- * Base class that represents a row from the 'auth_level_status' table.
+ * Base class that represents a row from the 'project_member' table.
  *
  *
  *
  * @package    propel.generator.lib.model.incl2.om
  */
-abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
+abstract class BaseProjectMember extends BaseObject implements Persistent
 {
     /**
      * Peer class name
      */
-    const PEER = 'AuthLevelStatusPeer';
+    const PEER = 'ProjectMemberPeer';
 
     /**
      * The Peer class.
      * Instance provides a convenient way of calling static methods on a class
      * that calling code may not be able to identify.
-     * @var        AuthLevelStatusPeer
+     * @var        ProjectMemberPeer
      */
     protected static $peer;
 
@@ -61,16 +61,38 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
     protected $created_at;
 
     /**
-     * The value for the name field.
-     * @var        string
+     * The value for the account_id field.
+     * @var        int
      */
-    protected $name;
+    protected $account_id;
 
     /**
-     * @var        PropelObjectCollection|ProjectMember[] Collection to store aggregation of ProjectMember objects.
+     * The value for the project_id field.
+     * @var        int
      */
-    protected $collProjectMembers;
-    protected $collProjectMembersPartial;
+    protected $project_id;
+
+    /**
+     * The value for the auth_level_status_id field.
+     * Note: this column has a database default value of: 1
+     * @var        int
+     */
+    protected $auth_level_status_id;
+
+    /**
+     * @var        Account
+     */
+    protected $aAccount;
+
+    /**
+     * @var        Project
+     */
+    protected $aProject;
+
+    /**
+     * @var        AuthLevelStatus
+     */
+    protected $aAuthLevelStatus;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -93,12 +115,6 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
     protected $alreadyInClearAllReferencesDeep = false;
 
     /**
-     * An array of objects scheduled for deletion.
-     * @var		PropelObjectCollection
-     */
-    protected $projectMembersScheduledForDeletion = null;
-
-    /**
      * Applies default values to this object.
      * This method should be called from the object's constructor (or
      * equivalent initialization method).
@@ -107,10 +123,11 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
     public function applyDefaultValues()
     {
         $this->is_deleted = 0;
+        $this->auth_level_status_id = 1;
     }
 
     /**
-     * Initializes internal state of BaseAuthLevelStatus object.
+     * Initializes internal state of BaseProjectMember object.
      * @see        applyDefaults()
      */
     public function __construct()
@@ -247,21 +264,43 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
     }
 
     /**
-     * Get the [name] column value.
+     * Get the [account_id] column value.
      *
-     * @return string
+     * @return int
      */
-    public function getName()
+    public function getAccountId()
     {
 
-        return $this->name;
+        return $this->account_id;
+    }
+
+    /**
+     * Get the [project_id] column value.
+     *
+     * @return int
+     */
+    public function getProjectId()
+    {
+
+        return $this->project_id;
+    }
+
+    /**
+     * Get the [auth_level_status_id] column value.
+     *
+     * @return int
+     */
+    public function getAuthLevelStatusId()
+    {
+
+        return $this->auth_level_status_id;
     }
 
     /**
      * Set the value of [id] column.
      *
      * @param  int $v new value
-     * @return AuthLevelStatus The current object (for fluent API support)
+     * @return ProjectMember The current object (for fluent API support)
      */
     public function setId($v)
     {
@@ -271,7 +310,7 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
 
         if ($this->id !== $v) {
             $this->id = $v;
-            $this->modifiedColumns[] = AuthLevelStatusPeer::ID;
+            $this->modifiedColumns[] = ProjectMemberPeer::ID;
         }
 
 
@@ -282,7 +321,7 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
      * Set the value of [is_deleted] column.
      *
      * @param  int $v new value
-     * @return AuthLevelStatus The current object (for fluent API support)
+     * @return ProjectMember The current object (for fluent API support)
      */
     public function setIsDeleted($v)
     {
@@ -292,7 +331,7 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
 
         if ($this->is_deleted !== $v) {
             $this->is_deleted = $v;
-            $this->modifiedColumns[] = AuthLevelStatusPeer::IS_DELETED;
+            $this->modifiedColumns[] = ProjectMemberPeer::IS_DELETED;
         }
 
 
@@ -304,7 +343,7 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
      *
      * @param mixed $v string, integer (timestamp), or DateTime value.
      *               Empty strings are treated as null.
-     * @return AuthLevelStatus The current object (for fluent API support)
+     * @return ProjectMember The current object (for fluent API support)
      */
     public function setUpdatedAt($v)
     {
@@ -314,7 +353,7 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
             $newDateAsString = $dt ? $dt->format('Y-m-d H:i:s') : null;
             if ($currentDateAsString !== $newDateAsString) {
                 $this->updated_at = $newDateAsString;
-                $this->modifiedColumns[] = AuthLevelStatusPeer::UPDATED_AT;
+                $this->modifiedColumns[] = ProjectMemberPeer::UPDATED_AT;
             }
         } // if either are not null
 
@@ -327,7 +366,7 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
      *
      * @param mixed $v string, integer (timestamp), or DateTime value.
      *               Empty strings are treated as null.
-     * @return AuthLevelStatus The current object (for fluent API support)
+     * @return ProjectMember The current object (for fluent API support)
      */
     public function setDeletedAt($v)
     {
@@ -337,7 +376,7 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
             $newDateAsString = $dt ? $dt->format('Y-m-d H:i:s') : null;
             if ($currentDateAsString !== $newDateAsString) {
                 $this->deleted_at = $newDateAsString;
-                $this->modifiedColumns[] = AuthLevelStatusPeer::DELETED_AT;
+                $this->modifiedColumns[] = ProjectMemberPeer::DELETED_AT;
             }
         } // if either are not null
 
@@ -350,7 +389,7 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
      *
      * @param mixed $v string, integer (timestamp), or DateTime value.
      *               Empty strings are treated as null.
-     * @return AuthLevelStatus The current object (for fluent API support)
+     * @return ProjectMember The current object (for fluent API support)
      */
     public function setCreatedAt($v)
     {
@@ -360,7 +399,7 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
             $newDateAsString = $dt ? $dt->format('Y-m-d H:i:s') : null;
             if ($currentDateAsString !== $newDateAsString) {
                 $this->created_at = $newDateAsString;
-                $this->modifiedColumns[] = AuthLevelStatusPeer::CREATED_AT;
+                $this->modifiedColumns[] = ProjectMemberPeer::CREATED_AT;
             }
         } // if either are not null
 
@@ -369,25 +408,79 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
     } // setCreatedAt()
 
     /**
-     * Set the value of [name] column.
+     * Set the value of [account_id] column.
      *
-     * @param  string $v new value
-     * @return AuthLevelStatus The current object (for fluent API support)
+     * @param  int $v new value
+     * @return ProjectMember The current object (for fluent API support)
      */
-    public function setName($v)
+    public function setAccountId($v)
     {
-        if ($v !== null) {
-            $v = (string) $v;
+        if ($v !== null && is_numeric($v)) {
+            $v = (int) $v;
         }
 
-        if ($this->name !== $v) {
-            $this->name = $v;
-            $this->modifiedColumns[] = AuthLevelStatusPeer::NAME;
+        if ($this->account_id !== $v) {
+            $this->account_id = $v;
+            $this->modifiedColumns[] = ProjectMemberPeer::ACCOUNT_ID;
+        }
+
+        if ($this->aAccount !== null && $this->aAccount->getId() !== $v) {
+            $this->aAccount = null;
         }
 
 
         return $this;
-    } // setName()
+    } // setAccountId()
+
+    /**
+     * Set the value of [project_id] column.
+     *
+     * @param  int $v new value
+     * @return ProjectMember The current object (for fluent API support)
+     */
+    public function setProjectId($v)
+    {
+        if ($v !== null && is_numeric($v)) {
+            $v = (int) $v;
+        }
+
+        if ($this->project_id !== $v) {
+            $this->project_id = $v;
+            $this->modifiedColumns[] = ProjectMemberPeer::PROJECT_ID;
+        }
+
+        if ($this->aProject !== null && $this->aProject->getId() !== $v) {
+            $this->aProject = null;
+        }
+
+
+        return $this;
+    } // setProjectId()
+
+    /**
+     * Set the value of [auth_level_status_id] column.
+     *
+     * @param  int $v new value
+     * @return ProjectMember The current object (for fluent API support)
+     */
+    public function setAuthLevelStatusId($v)
+    {
+        if ($v !== null && is_numeric($v)) {
+            $v = (int) $v;
+        }
+
+        if ($this->auth_level_status_id !== $v) {
+            $this->auth_level_status_id = $v;
+            $this->modifiedColumns[] = ProjectMemberPeer::AUTH_LEVEL_STATUS_ID;
+        }
+
+        if ($this->aAuthLevelStatus !== null && $this->aAuthLevelStatus->getId() !== $v) {
+            $this->aAuthLevelStatus = null;
+        }
+
+
+        return $this;
+    } // setAuthLevelStatusId()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -400,6 +493,10 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
     public function hasOnlyDefaultValues()
     {
             if ($this->is_deleted !== 0) {
+                return false;
+            }
+
+            if ($this->auth_level_status_id !== 1) {
                 return false;
             }
 
@@ -430,7 +527,9 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
             $this->updated_at = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
             $this->deleted_at = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
             $this->created_at = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
-            $this->name = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
+            $this->account_id = ($row[$startcol + 5] !== null) ? (int) $row[$startcol + 5] : null;
+            $this->project_id = ($row[$startcol + 6] !== null) ? (int) $row[$startcol + 6] : null;
+            $this->auth_level_status_id = ($row[$startcol + 7] !== null) ? (int) $row[$startcol + 7] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -440,10 +539,10 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
             }
             $this->postHydrate($row, $startcol, $rehydrate);
 
-            return $startcol + 6; // 6 = AuthLevelStatusPeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 8; // 8 = ProjectMemberPeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
-            throw new PropelException("Error populating AuthLevelStatus object", $e);
+            throw new PropelException("Error populating ProjectMember object", $e);
         }
     }
 
@@ -463,6 +562,15 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
     public function ensureConsistency()
     {
 
+        if ($this->aAccount !== null && $this->account_id !== $this->aAccount->getId()) {
+            $this->aAccount = null;
+        }
+        if ($this->aProject !== null && $this->project_id !== $this->aProject->getId()) {
+            $this->aProject = null;
+        }
+        if ($this->aAuthLevelStatus !== null && $this->auth_level_status_id !== $this->aAuthLevelStatus->getId()) {
+            $this->aAuthLevelStatus = null;
+        }
     } // ensureConsistency
 
     /**
@@ -486,13 +594,13 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(AuthLevelStatusPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(ProjectMemberPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
         // We don't need to alter the object instance pool; we're just modifying this instance
         // already in the pool.
 
-        $stmt = AuthLevelStatusPeer::doSelectStmt($this->buildPkeyCriteria(), $con);
+        $stmt = ProjectMemberPeer::doSelectStmt($this->buildPkeyCriteria(), $con);
         $row = $stmt->fetch(PDO::FETCH_NUM);
         $stmt->closeCursor();
         if (!$row) {
@@ -502,8 +610,9 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
 
         if ($deep) {  // also de-associate any related objects?
 
-            $this->collProjectMembers = null;
-
+            $this->aAccount = null;
+            $this->aProject = null;
+            $this->aAuthLevelStatus = null;
         } // if (deep)
     }
 
@@ -524,16 +633,16 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(AuthLevelStatusPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(ProjectMemberPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         $con->beginTransaction();
         try {
-            $deleteQuery = AuthLevelStatusQuery::create()
+            $deleteQuery = ProjectMemberQuery::create()
                 ->filterByPrimaryKey($this->getPrimaryKey());
             $ret = $this->preDelete($con);
             // symfony_behaviors behavior
-            foreach (sfMixer::getCallables('BaseAuthLevelStatus:delete:pre') as $callable)
+            foreach (sfMixer::getCallables('BaseProjectMember:delete:pre') as $callable)
             {
               if (call_user_func($callable, $this, $con))
               {
@@ -546,7 +655,7 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
                 $deleteQuery->delete($con);
                 $this->postDelete($con);
                 // symfony_behaviors behavior
-                foreach (sfMixer::getCallables('BaseAuthLevelStatus:delete:post') as $callable)
+                foreach (sfMixer::getCallables('BaseProjectMember:delete:post') as $callable)
                 {
                   call_user_func($callable, $this, $con);
                 }
@@ -583,7 +692,7 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(AuthLevelStatusPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(ProjectMemberPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         $con->beginTransaction();
@@ -591,7 +700,7 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
         try {
             $ret = $this->preSave($con);
             // symfony_behaviors behavior
-            foreach (sfMixer::getCallables('BaseAuthLevelStatus:save:pre') as $callable)
+            foreach (sfMixer::getCallables('BaseProjectMember:save:pre') as $callable)
             {
               if (is_integer($affectedRows = call_user_func($callable, $this, $con)))
               {
@@ -601,14 +710,14 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
             }
 
             // symfony_timestampable behavior
-            if ($this->isModified() && !$this->isColumnModified(AuthLevelStatusPeer::UPDATED_AT))
+            if ($this->isModified() && !$this->isColumnModified(ProjectMemberPeer::UPDATED_AT))
             {
                 $this->setUpdatedAt(time());
             }
             if ($isInsert) {
                 $ret = $ret && $this->preInsert($con);
                 // symfony_timestampable behavior
-                if (!$this->isColumnModified(AuthLevelStatusPeer::CREATED_AT))
+                if (!$this->isColumnModified(ProjectMemberPeer::CREATED_AT))
                 {
                   $this->setCreatedAt(time());
                 }
@@ -625,12 +734,12 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
                 }
                 $this->postSave($con);
                 // symfony_behaviors behavior
-                foreach (sfMixer::getCallables('BaseAuthLevelStatus:save:post') as $callable)
+                foreach (sfMixer::getCallables('BaseProjectMember:save:post') as $callable)
                 {
                   call_user_func($callable, $this, $con, $affectedRows);
                 }
 
-                AuthLevelStatusPeer::addInstanceToPool($this);
+                ProjectMemberPeer::addInstanceToPool($this);
             } else {
                 $affectedRows = 0;
             }
@@ -660,6 +769,32 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
         if (!$this->alreadyInSave) {
             $this->alreadyInSave = true;
 
+            // We call the save method on the following object(s) if they
+            // were passed to this object by their corresponding set
+            // method.  This object relates to these object(s) by a
+            // foreign key reference.
+
+            if ($this->aAccount !== null) {
+                if ($this->aAccount->isModified() || $this->aAccount->isNew()) {
+                    $affectedRows += $this->aAccount->save($con);
+                }
+                $this->setAccount($this->aAccount);
+            }
+
+            if ($this->aProject !== null) {
+                if ($this->aProject->isModified() || $this->aProject->isNew()) {
+                    $affectedRows += $this->aProject->save($con);
+                }
+                $this->setProject($this->aProject);
+            }
+
+            if ($this->aAuthLevelStatus !== null) {
+                if ($this->aAuthLevelStatus->isModified() || $this->aAuthLevelStatus->isNew()) {
+                    $affectedRows += $this->aAuthLevelStatus->save($con);
+                }
+                $this->setAuthLevelStatus($this->aAuthLevelStatus);
+            }
+
             if ($this->isNew() || $this->isModified()) {
                 // persist changes
                 if ($this->isNew()) {
@@ -669,24 +804,6 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
                 }
                 $affectedRows += 1;
                 $this->resetModified();
-            }
-
-            if ($this->projectMembersScheduledForDeletion !== null) {
-                if (!$this->projectMembersScheduledForDeletion->isEmpty()) {
-                    foreach ($this->projectMembersScheduledForDeletion as $projectMember) {
-                        // need to save related object because we set the relation to null
-                        $projectMember->save($con);
-                    }
-                    $this->projectMembersScheduledForDeletion = null;
-                }
-            }
-
-            if ($this->collProjectMembers !== null) {
-                foreach ($this->collProjectMembers as $referrerFK) {
-                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
-                        $affectedRows += $referrerFK->save($con);
-                    }
-                }
             }
 
             $this->alreadyInSave = false;
@@ -709,13 +826,13 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
         $modifiedColumns = array();
         $index = 0;
 
-        $this->modifiedColumns[] = AuthLevelStatusPeer::ID;
+        $this->modifiedColumns[] = ProjectMemberPeer::ID;
         if (null !== $this->id) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key (' . AuthLevelStatusPeer::ID . ')');
+            throw new PropelException('Cannot insert a value for auto-increment primary key (' . ProjectMemberPeer::ID . ')');
         }
         if (null === $this->id) {
             try {
-                $stmt = $con->query("SELECT nextval('auth_level_status_id_seq')");
+                $stmt = $con->query("SELECT nextval('project_member_id_seq')");
                 $row = $stmt->fetch(PDO::FETCH_NUM);
                 $this->id = $row[0];
             } catch (Exception $e) {
@@ -725,27 +842,33 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
 
 
          // check the columns in natural order for more readable SQL queries
-        if ($this->isColumnModified(AuthLevelStatusPeer::ID)) {
+        if ($this->isColumnModified(ProjectMemberPeer::ID)) {
             $modifiedColumns[':p' . $index++]  = '"id"';
         }
-        if ($this->isColumnModified(AuthLevelStatusPeer::IS_DELETED)) {
+        if ($this->isColumnModified(ProjectMemberPeer::IS_DELETED)) {
             $modifiedColumns[':p' . $index++]  = '"is_deleted"';
         }
-        if ($this->isColumnModified(AuthLevelStatusPeer::UPDATED_AT)) {
+        if ($this->isColumnModified(ProjectMemberPeer::UPDATED_AT)) {
             $modifiedColumns[':p' . $index++]  = '"updated_at"';
         }
-        if ($this->isColumnModified(AuthLevelStatusPeer::DELETED_AT)) {
+        if ($this->isColumnModified(ProjectMemberPeer::DELETED_AT)) {
             $modifiedColumns[':p' . $index++]  = '"deleted_at"';
         }
-        if ($this->isColumnModified(AuthLevelStatusPeer::CREATED_AT)) {
+        if ($this->isColumnModified(ProjectMemberPeer::CREATED_AT)) {
             $modifiedColumns[':p' . $index++]  = '"created_at"';
         }
-        if ($this->isColumnModified(AuthLevelStatusPeer::NAME)) {
-            $modifiedColumns[':p' . $index++]  = '"name"';
+        if ($this->isColumnModified(ProjectMemberPeer::ACCOUNT_ID)) {
+            $modifiedColumns[':p' . $index++]  = '"account_id"';
+        }
+        if ($this->isColumnModified(ProjectMemberPeer::PROJECT_ID)) {
+            $modifiedColumns[':p' . $index++]  = '"project_id"';
+        }
+        if ($this->isColumnModified(ProjectMemberPeer::AUTH_LEVEL_STATUS_ID)) {
+            $modifiedColumns[':p' . $index++]  = '"auth_level_status_id"';
         }
 
         $sql = sprintf(
-            'INSERT INTO "auth_level_status" (%s) VALUES (%s)',
+            'INSERT INTO "project_member" (%s) VALUES (%s)',
             implode(', ', $modifiedColumns),
             implode(', ', array_keys($modifiedColumns))
         );
@@ -769,8 +892,14 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
                     case '"created_at"':
                         $stmt->bindValue($identifier, $this->created_at, PDO::PARAM_STR);
                         break;
-                    case '"name"':
-                        $stmt->bindValue($identifier, $this->name, PDO::PARAM_STR);
+                    case '"account_id"':
+                        $stmt->bindValue($identifier, $this->account_id, PDO::PARAM_INT);
+                        break;
+                    case '"project_id"':
+                        $stmt->bindValue($identifier, $this->project_id, PDO::PARAM_INT);
+                        break;
+                    case '"auth_level_status_id"':
+                        $stmt->bindValue($identifier, $this->auth_level_status_id, PDO::PARAM_INT);
                         break;
                 }
             }
@@ -859,18 +988,34 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
             $failureMap = array();
 
 
-            if (($retval = AuthLevelStatusPeer::doValidate($this, $columns)) !== true) {
-                $failureMap = array_merge($failureMap, $retval);
+            // We call the validate method on the following object(s) if they
+            // were passed to this object by their corresponding set
+            // method.  This object relates to these object(s) by a
+            // foreign key reference.
+
+            if ($this->aAccount !== null) {
+                if (!$this->aAccount->validate($columns)) {
+                    $failureMap = array_merge($failureMap, $this->aAccount->getValidationFailures());
+                }
+            }
+
+            if ($this->aProject !== null) {
+                if (!$this->aProject->validate($columns)) {
+                    $failureMap = array_merge($failureMap, $this->aProject->getValidationFailures());
+                }
+            }
+
+            if ($this->aAuthLevelStatus !== null) {
+                if (!$this->aAuthLevelStatus->validate($columns)) {
+                    $failureMap = array_merge($failureMap, $this->aAuthLevelStatus->getValidationFailures());
+                }
             }
 
 
-                if ($this->collProjectMembers !== null) {
-                    foreach ($this->collProjectMembers as $referrerFK) {
-                        if (!$referrerFK->validate($columns)) {
-                            $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
-                        }
-                    }
-                }
+            if (($retval = ProjectMemberPeer::doValidate($this, $columns)) !== true) {
+                $failureMap = array_merge($failureMap, $retval);
+            }
+
 
 
             $this->alreadyInValidation = false;
@@ -891,7 +1036,7 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
      */
     public function getByName($name, $type = BasePeer::TYPE_PHPNAME)
     {
-        $pos = AuthLevelStatusPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+        $pos = ProjectMemberPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
         $field = $this->getByPosition($pos);
 
         return $field;
@@ -923,7 +1068,13 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
                 return $this->getCreatedAt();
                 break;
             case 5:
-                return $this->getName();
+                return $this->getAccountId();
+                break;
+            case 6:
+                return $this->getProjectId();
+                break;
+            case 7:
+                return $this->getAuthLevelStatusId();
                 break;
             default:
                 return null;
@@ -948,18 +1099,20 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
      */
     public function toArray($keyType = BasePeer::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array(), $includeForeignObjects = false)
     {
-        if (isset($alreadyDumpedObjects['AuthLevelStatus'][$this->getPrimaryKey()])) {
+        if (isset($alreadyDumpedObjects['ProjectMember'][$this->getPrimaryKey()])) {
             return '*RECURSION*';
         }
-        $alreadyDumpedObjects['AuthLevelStatus'][$this->getPrimaryKey()] = true;
-        $keys = AuthLevelStatusPeer::getFieldNames($keyType);
+        $alreadyDumpedObjects['ProjectMember'][$this->getPrimaryKey()] = true;
+        $keys = ProjectMemberPeer::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getId(),
             $keys[1] => $this->getIsDeleted(),
             $keys[2] => $this->getUpdatedAt(),
             $keys[3] => $this->getDeletedAt(),
             $keys[4] => $this->getCreatedAt(),
-            $keys[5] => $this->getName(),
+            $keys[5] => $this->getAccountId(),
+            $keys[6] => $this->getProjectId(),
+            $keys[7] => $this->getAuthLevelStatusId(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -967,8 +1120,14 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
         }
 
         if ($includeForeignObjects) {
-            if (null !== $this->collProjectMembers) {
-                $result['ProjectMembers'] = $this->collProjectMembers->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            if (null !== $this->aAccount) {
+                $result['Account'] = $this->aAccount->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
+            if (null !== $this->aProject) {
+                $result['Project'] = $this->aProject->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
+            if (null !== $this->aAuthLevelStatus) {
+                $result['AuthLevelStatus'] = $this->aAuthLevelStatus->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
             }
         }
 
@@ -988,7 +1147,7 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
      */
     public function setByName($name, $value, $type = BasePeer::TYPE_PHPNAME)
     {
-        $pos = AuthLevelStatusPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+        $pos = ProjectMemberPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
 
         $this->setByPosition($pos, $value);
     }
@@ -1020,7 +1179,13 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
                 $this->setCreatedAt($value);
                 break;
             case 5:
-                $this->setName($value);
+                $this->setAccountId($value);
+                break;
+            case 6:
+                $this->setProjectId($value);
+                break;
+            case 7:
+                $this->setAuthLevelStatusId($value);
                 break;
         } // switch()
     }
@@ -1044,14 +1209,16 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
      */
     public function fromArray($arr, $keyType = BasePeer::TYPE_PHPNAME)
     {
-        $keys = AuthLevelStatusPeer::getFieldNames($keyType);
+        $keys = ProjectMemberPeer::getFieldNames($keyType);
 
         if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
         if (array_key_exists($keys[1], $arr)) $this->setIsDeleted($arr[$keys[1]]);
         if (array_key_exists($keys[2], $arr)) $this->setUpdatedAt($arr[$keys[2]]);
         if (array_key_exists($keys[3], $arr)) $this->setDeletedAt($arr[$keys[3]]);
         if (array_key_exists($keys[4], $arr)) $this->setCreatedAt($arr[$keys[4]]);
-        if (array_key_exists($keys[5], $arr)) $this->setName($arr[$keys[5]]);
+        if (array_key_exists($keys[5], $arr)) $this->setAccountId($arr[$keys[5]]);
+        if (array_key_exists($keys[6], $arr)) $this->setProjectId($arr[$keys[6]]);
+        if (array_key_exists($keys[7], $arr)) $this->setAuthLevelStatusId($arr[$keys[7]]);
     }
 
     /**
@@ -1061,14 +1228,16 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
      */
     public function buildCriteria()
     {
-        $criteria = new Criteria(AuthLevelStatusPeer::DATABASE_NAME);
+        $criteria = new Criteria(ProjectMemberPeer::DATABASE_NAME);
 
-        if ($this->isColumnModified(AuthLevelStatusPeer::ID)) $criteria->add(AuthLevelStatusPeer::ID, $this->id);
-        if ($this->isColumnModified(AuthLevelStatusPeer::IS_DELETED)) $criteria->add(AuthLevelStatusPeer::IS_DELETED, $this->is_deleted);
-        if ($this->isColumnModified(AuthLevelStatusPeer::UPDATED_AT)) $criteria->add(AuthLevelStatusPeer::UPDATED_AT, $this->updated_at);
-        if ($this->isColumnModified(AuthLevelStatusPeer::DELETED_AT)) $criteria->add(AuthLevelStatusPeer::DELETED_AT, $this->deleted_at);
-        if ($this->isColumnModified(AuthLevelStatusPeer::CREATED_AT)) $criteria->add(AuthLevelStatusPeer::CREATED_AT, $this->created_at);
-        if ($this->isColumnModified(AuthLevelStatusPeer::NAME)) $criteria->add(AuthLevelStatusPeer::NAME, $this->name);
+        if ($this->isColumnModified(ProjectMemberPeer::ID)) $criteria->add(ProjectMemberPeer::ID, $this->id);
+        if ($this->isColumnModified(ProjectMemberPeer::IS_DELETED)) $criteria->add(ProjectMemberPeer::IS_DELETED, $this->is_deleted);
+        if ($this->isColumnModified(ProjectMemberPeer::UPDATED_AT)) $criteria->add(ProjectMemberPeer::UPDATED_AT, $this->updated_at);
+        if ($this->isColumnModified(ProjectMemberPeer::DELETED_AT)) $criteria->add(ProjectMemberPeer::DELETED_AT, $this->deleted_at);
+        if ($this->isColumnModified(ProjectMemberPeer::CREATED_AT)) $criteria->add(ProjectMemberPeer::CREATED_AT, $this->created_at);
+        if ($this->isColumnModified(ProjectMemberPeer::ACCOUNT_ID)) $criteria->add(ProjectMemberPeer::ACCOUNT_ID, $this->account_id);
+        if ($this->isColumnModified(ProjectMemberPeer::PROJECT_ID)) $criteria->add(ProjectMemberPeer::PROJECT_ID, $this->project_id);
+        if ($this->isColumnModified(ProjectMemberPeer::AUTH_LEVEL_STATUS_ID)) $criteria->add(ProjectMemberPeer::AUTH_LEVEL_STATUS_ID, $this->auth_level_status_id);
 
         return $criteria;
     }
@@ -1083,8 +1252,8 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
      */
     public function buildPkeyCriteria()
     {
-        $criteria = new Criteria(AuthLevelStatusPeer::DATABASE_NAME);
-        $criteria->add(AuthLevelStatusPeer::ID, $this->id);
+        $criteria = new Criteria(ProjectMemberPeer::DATABASE_NAME);
+        $criteria->add(ProjectMemberPeer::ID, $this->id);
 
         return $criteria;
     }
@@ -1125,7 +1294,7 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
      * If desired, this method can also make copies of all associated (fkey referrers)
      * objects.
      *
-     * @param object $copyObj An object of AuthLevelStatus (or compatible) type.
+     * @param object $copyObj An object of ProjectMember (or compatible) type.
      * @param boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
      * @param boolean $makeNew Whether to reset autoincrement PKs and make the object new.
      * @throws PropelException
@@ -1136,7 +1305,9 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
         $copyObj->setUpdatedAt($this->getUpdatedAt());
         $copyObj->setDeletedAt($this->getDeletedAt());
         $copyObj->setCreatedAt($this->getCreatedAt());
-        $copyObj->setName($this->getName());
+        $copyObj->setAccountId($this->getAccountId());
+        $copyObj->setProjectId($this->getProjectId());
+        $copyObj->setAuthLevelStatusId($this->getAuthLevelStatusId());
 
         if ($deepCopy && !$this->startCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -1144,12 +1315,6 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
             $copyObj->setNew(false);
             // store object hash to prevent cycle
             $this->startCopy = true;
-
-            foreach ($this->getProjectMembers() as $relObj) {
-                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-                    $copyObj->addProjectMember($relObj->copy($deepCopy));
-                }
-            }
 
             //unflag object copy
             $this->startCopy = false;
@@ -1170,7 +1335,7 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
      * objects.
      *
      * @param boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-     * @return AuthLevelStatus Clone of current object.
+     * @return ProjectMember Clone of current object.
      * @throws PropelException
      */
     public function copy($deepCopy = false)
@@ -1190,306 +1355,171 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
      * same instance for all member of this class. The method could therefore
      * be static, but this would prevent one from overriding the behavior.
      *
-     * @return AuthLevelStatusPeer
+     * @return ProjectMemberPeer
      */
     public function getPeer()
     {
         if (self::$peer === null) {
-            self::$peer = new AuthLevelStatusPeer();
+            self::$peer = new ProjectMemberPeer();
         }
 
         return self::$peer;
     }
 
-
     /**
-     * Initializes a collection based on the name of a relation.
-     * Avoids crafting an 'init[$relationName]s' method name
-     * that wouldn't work when StandardEnglishPluralizer is used.
+     * Declares an association between this object and a Account object.
      *
-     * @param string $relationName The name of the relation to initialize
-     * @return void
-     */
-    public function initRelation($relationName)
-    {
-        if ('ProjectMember' == $relationName) {
-            $this->initProjectMembers();
-        }
-    }
-
-    /**
-     * Clears out the collProjectMembers collection
-     *
-     * This does not modify the database; however, it will remove any associated objects, causing
-     * them to be refetched by subsequent calls to accessor method.
-     *
-     * @return AuthLevelStatus The current object (for fluent API support)
-     * @see        addProjectMembers()
-     */
-    public function clearProjectMembers()
-    {
-        $this->collProjectMembers = null; // important to set this to null since that means it is uninitialized
-        $this->collProjectMembersPartial = null;
-
-        return $this;
-    }
-
-    /**
-     * reset is the collProjectMembers collection loaded partially
-     *
-     * @return void
-     */
-    public function resetPartialProjectMembers($v = true)
-    {
-        $this->collProjectMembersPartial = $v;
-    }
-
-    /**
-     * Initializes the collProjectMembers collection.
-     *
-     * By default this just sets the collProjectMembers collection to an empty array (like clearcollProjectMembers());
-     * however, you may wish to override this method in your stub class to provide setting appropriate
-     * to your application -- for example, setting the initial array to the values stored in database.
-     *
-     * @param boolean $overrideExisting If set to true, the method call initializes
-     *                                        the collection even if it is not empty
-     *
-     * @return void
-     */
-    public function initProjectMembers($overrideExisting = true)
-    {
-        if (null !== $this->collProjectMembers && !$overrideExisting) {
-            return;
-        }
-        $this->collProjectMembers = new PropelObjectCollection();
-        $this->collProjectMembers->setModel('ProjectMember');
-    }
-
-    /**
-     * Gets an array of ProjectMember objects which contain a foreign key that references this object.
-     *
-     * If the $criteria is not null, it is used to always fetch the results from the database.
-     * Otherwise the results are fetched from the database the first time, then cached.
-     * Next time the same method is called without $criteria, the cached collection is returned.
-     * If this AuthLevelStatus is new, it will return
-     * an empty collection or the current collection; the criteria is ignored on a new object.
-     *
-     * @param Criteria $criteria optional Criteria object to narrow the query
-     * @param PropelPDO $con optional connection object
-     * @return PropelObjectCollection|ProjectMember[] List of ProjectMember objects
+     * @param                  Account $v
+     * @return ProjectMember The current object (for fluent API support)
      * @throws PropelException
      */
-    public function getProjectMembers($criteria = null, PropelPDO $con = null)
+    public function setAccount(Account $v = null)
     {
-        $partial = $this->collProjectMembersPartial && !$this->isNew();
-        if (null === $this->collProjectMembers || null !== $criteria  || $partial) {
-            if ($this->isNew() && null === $this->collProjectMembers) {
-                // return empty collection
-                $this->initProjectMembers();
-            } else {
-                $collProjectMembers = ProjectMemberQuery::create(null, $criteria)
-                    ->filterByAuthLevelStatus($this)
-                    ->find($con);
-                if (null !== $criteria) {
-                    if (false !== $this->collProjectMembersPartial && count($collProjectMembers)) {
-                      $this->initProjectMembers(false);
-
-                      foreach ($collProjectMembers as $obj) {
-                        if (false == $this->collProjectMembers->contains($obj)) {
-                          $this->collProjectMembers->append($obj);
-                        }
-                      }
-
-                      $this->collProjectMembersPartial = true;
-                    }
-
-                    $collProjectMembers->getInternalIterator()->rewind();
-
-                    return $collProjectMembers;
-                }
-
-                if ($partial && $this->collProjectMembers) {
-                    foreach ($this->collProjectMembers as $obj) {
-                        if ($obj->isNew()) {
-                            $collProjectMembers[] = $obj;
-                        }
-                    }
-                }
-
-                $this->collProjectMembers = $collProjectMembers;
-                $this->collProjectMembersPartial = false;
-            }
+        if ($v === null) {
+            $this->setAccountId(NULL);
+        } else {
+            $this->setAccountId($v->getId());
         }
 
-        return $this->collProjectMembers;
-    }
+        $this->aAccount = $v;
 
-    /**
-     * Sets a collection of ProjectMember objects related by a one-to-many relationship
-     * to the current object.
-     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
-     * and new objects from the given Propel collection.
-     *
-     * @param PropelCollection $projectMembers A Propel collection.
-     * @param PropelPDO $con Optional connection object
-     * @return AuthLevelStatus The current object (for fluent API support)
-     */
-    public function setProjectMembers(PropelCollection $projectMembers, PropelPDO $con = null)
-    {
-        $projectMembersToDelete = $this->getProjectMembers(new Criteria(), $con)->diff($projectMembers);
-
-
-        $this->projectMembersScheduledForDeletion = $projectMembersToDelete;
-
-        foreach ($projectMembersToDelete as $projectMemberRemoved) {
-            $projectMemberRemoved->setAuthLevelStatus(null);
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the Account object, it will not be re-added.
+        if ($v !== null) {
+            $v->addProjectMember($this);
         }
 
-        $this->collProjectMembers = null;
-        foreach ($projectMembers as $projectMember) {
-            $this->addProjectMember($projectMember);
-        }
-
-        $this->collProjectMembers = $projectMembers;
-        $this->collProjectMembersPartial = false;
 
         return $this;
     }
 
+
     /**
-     * Returns the number of related ProjectMember objects.
+     * Get the associated Account object
      *
-     * @param Criteria $criteria
-     * @param boolean $distinct
-     * @param PropelPDO $con
-     * @return int             Count of related ProjectMember objects.
+     * @param PropelPDO $con Optional Connection object.
+     * @param $doQuery Executes a query to get the object if required
+     * @return Account The associated Account object.
      * @throws PropelException
      */
-    public function countProjectMembers(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+    public function getAccount(PropelPDO $con = null, $doQuery = true)
     {
-        $partial = $this->collProjectMembersPartial && !$this->isNew();
-        if (null === $this->collProjectMembers || null !== $criteria || $partial) {
-            if ($this->isNew() && null === $this->collProjectMembers) {
-                return 0;
-            }
-
-            if ($partial && !$criteria) {
-                return count($this->getProjectMembers());
-            }
-            $query = ProjectMemberQuery::create(null, $criteria);
-            if ($distinct) {
-                $query->distinct();
-            }
-
-            return $query
-                ->filterByAuthLevelStatus($this)
-                ->count($con);
+        if ($this->aAccount === null && ($this->account_id !== null) && $doQuery) {
+            $this->aAccount = AccountQuery::create()->findPk($this->account_id, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aAccount->addProjectMembers($this);
+             */
         }
 
-        return count($this->collProjectMembers);
+        return $this->aAccount;
     }
 
     /**
-     * Method called to associate a ProjectMember object to this object
-     * through the ProjectMember foreign key attribute.
+     * Declares an association between this object and a Project object.
      *
-     * @param    ProjectMember $l ProjectMember
-     * @return AuthLevelStatus The current object (for fluent API support)
+     * @param                  Project $v
+     * @return ProjectMember The current object (for fluent API support)
+     * @throws PropelException
      */
-    public function addProjectMember(ProjectMember $l)
+    public function setProject(Project $v = null)
     {
-        if ($this->collProjectMembers === null) {
-            $this->initProjectMembers();
-            $this->collProjectMembersPartial = true;
+        if ($v === null) {
+            $this->setProjectId(NULL);
+        } else {
+            $this->setProjectId($v->getId());
         }
 
-        if (!in_array($l, $this->collProjectMembers->getArrayCopy(), true)) { // only add it if the **same** object is not already associated
-            $this->doAddProjectMember($l);
+        $this->aProject = $v;
 
-            if ($this->projectMembersScheduledForDeletion and $this->projectMembersScheduledForDeletion->contains($l)) {
-                $this->projectMembersScheduledForDeletion->remove($this->projectMembersScheduledForDeletion->search($l));
-            }
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the Project object, it will not be re-added.
+        if ($v !== null) {
+            $v->addProjectMember($this);
         }
 
-        return $this;
-    }
-
-    /**
-     * @param	ProjectMember $projectMember The projectMember object to add.
-     */
-    protected function doAddProjectMember($projectMember)
-    {
-        $this->collProjectMembers[]= $projectMember;
-        $projectMember->setAuthLevelStatus($this);
-    }
-
-    /**
-     * @param	ProjectMember $projectMember The projectMember object to remove.
-     * @return AuthLevelStatus The current object (for fluent API support)
-     */
-    public function removeProjectMember($projectMember)
-    {
-        if ($this->getProjectMembers()->contains($projectMember)) {
-            $this->collProjectMembers->remove($this->collProjectMembers->search($projectMember));
-            if (null === $this->projectMembersScheduledForDeletion) {
-                $this->projectMembersScheduledForDeletion = clone $this->collProjectMembers;
-                $this->projectMembersScheduledForDeletion->clear();
-            }
-            $this->projectMembersScheduledForDeletion[]= $projectMember;
-            $projectMember->setAuthLevelStatus(null);
-        }
 
         return $this;
     }
 
 
     /**
-     * If this collection has already been initialized with
-     * an identical criteria, it returns the collection.
-     * Otherwise if this AuthLevelStatus is new, it will return
-     * an empty collection; or if this AuthLevelStatus has previously
-     * been saved, it will retrieve related ProjectMembers from storage.
+     * Get the associated Project object
      *
-     * This method is protected by default in order to keep the public
-     * api reasonable.  You can provide public methods for those you
-     * actually need in AuthLevelStatus.
-     *
-     * @param Criteria $criteria optional Criteria object to narrow the query
-     * @param PropelPDO $con optional connection object
-     * @param string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
-     * @return PropelObjectCollection|ProjectMember[] List of ProjectMember objects
+     * @param PropelPDO $con Optional Connection object.
+     * @param $doQuery Executes a query to get the object if required
+     * @return Project The associated Project object.
+     * @throws PropelException
      */
-    public function getProjectMembersJoinAccount($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public function getProject(PropelPDO $con = null, $doQuery = true)
     {
-        $query = ProjectMemberQuery::create(null, $criteria);
-        $query->joinWith('Account', $join_behavior);
+        if ($this->aProject === null && ($this->project_id !== null) && $doQuery) {
+            $this->aProject = ProjectQuery::create()->findPk($this->project_id, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aProject->addProjectMembers($this);
+             */
+        }
 
-        return $this->getProjectMembers($query, $con);
+        return $this->aProject;
+    }
+
+    /**
+     * Declares an association between this object and a AuthLevelStatus object.
+     *
+     * @param                  AuthLevelStatus $v
+     * @return ProjectMember The current object (for fluent API support)
+     * @throws PropelException
+     */
+    public function setAuthLevelStatus(AuthLevelStatus $v = null)
+    {
+        if ($v === null) {
+            $this->setAuthLevelStatusId(1);
+        } else {
+            $this->setAuthLevelStatusId($v->getId());
+        }
+
+        $this->aAuthLevelStatus = $v;
+
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the AuthLevelStatus object, it will not be re-added.
+        if ($v !== null) {
+            $v->addProjectMember($this);
+        }
+
+
+        return $this;
     }
 
 
     /**
-     * If this collection has already been initialized with
-     * an identical criteria, it returns the collection.
-     * Otherwise if this AuthLevelStatus is new, it will return
-     * an empty collection; or if this AuthLevelStatus has previously
-     * been saved, it will retrieve related ProjectMembers from storage.
+     * Get the associated AuthLevelStatus object
      *
-     * This method is protected by default in order to keep the public
-     * api reasonable.  You can provide public methods for those you
-     * actually need in AuthLevelStatus.
-     *
-     * @param Criteria $criteria optional Criteria object to narrow the query
-     * @param PropelPDO $con optional connection object
-     * @param string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
-     * @return PropelObjectCollection|ProjectMember[] List of ProjectMember objects
+     * @param PropelPDO $con Optional Connection object.
+     * @param $doQuery Executes a query to get the object if required
+     * @return AuthLevelStatus The associated AuthLevelStatus object.
+     * @throws PropelException
      */
-    public function getProjectMembersJoinProject($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public function getAuthLevelStatus(PropelPDO $con = null, $doQuery = true)
     {
-        $query = ProjectMemberQuery::create(null, $criteria);
-        $query->joinWith('Project', $join_behavior);
+        if ($this->aAuthLevelStatus === null && ($this->auth_level_status_id !== null) && $doQuery) {
+            $this->aAuthLevelStatus = AuthLevelStatusQuery::create()->findPk($this->auth_level_status_id, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aAuthLevelStatus->addProjectMembers($this);
+             */
+        }
 
-        return $this->getProjectMembers($query, $con);
+        return $this->aAuthLevelStatus;
     }
 
     /**
@@ -1502,7 +1532,9 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
         $this->updated_at = null;
         $this->deleted_at = null;
         $this->created_at = null;
-        $this->name = null;
+        $this->account_id = null;
+        $this->project_id = null;
+        $this->auth_level_status_id = null;
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
         $this->alreadyInClearAllReferencesDeep = false;
@@ -1526,19 +1558,22 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
     {
         if ($deep && !$this->alreadyInClearAllReferencesDeep) {
             $this->alreadyInClearAllReferencesDeep = true;
-            if ($this->collProjectMembers) {
-                foreach ($this->collProjectMembers as $o) {
-                    $o->clearAllReferences($deep);
-                }
+            if ($this->aAccount instanceof Persistent) {
+              $this->aAccount->clearAllReferences($deep);
+            }
+            if ($this->aProject instanceof Persistent) {
+              $this->aProject->clearAllReferences($deep);
+            }
+            if ($this->aAuthLevelStatus instanceof Persistent) {
+              $this->aAuthLevelStatus->clearAllReferences($deep);
             }
 
             $this->alreadyInClearAllReferencesDeep = false;
         } // if ($deep)
 
-        if ($this->collProjectMembers instanceof PropelCollection) {
-            $this->collProjectMembers->clearIterator();
-        }
-        $this->collProjectMembers = null;
+        $this->aAccount = null;
+        $this->aProject = null;
+        $this->aAuthLevelStatus = null;
     }
 
     /**
@@ -1548,7 +1583,7 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
      */
     public function __toString()
     {
-        return (string) $this->exportTo(AuthLevelStatusPeer::DEFAULT_STRING_FORMAT);
+        return (string) $this->exportTo(ProjectMemberPeer::DEFAULT_STRING_FORMAT);
     }
 
     /**
@@ -1568,7 +1603,7 @@ abstract class BaseAuthLevelStatus extends BaseObject implements Persistent
     {
 
         // symfony_behaviors behavior
-        if ($callable = sfMixer::getCallable('BaseAuthLevelStatus:' . $name))
+        if ($callable = sfMixer::getCallable('BaseProjectMember:' . $name))
         {
           array_unshift($params, $this);
           return call_user_func_array($callable, $params);

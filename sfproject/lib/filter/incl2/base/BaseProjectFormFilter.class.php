@@ -1,13 +1,13 @@
 <?php
 
 /**
- * AccountLog filter form base class.
+ * Project filter form base class.
  *
  * @package    incl2
  * @subpackage filter
  * @author     Your name here
  */
-abstract class BaseAccountLogFormFilter extends BaseFormFilterPropel
+abstract class BaseProjectFormFilter extends BaseFormFilterPropel
 {
   public function setup()
   {
@@ -16,9 +16,12 @@ abstract class BaseAccountLogFormFilter extends BaseFormFilterPropel
       'updated_at' => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
       'deleted_at' => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
       'created_at' => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
-      'title'      => new sfWidgetFormFilterInput(),
+      'name'       => new sfWidgetFormFilterInput(),
+      'maxcapa'    => new sfWidgetFormFilterInput(),
+      'precapa'    => new sfWidgetFormFilterInput(),
+      'backimg'    => new sfWidgetFormFilterInput(),
+      'ranid'      => new sfWidgetFormFilterInput(),
       'account_id' => new sfWidgetFormPropelChoice(array('model' => 'Account', 'add_empty' => true)),
-      'project_id' => new sfWidgetFormPropelChoice(array('model' => 'Project', 'add_empty' => true)),
     ));
 
     $this->setValidators(array(
@@ -26,12 +29,15 @@ abstract class BaseAccountLogFormFilter extends BaseFormFilterPropel
       'updated_at' => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'deleted_at' => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'created_at' => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
-      'title'      => new sfValidatorPass(array('required' => false)),
+      'name'       => new sfValidatorPass(array('required' => false)),
+      'maxcapa'    => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'precapa'    => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'backimg'    => new sfValidatorPass(array('required' => false)),
+      'ranid'      => new sfValidatorPass(array('required' => false)),
       'account_id' => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Account', 'column' => 'id')),
-      'project_id' => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Project', 'column' => 'id')),
     ));
 
-    $this->widgetSchema->setNameFormat('account_log_filters[%s]');
+    $this->widgetSchema->setNameFormat('project_filters[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
@@ -40,7 +46,7 @@ abstract class BaseAccountLogFormFilter extends BaseFormFilterPropel
 
   public function getModelName()
   {
-    return 'AccountLog';
+    return 'Project';
   }
 
   public function getFields()
@@ -51,9 +57,12 @@ abstract class BaseAccountLogFormFilter extends BaseFormFilterPropel
       'updated_at' => 'Date',
       'deleted_at' => 'Date',
       'created_at' => 'Date',
-      'title'      => 'Text',
+      'name'       => 'Text',
+      'maxcapa'    => 'Number',
+      'precapa'    => 'Number',
+      'backimg'    => 'Text',
+      'ranid'      => 'Text',
       'account_id' => 'ForeignKey',
-      'project_id' => 'ForeignKey',
     );
   }
 }

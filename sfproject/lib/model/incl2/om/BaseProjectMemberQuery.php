@@ -2,66 +2,70 @@
 
 
 /**
- * Base class that represents a query for the 'account_log' table.
+ * Base class that represents a query for the 'project_member' table.
  *
  *
  *
- * @method AccountLogQuery orderById($order = Criteria::ASC) Order by the id column
- * @method AccountLogQuery orderByIsDeleted($order = Criteria::ASC) Order by the is_deleted column
- * @method AccountLogQuery orderByUpdatedAt($order = Criteria::ASC) Order by the updated_at column
- * @method AccountLogQuery orderByDeletedAt($order = Criteria::ASC) Order by the deleted_at column
- * @method AccountLogQuery orderByCreatedAt($order = Criteria::ASC) Order by the created_at column
- * @method AccountLogQuery orderByTitle($order = Criteria::ASC) Order by the title column
- * @method AccountLogQuery orderByAccountId($order = Criteria::ASC) Order by the account_id column
- * @method AccountLogQuery orderByProjectId($order = Criteria::ASC) Order by the project_id column
+ * @method ProjectMemberQuery orderById($order = Criteria::ASC) Order by the id column
+ * @method ProjectMemberQuery orderByIsDeleted($order = Criteria::ASC) Order by the is_deleted column
+ * @method ProjectMemberQuery orderByUpdatedAt($order = Criteria::ASC) Order by the updated_at column
+ * @method ProjectMemberQuery orderByDeletedAt($order = Criteria::ASC) Order by the deleted_at column
+ * @method ProjectMemberQuery orderByCreatedAt($order = Criteria::ASC) Order by the created_at column
+ * @method ProjectMemberQuery orderByAccountId($order = Criteria::ASC) Order by the account_id column
+ * @method ProjectMemberQuery orderByProjectId($order = Criteria::ASC) Order by the project_id column
+ * @method ProjectMemberQuery orderByAuthLevelStatusId($order = Criteria::ASC) Order by the auth_level_status_id column
  *
- * @method AccountLogQuery groupById() Group by the id column
- * @method AccountLogQuery groupByIsDeleted() Group by the is_deleted column
- * @method AccountLogQuery groupByUpdatedAt() Group by the updated_at column
- * @method AccountLogQuery groupByDeletedAt() Group by the deleted_at column
- * @method AccountLogQuery groupByCreatedAt() Group by the created_at column
- * @method AccountLogQuery groupByTitle() Group by the title column
- * @method AccountLogQuery groupByAccountId() Group by the account_id column
- * @method AccountLogQuery groupByProjectId() Group by the project_id column
+ * @method ProjectMemberQuery groupById() Group by the id column
+ * @method ProjectMemberQuery groupByIsDeleted() Group by the is_deleted column
+ * @method ProjectMemberQuery groupByUpdatedAt() Group by the updated_at column
+ * @method ProjectMemberQuery groupByDeletedAt() Group by the deleted_at column
+ * @method ProjectMemberQuery groupByCreatedAt() Group by the created_at column
+ * @method ProjectMemberQuery groupByAccountId() Group by the account_id column
+ * @method ProjectMemberQuery groupByProjectId() Group by the project_id column
+ * @method ProjectMemberQuery groupByAuthLevelStatusId() Group by the auth_level_status_id column
  *
- * @method AccountLogQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
- * @method AccountLogQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
- * @method AccountLogQuery innerJoin($relation) Adds a INNER JOIN clause to the query
+ * @method ProjectMemberQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
+ * @method ProjectMemberQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
+ * @method ProjectMemberQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
- * @method AccountLogQuery leftJoinAccount($relationAlias = null) Adds a LEFT JOIN clause to the query using the Account relation
- * @method AccountLogQuery rightJoinAccount($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Account relation
- * @method AccountLogQuery innerJoinAccount($relationAlias = null) Adds a INNER JOIN clause to the query using the Account relation
+ * @method ProjectMemberQuery leftJoinAccount($relationAlias = null) Adds a LEFT JOIN clause to the query using the Account relation
+ * @method ProjectMemberQuery rightJoinAccount($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Account relation
+ * @method ProjectMemberQuery innerJoinAccount($relationAlias = null) Adds a INNER JOIN clause to the query using the Account relation
  *
- * @method AccountLogQuery leftJoinProject($relationAlias = null) Adds a LEFT JOIN clause to the query using the Project relation
- * @method AccountLogQuery rightJoinProject($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Project relation
- * @method AccountLogQuery innerJoinProject($relationAlias = null) Adds a INNER JOIN clause to the query using the Project relation
+ * @method ProjectMemberQuery leftJoinProject($relationAlias = null) Adds a LEFT JOIN clause to the query using the Project relation
+ * @method ProjectMemberQuery rightJoinProject($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Project relation
+ * @method ProjectMemberQuery innerJoinProject($relationAlias = null) Adds a INNER JOIN clause to the query using the Project relation
  *
- * @method AccountLog findOne(PropelPDO $con = null) Return the first AccountLog matching the query
- * @method AccountLog findOneOrCreate(PropelPDO $con = null) Return the first AccountLog matching the query, or a new AccountLog object populated from the query conditions when no match is found
+ * @method ProjectMemberQuery leftJoinAuthLevelStatus($relationAlias = null) Adds a LEFT JOIN clause to the query using the AuthLevelStatus relation
+ * @method ProjectMemberQuery rightJoinAuthLevelStatus($relationAlias = null) Adds a RIGHT JOIN clause to the query using the AuthLevelStatus relation
+ * @method ProjectMemberQuery innerJoinAuthLevelStatus($relationAlias = null) Adds a INNER JOIN clause to the query using the AuthLevelStatus relation
  *
- * @method AccountLog findOneByIsDeleted(int $is_deleted) Return the first AccountLog filtered by the is_deleted column
- * @method AccountLog findOneByUpdatedAt(string $updated_at) Return the first AccountLog filtered by the updated_at column
- * @method AccountLog findOneByDeletedAt(string $deleted_at) Return the first AccountLog filtered by the deleted_at column
- * @method AccountLog findOneByCreatedAt(string $created_at) Return the first AccountLog filtered by the created_at column
- * @method AccountLog findOneByTitle(string $title) Return the first AccountLog filtered by the title column
- * @method AccountLog findOneByAccountId(int $account_id) Return the first AccountLog filtered by the account_id column
- * @method AccountLog findOneByProjectId(int $project_id) Return the first AccountLog filtered by the project_id column
+ * @method ProjectMember findOne(PropelPDO $con = null) Return the first ProjectMember matching the query
+ * @method ProjectMember findOneOrCreate(PropelPDO $con = null) Return the first ProjectMember matching the query, or a new ProjectMember object populated from the query conditions when no match is found
  *
- * @method array findById(int $id) Return AccountLog objects filtered by the id column
- * @method array findByIsDeleted(int $is_deleted) Return AccountLog objects filtered by the is_deleted column
- * @method array findByUpdatedAt(string $updated_at) Return AccountLog objects filtered by the updated_at column
- * @method array findByDeletedAt(string $deleted_at) Return AccountLog objects filtered by the deleted_at column
- * @method array findByCreatedAt(string $created_at) Return AccountLog objects filtered by the created_at column
- * @method array findByTitle(string $title) Return AccountLog objects filtered by the title column
- * @method array findByAccountId(int $account_id) Return AccountLog objects filtered by the account_id column
- * @method array findByProjectId(int $project_id) Return AccountLog objects filtered by the project_id column
+ * @method ProjectMember findOneByIsDeleted(int $is_deleted) Return the first ProjectMember filtered by the is_deleted column
+ * @method ProjectMember findOneByUpdatedAt(string $updated_at) Return the first ProjectMember filtered by the updated_at column
+ * @method ProjectMember findOneByDeletedAt(string $deleted_at) Return the first ProjectMember filtered by the deleted_at column
+ * @method ProjectMember findOneByCreatedAt(string $created_at) Return the first ProjectMember filtered by the created_at column
+ * @method ProjectMember findOneByAccountId(int $account_id) Return the first ProjectMember filtered by the account_id column
+ * @method ProjectMember findOneByProjectId(int $project_id) Return the first ProjectMember filtered by the project_id column
+ * @method ProjectMember findOneByAuthLevelStatusId(int $auth_level_status_id) Return the first ProjectMember filtered by the auth_level_status_id column
+ *
+ * @method array findById(int $id) Return ProjectMember objects filtered by the id column
+ * @method array findByIsDeleted(int $is_deleted) Return ProjectMember objects filtered by the is_deleted column
+ * @method array findByUpdatedAt(string $updated_at) Return ProjectMember objects filtered by the updated_at column
+ * @method array findByDeletedAt(string $deleted_at) Return ProjectMember objects filtered by the deleted_at column
+ * @method array findByCreatedAt(string $created_at) Return ProjectMember objects filtered by the created_at column
+ * @method array findByAccountId(int $account_id) Return ProjectMember objects filtered by the account_id column
+ * @method array findByProjectId(int $project_id) Return ProjectMember objects filtered by the project_id column
+ * @method array findByAuthLevelStatusId(int $auth_level_status_id) Return ProjectMember objects filtered by the auth_level_status_id column
  *
  * @package    propel.generator.lib.model.incl2.om
  */
-abstract class BaseAccountLogQuery extends ModelCriteria
+abstract class BaseProjectMemberQuery extends ModelCriteria
 {
     /**
-     * Initializes internal state of BaseAccountLogQuery object.
+     * Initializes internal state of BaseProjectMemberQuery object.
      *
      * @param     string $dbName The dabase name
      * @param     string $modelName The phpName of a model, e.g. 'Book'
@@ -73,25 +77,25 @@ abstract class BaseAccountLogQuery extends ModelCriteria
             $dbName = 'incl2';
         }
         if (null === $modelName) {
-            $modelName = 'AccountLog';
+            $modelName = 'ProjectMember';
         }
         parent::__construct($dbName, $modelName, $modelAlias);
     }
 
     /**
-     * Returns a new AccountLogQuery object.
+     * Returns a new ProjectMemberQuery object.
      *
      * @param     string $modelAlias The alias of a model in the query
-     * @param   AccountLogQuery|Criteria $criteria Optional Criteria to build the query from
+     * @param   ProjectMemberQuery|Criteria $criteria Optional Criteria to build the query from
      *
-     * @return AccountLogQuery
+     * @return ProjectMemberQuery
      */
     public static function create($modelAlias = null, $criteria = null)
     {
-        if ($criteria instanceof AccountLogQuery) {
+        if ($criteria instanceof ProjectMemberQuery) {
             return $criteria;
         }
-        $query = new AccountLogQuery(null, null, $modelAlias);
+        $query = new ProjectMemberQuery(null, null, $modelAlias);
 
         if ($criteria instanceof Criteria) {
             $query->mergeWith($criteria);
@@ -112,19 +116,19 @@ abstract class BaseAccountLogQuery extends ModelCriteria
      * @param mixed $key Primary key to use for the query
      * @param     PropelPDO $con an optional connection object
      *
-     * @return   AccountLog|AccountLog[]|mixed the result, formatted by the current formatter
+     * @return   ProjectMember|ProjectMember[]|mixed the result, formatted by the current formatter
      */
     public function findPk($key, $con = null)
     {
         if ($key === null) {
             return null;
         }
-        if ((null !== ($obj = AccountLogPeer::getInstanceFromPool((string) $key))) && !$this->formatter) {
+        if ((null !== ($obj = ProjectMemberPeer::getInstanceFromPool((string) $key))) && !$this->formatter) {
             // the object is already in the instance pool
             return $obj;
         }
         if ($con === null) {
-            $con = Propel::getConnection(AccountLogPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(ProjectMemberPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
         $this->basePreSelect($con);
         if ($this->formatter || $this->modelAlias || $this->with || $this->select
@@ -142,7 +146,7 @@ abstract class BaseAccountLogQuery extends ModelCriteria
      * @param     mixed $key Primary key to use for the query
      * @param     PropelPDO $con A connection object
      *
-     * @return                 AccountLog A model object, or null if the key is not found
+     * @return                 ProjectMember A model object, or null if the key is not found
      * @throws PropelException
      */
      public function findOneById($key, $con = null)
@@ -157,12 +161,12 @@ abstract class BaseAccountLogQuery extends ModelCriteria
      * @param     mixed $key Primary key to use for the query
      * @param     PropelPDO $con A connection object
      *
-     * @return                 AccountLog A model object, or null if the key is not found
+     * @return                 ProjectMember A model object, or null if the key is not found
      * @throws PropelException
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT "id", "is_deleted", "updated_at", "deleted_at", "created_at", "title", "account_id", "project_id" FROM "account_log" WHERE "id" = :p0';
+        $sql = 'SELECT "id", "is_deleted", "updated_at", "deleted_at", "created_at", "account_id", "project_id", "auth_level_status_id" FROM "project_member" WHERE "id" = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -173,9 +177,9 @@ abstract class BaseAccountLogQuery extends ModelCriteria
         }
         $obj = null;
         if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $obj = new AccountLog();
+            $obj = new ProjectMember();
             $obj->hydrate($row);
-            AccountLogPeer::addInstanceToPool($obj, (string) $key);
+            ProjectMemberPeer::addInstanceToPool($obj, (string) $key);
         }
         $stmt->closeCursor();
 
@@ -188,7 +192,7 @@ abstract class BaseAccountLogQuery extends ModelCriteria
      * @param     mixed $key Primary key to use for the query
      * @param     PropelPDO $con A connection object
      *
-     * @return AccountLog|AccountLog[]|mixed the result, formatted by the current formatter
+     * @return ProjectMember|ProjectMember[]|mixed the result, formatted by the current formatter
      */
     protected function findPkComplex($key, $con)
     {
@@ -209,7 +213,7 @@ abstract class BaseAccountLogQuery extends ModelCriteria
      * @param     array $keys Primary keys to use for the query
      * @param     PropelPDO $con an optional connection object
      *
-     * @return PropelObjectCollection|AccountLog[]|mixed the list of results, formatted by the current formatter
+     * @return PropelObjectCollection|ProjectMember[]|mixed the list of results, formatted by the current formatter
      */
     public function findPks($keys, $con = null)
     {
@@ -230,12 +234,12 @@ abstract class BaseAccountLogQuery extends ModelCriteria
      *
      * @param     mixed $key Primary key to use for the query
      *
-     * @return AccountLogQuery The current query, for fluid interface
+     * @return ProjectMemberQuery The current query, for fluid interface
      */
     public function filterByPrimaryKey($key)
     {
 
-        return $this->addUsingAlias(AccountLogPeer::ID, $key, Criteria::EQUAL);
+        return $this->addUsingAlias(ProjectMemberPeer::ID, $key, Criteria::EQUAL);
     }
 
     /**
@@ -243,12 +247,12 @@ abstract class BaseAccountLogQuery extends ModelCriteria
      *
      * @param     array $keys The list of primary key to use for the query
      *
-     * @return AccountLogQuery The current query, for fluid interface
+     * @return ProjectMemberQuery The current query, for fluid interface
      */
     public function filterByPrimaryKeys($keys)
     {
 
-        return $this->addUsingAlias(AccountLogPeer::ID, $keys, Criteria::IN);
+        return $this->addUsingAlias(ProjectMemberPeer::ID, $keys, Criteria::IN);
     }
 
     /**
@@ -268,18 +272,18 @@ abstract class BaseAccountLogQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return AccountLogQuery The current query, for fluid interface
+     * @return ProjectMemberQuery The current query, for fluid interface
      */
     public function filterById($id = null, $comparison = null)
     {
         if (is_array($id)) {
             $useMinMax = false;
             if (isset($id['min'])) {
-                $this->addUsingAlias(AccountLogPeer::ID, $id['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(ProjectMemberPeer::ID, $id['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($id['max'])) {
-                $this->addUsingAlias(AccountLogPeer::ID, $id['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(ProjectMemberPeer::ID, $id['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -290,7 +294,7 @@ abstract class BaseAccountLogQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AccountLogPeer::ID, $id, $comparison);
+        return $this->addUsingAlias(ProjectMemberPeer::ID, $id, $comparison);
     }
 
     /**
@@ -310,18 +314,18 @@ abstract class BaseAccountLogQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return AccountLogQuery The current query, for fluid interface
+     * @return ProjectMemberQuery The current query, for fluid interface
      */
     public function filterByIsDeleted($isDeleted = null, $comparison = null)
     {
         if (is_array($isDeleted)) {
             $useMinMax = false;
             if (isset($isDeleted['min'])) {
-                $this->addUsingAlias(AccountLogPeer::IS_DELETED, $isDeleted['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(ProjectMemberPeer::IS_DELETED, $isDeleted['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($isDeleted['max'])) {
-                $this->addUsingAlias(AccountLogPeer::IS_DELETED, $isDeleted['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(ProjectMemberPeer::IS_DELETED, $isDeleted['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -332,7 +336,7 @@ abstract class BaseAccountLogQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AccountLogPeer::IS_DELETED, $isDeleted, $comparison);
+        return $this->addUsingAlias(ProjectMemberPeer::IS_DELETED, $isDeleted, $comparison);
     }
 
     /**
@@ -353,18 +357,18 @@ abstract class BaseAccountLogQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return AccountLogQuery The current query, for fluid interface
+     * @return ProjectMemberQuery The current query, for fluid interface
      */
     public function filterByUpdatedAt($updatedAt = null, $comparison = null)
     {
         if (is_array($updatedAt)) {
             $useMinMax = false;
             if (isset($updatedAt['min'])) {
-                $this->addUsingAlias(AccountLogPeer::UPDATED_AT, $updatedAt['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(ProjectMemberPeer::UPDATED_AT, $updatedAt['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($updatedAt['max'])) {
-                $this->addUsingAlias(AccountLogPeer::UPDATED_AT, $updatedAt['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(ProjectMemberPeer::UPDATED_AT, $updatedAt['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -375,7 +379,7 @@ abstract class BaseAccountLogQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AccountLogPeer::UPDATED_AT, $updatedAt, $comparison);
+        return $this->addUsingAlias(ProjectMemberPeer::UPDATED_AT, $updatedAt, $comparison);
     }
 
     /**
@@ -396,18 +400,18 @@ abstract class BaseAccountLogQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return AccountLogQuery The current query, for fluid interface
+     * @return ProjectMemberQuery The current query, for fluid interface
      */
     public function filterByDeletedAt($deletedAt = null, $comparison = null)
     {
         if (is_array($deletedAt)) {
             $useMinMax = false;
             if (isset($deletedAt['min'])) {
-                $this->addUsingAlias(AccountLogPeer::DELETED_AT, $deletedAt['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(ProjectMemberPeer::DELETED_AT, $deletedAt['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($deletedAt['max'])) {
-                $this->addUsingAlias(AccountLogPeer::DELETED_AT, $deletedAt['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(ProjectMemberPeer::DELETED_AT, $deletedAt['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -418,7 +422,7 @@ abstract class BaseAccountLogQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AccountLogPeer::DELETED_AT, $deletedAt, $comparison);
+        return $this->addUsingAlias(ProjectMemberPeer::DELETED_AT, $deletedAt, $comparison);
     }
 
     /**
@@ -439,18 +443,18 @@ abstract class BaseAccountLogQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return AccountLogQuery The current query, for fluid interface
+     * @return ProjectMemberQuery The current query, for fluid interface
      */
     public function filterByCreatedAt($createdAt = null, $comparison = null)
     {
         if (is_array($createdAt)) {
             $useMinMax = false;
             if (isset($createdAt['min'])) {
-                $this->addUsingAlias(AccountLogPeer::CREATED_AT, $createdAt['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(ProjectMemberPeer::CREATED_AT, $createdAt['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($createdAt['max'])) {
-                $this->addUsingAlias(AccountLogPeer::CREATED_AT, $createdAt['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(ProjectMemberPeer::CREATED_AT, $createdAt['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -461,36 +465,7 @@ abstract class BaseAccountLogQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AccountLogPeer::CREATED_AT, $createdAt, $comparison);
-    }
-
-    /**
-     * Filter the query on the title column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByTitle('fooValue');   // WHERE title = 'fooValue'
-     * $query->filterByTitle('%fooValue%'); // WHERE title LIKE '%fooValue%'
-     * </code>
-     *
-     * @param     string $title The value to use as filter.
-     *              Accepts wildcards (* and % trigger a LIKE)
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return AccountLogQuery The current query, for fluid interface
-     */
-    public function filterByTitle($title = null, $comparison = null)
-    {
-        if (null === $comparison) {
-            if (is_array($title)) {
-                $comparison = Criteria::IN;
-            } elseif (preg_match('/[\%\*]/', $title)) {
-                $title = str_replace('*', '%', $title);
-                $comparison = Criteria::LIKE;
-            }
-        }
-
-        return $this->addUsingAlias(AccountLogPeer::TITLE, $title, $comparison);
+        return $this->addUsingAlias(ProjectMemberPeer::CREATED_AT, $createdAt, $comparison);
     }
 
     /**
@@ -512,18 +487,18 @@ abstract class BaseAccountLogQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return AccountLogQuery The current query, for fluid interface
+     * @return ProjectMemberQuery The current query, for fluid interface
      */
     public function filterByAccountId($accountId = null, $comparison = null)
     {
         if (is_array($accountId)) {
             $useMinMax = false;
             if (isset($accountId['min'])) {
-                $this->addUsingAlias(AccountLogPeer::ACCOUNT_ID, $accountId['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(ProjectMemberPeer::ACCOUNT_ID, $accountId['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($accountId['max'])) {
-                $this->addUsingAlias(AccountLogPeer::ACCOUNT_ID, $accountId['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(ProjectMemberPeer::ACCOUNT_ID, $accountId['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -534,7 +509,7 @@ abstract class BaseAccountLogQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AccountLogPeer::ACCOUNT_ID, $accountId, $comparison);
+        return $this->addUsingAlias(ProjectMemberPeer::ACCOUNT_ID, $accountId, $comparison);
     }
 
     /**
@@ -556,18 +531,18 @@ abstract class BaseAccountLogQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return AccountLogQuery The current query, for fluid interface
+     * @return ProjectMemberQuery The current query, for fluid interface
      */
     public function filterByProjectId($projectId = null, $comparison = null)
     {
         if (is_array($projectId)) {
             $useMinMax = false;
             if (isset($projectId['min'])) {
-                $this->addUsingAlias(AccountLogPeer::PROJECT_ID, $projectId['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(ProjectMemberPeer::PROJECT_ID, $projectId['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($projectId['max'])) {
-                $this->addUsingAlias(AccountLogPeer::PROJECT_ID, $projectId['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(ProjectMemberPeer::PROJECT_ID, $projectId['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -578,7 +553,51 @@ abstract class BaseAccountLogQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AccountLogPeer::PROJECT_ID, $projectId, $comparison);
+        return $this->addUsingAlias(ProjectMemberPeer::PROJECT_ID, $projectId, $comparison);
+    }
+
+    /**
+     * Filter the query on the auth_level_status_id column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByAuthLevelStatusId(1234); // WHERE auth_level_status_id = 1234
+     * $query->filterByAuthLevelStatusId(array(12, 34)); // WHERE auth_level_status_id IN (12, 34)
+     * $query->filterByAuthLevelStatusId(array('min' => 12)); // WHERE auth_level_status_id >= 12
+     * $query->filterByAuthLevelStatusId(array('max' => 12)); // WHERE auth_level_status_id <= 12
+     * </code>
+     *
+     * @see       filterByAuthLevelStatus()
+     *
+     * @param     mixed $authLevelStatusId The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ProjectMemberQuery The current query, for fluid interface
+     */
+    public function filterByAuthLevelStatusId($authLevelStatusId = null, $comparison = null)
+    {
+        if (is_array($authLevelStatusId)) {
+            $useMinMax = false;
+            if (isset($authLevelStatusId['min'])) {
+                $this->addUsingAlias(ProjectMemberPeer::AUTH_LEVEL_STATUS_ID, $authLevelStatusId['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($authLevelStatusId['max'])) {
+                $this->addUsingAlias(ProjectMemberPeer::AUTH_LEVEL_STATUS_ID, $authLevelStatusId['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(ProjectMemberPeer::AUTH_LEVEL_STATUS_ID, $authLevelStatusId, $comparison);
     }
 
     /**
@@ -587,21 +606,21 @@ abstract class BaseAccountLogQuery extends ModelCriteria
      * @param   Account|PropelObjectCollection $account The related object(s) to use as filter
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return                 AccountLogQuery The current query, for fluid interface
+     * @return                 ProjectMemberQuery The current query, for fluid interface
      * @throws PropelException - if the provided filter is invalid.
      */
     public function filterByAccount($account, $comparison = null)
     {
         if ($account instanceof Account) {
             return $this
-                ->addUsingAlias(AccountLogPeer::ACCOUNT_ID, $account->getId(), $comparison);
+                ->addUsingAlias(ProjectMemberPeer::ACCOUNT_ID, $account->getId(), $comparison);
         } elseif ($account instanceof PropelObjectCollection) {
             if (null === $comparison) {
                 $comparison = Criteria::IN;
             }
 
             return $this
-                ->addUsingAlias(AccountLogPeer::ACCOUNT_ID, $account->toKeyValue('PrimaryKey', 'Id'), $comparison);
+                ->addUsingAlias(ProjectMemberPeer::ACCOUNT_ID, $account->toKeyValue('PrimaryKey', 'Id'), $comparison);
         } else {
             throw new PropelException('filterByAccount() only accepts arguments of type Account or PropelCollection');
         }
@@ -613,7 +632,7 @@ abstract class BaseAccountLogQuery extends ModelCriteria
      * @param     string $relationAlias optional alias for the relation
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return AccountLogQuery The current query, for fluid interface
+     * @return ProjectMemberQuery The current query, for fluid interface
      */
     public function joinAccount($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
     {
@@ -663,21 +682,21 @@ abstract class BaseAccountLogQuery extends ModelCriteria
      * @param   Project|PropelObjectCollection $project The related object(s) to use as filter
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return                 AccountLogQuery The current query, for fluid interface
+     * @return                 ProjectMemberQuery The current query, for fluid interface
      * @throws PropelException - if the provided filter is invalid.
      */
     public function filterByProject($project, $comparison = null)
     {
         if ($project instanceof Project) {
             return $this
-                ->addUsingAlias(AccountLogPeer::PROJECT_ID, $project->getId(), $comparison);
+                ->addUsingAlias(ProjectMemberPeer::PROJECT_ID, $project->getId(), $comparison);
         } elseif ($project instanceof PropelObjectCollection) {
             if (null === $comparison) {
                 $comparison = Criteria::IN;
             }
 
             return $this
-                ->addUsingAlias(AccountLogPeer::PROJECT_ID, $project->toKeyValue('PrimaryKey', 'Id'), $comparison);
+                ->addUsingAlias(ProjectMemberPeer::PROJECT_ID, $project->toKeyValue('PrimaryKey', 'Id'), $comparison);
         } else {
             throw new PropelException('filterByProject() only accepts arguments of type Project or PropelCollection');
         }
@@ -689,7 +708,7 @@ abstract class BaseAccountLogQuery extends ModelCriteria
      * @param     string $relationAlias optional alias for the relation
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return AccountLogQuery The current query, for fluid interface
+     * @return ProjectMemberQuery The current query, for fluid interface
      */
     public function joinProject($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
     {
@@ -734,16 +753,92 @@ abstract class BaseAccountLogQuery extends ModelCriteria
     }
 
     /**
+     * Filter the query by a related AuthLevelStatus object
+     *
+     * @param   AuthLevelStatus|PropelObjectCollection $authLevelStatus The related object(s) to use as filter
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return                 ProjectMemberQuery The current query, for fluid interface
+     * @throws PropelException - if the provided filter is invalid.
+     */
+    public function filterByAuthLevelStatus($authLevelStatus, $comparison = null)
+    {
+        if ($authLevelStatus instanceof AuthLevelStatus) {
+            return $this
+                ->addUsingAlias(ProjectMemberPeer::AUTH_LEVEL_STATUS_ID, $authLevelStatus->getId(), $comparison);
+        } elseif ($authLevelStatus instanceof PropelObjectCollection) {
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+
+            return $this
+                ->addUsingAlias(ProjectMemberPeer::AUTH_LEVEL_STATUS_ID, $authLevelStatus->toKeyValue('PrimaryKey', 'Id'), $comparison);
+        } else {
+            throw new PropelException('filterByAuthLevelStatus() only accepts arguments of type AuthLevelStatus or PropelCollection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the AuthLevelStatus relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return ProjectMemberQuery The current query, for fluid interface
+     */
+    public function joinAuthLevelStatus($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('AuthLevelStatus');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'AuthLevelStatus');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the AuthLevelStatus relation AuthLevelStatus object
+     *
+     * @see       useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return   AuthLevelStatusQuery A secondary query class using the current class as primary query
+     */
+    public function useAuthLevelStatusQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        return $this
+            ->joinAuthLevelStatus($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'AuthLevelStatus', 'AuthLevelStatusQuery');
+    }
+
+    /**
      * Exclude object from result
      *
-     * @param   AccountLog $accountLog Object to remove from the list of results
+     * @param   ProjectMember $projectMember Object to remove from the list of results
      *
-     * @return AccountLogQuery The current query, for fluid interface
+     * @return ProjectMemberQuery The current query, for fluid interface
      */
-    public function prune($accountLog = null)
+    public function prune($projectMember = null)
     {
-        if ($accountLog) {
-            $this->addUsingAlias(AccountLogPeer::ID, $accountLog->getId(), Criteria::NOT_EQUAL);
+        if ($projectMember) {
+            $this->addUsingAlias(ProjectMemberPeer::ID, $projectMember->getId(), Criteria::NOT_EQUAL);
         }
 
         return $this;

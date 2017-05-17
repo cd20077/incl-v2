@@ -1,15 +1,15 @@
 <?php
 
 /**
- * AccountLog form base class.
+ * Project form base class.
  *
- * @method AccountLog getObject() Returns the current form's model object
+ * @method Project getObject() Returns the current form's model object
  *
  * @package    incl2
  * @subpackage form
  * @author     Your name here
  */
-abstract class BaseAccountLogForm extends BaseFormPropel
+abstract class BaseProjectForm extends BaseFormPropel
 {
   public function setup()
   {
@@ -19,9 +19,12 @@ abstract class BaseAccountLogForm extends BaseFormPropel
       'updated_at' => new sfWidgetFormDateTime(),
       'deleted_at' => new sfWidgetFormDateTime(),
       'created_at' => new sfWidgetFormDateTime(),
-      'title'      => new sfWidgetFormInputText(),
+      'name'       => new sfWidgetFormInputText(),
+      'maxcapa'    => new sfWidgetFormInputText(),
+      'precapa'    => new sfWidgetFormInputText(),
+      'backimg'    => new sfWidgetFormInputText(),
+      'ranid'      => new sfWidgetFormInputText(),
       'account_id' => new sfWidgetFormPropelChoice(array('model' => 'Account', 'add_empty' => true)),
-      'project_id' => new sfWidgetFormPropelChoice(array('model' => 'Project', 'add_empty' => true)),
     ));
 
     $this->setValidators(array(
@@ -30,12 +33,15 @@ abstract class BaseAccountLogForm extends BaseFormPropel
       'updated_at' => new sfValidatorDateTime(array('required' => false)),
       'deleted_at' => new sfValidatorDateTime(array('required' => false)),
       'created_at' => new sfValidatorDateTime(),
-      'title'      => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'name'       => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'maxcapa'    => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
+      'precapa'    => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
+      'backimg'    => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'ranid'      => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'account_id' => new sfValidatorPropelChoice(array('model' => 'Account', 'column' => 'id', 'required' => false)),
-      'project_id' => new sfValidatorPropelChoice(array('model' => 'Project', 'column' => 'id', 'required' => false)),
     ));
 
-    $this->widgetSchema->setNameFormat('account_log[%s]');
+    $this->widgetSchema->setNameFormat('project[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
@@ -44,7 +50,7 @@ abstract class BaseAccountLogForm extends BaseFormPropel
 
   public function getModelName()
   {
-    return 'AccountLog';
+    return 'Project';
   }
 
 

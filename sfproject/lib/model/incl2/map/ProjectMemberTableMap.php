@@ -3,7 +3,7 @@
 
 
 /**
- * This class defines the structure of the 'account_log' table.
+ * This class defines the structure of the 'project_member' table.
  *
  *
  *
@@ -14,13 +14,13 @@
  *
  * @package    propel.generator.lib.model.incl2.map
  */
-class AccountLogTableMap extends TableMap
+class ProjectMemberTableMap extends TableMap
 {
 
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = 'lib.model.incl2.map.AccountLogTableMap';
+    const CLASS_NAME = 'lib.model.incl2.map.ProjectMemberTableMap';
 
     /**
      * Initialize the table attributes, columns and validators
@@ -32,21 +32,21 @@ class AccountLogTableMap extends TableMap
     public function initialize()
     {
         // attributes
-        $this->setName('account_log');
-        $this->setPhpName('AccountLog');
-        $this->setClassname('AccountLog');
+        $this->setName('project_member');
+        $this->setPhpName('ProjectMember');
+        $this->setClassname('ProjectMember');
         $this->setPackage('lib.model.incl2');
         $this->setUseIdGenerator(true);
-        $this->setPrimaryKeyMethodInfo('account_log_id_seq');
+        $this->setPrimaryKeyMethodInfo('project_member_id_seq');
         // columns
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
         $this->addColumn('is_deleted', 'IsDeleted', 'SMALLINT', true, null, 0);
         $this->addColumn('updated_at', 'UpdatedAt', 'TIMESTAMP', false, null, null);
         $this->addColumn('deleted_at', 'DeletedAt', 'TIMESTAMP', false, null, null);
         $this->addColumn('created_at', 'CreatedAt', 'TIMESTAMP', true, null, null);
-        $this->addColumn('title', 'Title', 'VARCHAR', false, 255, null);
         $this->addForeignKey('account_id', 'AccountId', 'INTEGER', 'account', 'id', false, null, null);
         $this->addForeignKey('project_id', 'ProjectId', 'INTEGER', 'project', 'id', false, null, null);
+        $this->addForeignKey('auth_level_status_id', 'AuthLevelStatusId', 'INTEGER', 'auth_level_status', 'id', false, null, 1);
         // validators
     } // initialize()
 
@@ -57,6 +57,7 @@ class AccountLogTableMap extends TableMap
     {
         $this->addRelation('Account', 'Account', RelationMap::MANY_TO_ONE, array('account_id' => 'id', ), 'RESTRICT', 'RESTRICT');
         $this->addRelation('Project', 'Project', RelationMap::MANY_TO_ONE, array('project_id' => 'id', ), 'RESTRICT', 'RESTRICT');
+        $this->addRelation('AuthLevelStatus', 'AuthLevelStatus', RelationMap::MANY_TO_ONE, array('auth_level_status_id' => 'id', ), 'RESTRICT', 'RESTRICT');
     } // buildRelations()
 
     /**
@@ -81,4 +82,4 @@ class AccountLogTableMap extends TableMap
         );
     } // getBehaviors()
 
-} // AccountLogTableMap
+} // ProjectMemberTableMap

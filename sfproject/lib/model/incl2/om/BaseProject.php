@@ -2,24 +2,24 @@
 
 
 /**
- * Base class that represents a row from the 'account' table.
+ * Base class that represents a row from the 'project' table.
  *
  *
  *
  * @package    propel.generator.lib.model.incl2.om
  */
-abstract class BaseAccount extends BaseObject implements Persistent
+abstract class BaseProject extends BaseObject implements Persistent
 {
     /**
      * Peer class name
      */
-    const PEER = 'AccountPeer';
+    const PEER = 'ProjectPeer';
 
     /**
      * The Peer class.
      * Instance provides a convenient way of calling static methods on a class
      * that calling code may not be able to identify.
-     * @var        AccountPeer
+     * @var        ProjectPeer
      */
     protected static $peer;
 
@@ -67,30 +67,6 @@ abstract class BaseAccount extends BaseObject implements Persistent
     protected $name;
 
     /**
-     * The value for the mail field.
-     * @var        string
-     */
-    protected $mail;
-
-    /**
-     * The value for the password field.
-     * @var        string
-     */
-    protected $password;
-
-    /**
-     * The value for the accountimg field.
-     * @var        string
-     */
-    protected $accountimg;
-
-    /**
-     * The value for the backimg field.
-     * @var        string
-     */
-    protected $backimg;
-
-    /**
      * The value for the maxcapa field.
      * Note: this column has a database default value of: 209715200
      * @var        int
@@ -105,35 +81,27 @@ abstract class BaseAccount extends BaseObject implements Persistent
     protected $precapa;
 
     /**
-     * The value for the account_status_id field.
-     * Note: this column has a database default value of: 1
-     * @var        int
-     */
-    protected $account_status_id;
-
-    /**
-     * The value for the provisional_key field.
+     * The value for the backimg field.
      * @var        string
      */
-    protected $provisional_key;
+    protected $backimg;
 
     /**
-     * The value for the randid field.
+     * The value for the ranid field.
      * @var        string
      */
-    protected $randid;
+    protected $ranid;
 
     /**
-     * The value for the langid field.
-     * Note: this column has a database default value of: 1
+     * The value for the account_id field.
      * @var        int
      */
-    protected $langid;
+    protected $account_id;
 
     /**
-     * @var        AccountStatus
+     * @var        Account
      */
-    protected $aAccountStatus;
+    protected $aAccount;
 
     /**
      * @var        PropelObjectCollection|AccountLog[] Collection to store aggregation of AccountLog objects.
@@ -146,12 +114,6 @@ abstract class BaseAccount extends BaseObject implements Persistent
      */
     protected $collContents;
     protected $collContentsPartial;
-
-    /**
-     * @var        PropelObjectCollection|Project[] Collection to store aggregation of Project objects.
-     */
-    protected $collProjects;
-    protected $collProjectsPartial;
 
     /**
      * @var        PropelObjectCollection|ProjectMember[] Collection to store aggregation of ProjectMember objects.
@@ -195,12 +157,6 @@ abstract class BaseAccount extends BaseObject implements Persistent
      * An array of objects scheduled for deletion.
      * @var		PropelObjectCollection
      */
-    protected $projectsScheduledForDeletion = null;
-
-    /**
-     * An array of objects scheduled for deletion.
-     * @var		PropelObjectCollection
-     */
     protected $projectMembersScheduledForDeletion = null;
 
     /**
@@ -214,12 +170,10 @@ abstract class BaseAccount extends BaseObject implements Persistent
         $this->is_deleted = 0;
         $this->maxcapa = 209715200;
         $this->precapa = 0;
-        $this->account_status_id = 1;
-        $this->langid = 1;
     }
 
     /**
-     * Initializes internal state of BaseAccount object.
+     * Initializes internal state of BaseProject object.
      * @see        applyDefaults()
      */
     public function __construct()
@@ -367,50 +321,6 @@ abstract class BaseAccount extends BaseObject implements Persistent
     }
 
     /**
-     * Get the [mail] column value.
-     *
-     * @return string
-     */
-    public function getMail()
-    {
-
-        return $this->mail;
-    }
-
-    /**
-     * Get the [password] column value.
-     *
-     * @return string
-     */
-    public function getPassword()
-    {
-
-        return $this->password;
-    }
-
-    /**
-     * Get the [accountimg] column value.
-     *
-     * @return string
-     */
-    public function getAccountimg()
-    {
-
-        return $this->accountimg;
-    }
-
-    /**
-     * Get the [backimg] column value.
-     *
-     * @return string
-     */
-    public function getBackimg()
-    {
-
-        return $this->backimg;
-    }
-
-    /**
      * Get the [maxcapa] column value.
      *
      * @return int
@@ -433,54 +343,43 @@ abstract class BaseAccount extends BaseObject implements Persistent
     }
 
     /**
-     * Get the [account_status_id] column value.
-     *
-     * @return int
-     */
-    public function getAccountStatusId()
-    {
-
-        return $this->account_status_id;
-    }
-
-    /**
-     * Get the [provisional_key] column value.
+     * Get the [backimg] column value.
      *
      * @return string
      */
-    public function getProvisionalKey()
+    public function getBackimg()
     {
 
-        return $this->provisional_key;
+        return $this->backimg;
     }
 
     /**
-     * Get the [randid] column value.
+     * Get the [ranid] column value.
      *
      * @return string
      */
-    public function getRandid()
+    public function getRanid()
     {
 
-        return $this->randid;
+        return $this->ranid;
     }
 
     /**
-     * Get the [langid] column value.
+     * Get the [account_id] column value.
      *
      * @return int
      */
-    public function getLangid()
+    public function getAccountId()
     {
 
-        return $this->langid;
+        return $this->account_id;
     }
 
     /**
      * Set the value of [id] column.
      *
      * @param  int $v new value
-     * @return Account The current object (for fluent API support)
+     * @return Project The current object (for fluent API support)
      */
     public function setId($v)
     {
@@ -490,7 +389,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
 
         if ($this->id !== $v) {
             $this->id = $v;
-            $this->modifiedColumns[] = AccountPeer::ID;
+            $this->modifiedColumns[] = ProjectPeer::ID;
         }
 
 
@@ -501,7 +400,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
      * Set the value of [is_deleted] column.
      *
      * @param  int $v new value
-     * @return Account The current object (for fluent API support)
+     * @return Project The current object (for fluent API support)
      */
     public function setIsDeleted($v)
     {
@@ -511,7 +410,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
 
         if ($this->is_deleted !== $v) {
             $this->is_deleted = $v;
-            $this->modifiedColumns[] = AccountPeer::IS_DELETED;
+            $this->modifiedColumns[] = ProjectPeer::IS_DELETED;
         }
 
 
@@ -523,7 +422,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
      *
      * @param mixed $v string, integer (timestamp), or DateTime value.
      *               Empty strings are treated as null.
-     * @return Account The current object (for fluent API support)
+     * @return Project The current object (for fluent API support)
      */
     public function setUpdatedAt($v)
     {
@@ -533,7 +432,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
             $newDateAsString = $dt ? $dt->format('Y-m-d H:i:s') : null;
             if ($currentDateAsString !== $newDateAsString) {
                 $this->updated_at = $newDateAsString;
-                $this->modifiedColumns[] = AccountPeer::UPDATED_AT;
+                $this->modifiedColumns[] = ProjectPeer::UPDATED_AT;
             }
         } // if either are not null
 
@@ -546,7 +445,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
      *
      * @param mixed $v string, integer (timestamp), or DateTime value.
      *               Empty strings are treated as null.
-     * @return Account The current object (for fluent API support)
+     * @return Project The current object (for fluent API support)
      */
     public function setDeletedAt($v)
     {
@@ -556,7 +455,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
             $newDateAsString = $dt ? $dt->format('Y-m-d H:i:s') : null;
             if ($currentDateAsString !== $newDateAsString) {
                 $this->deleted_at = $newDateAsString;
-                $this->modifiedColumns[] = AccountPeer::DELETED_AT;
+                $this->modifiedColumns[] = ProjectPeer::DELETED_AT;
             }
         } // if either are not null
 
@@ -569,7 +468,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
      *
      * @param mixed $v string, integer (timestamp), or DateTime value.
      *               Empty strings are treated as null.
-     * @return Account The current object (for fluent API support)
+     * @return Project The current object (for fluent API support)
      */
     public function setCreatedAt($v)
     {
@@ -579,7 +478,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
             $newDateAsString = $dt ? $dt->format('Y-m-d H:i:s') : null;
             if ($currentDateAsString !== $newDateAsString) {
                 $this->created_at = $newDateAsString;
-                $this->modifiedColumns[] = AccountPeer::CREATED_AT;
+                $this->modifiedColumns[] = ProjectPeer::CREATED_AT;
             }
         } // if either are not null
 
@@ -591,7 +490,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
      * Set the value of [name] column.
      *
      * @param  string $v new value
-     * @return Account The current object (for fluent API support)
+     * @return Project The current object (for fluent API support)
      */
     public function setName($v)
     {
@@ -601,7 +500,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
 
         if ($this->name !== $v) {
             $this->name = $v;
-            $this->modifiedColumns[] = AccountPeer::NAME;
+            $this->modifiedColumns[] = ProjectPeer::NAME;
         }
 
 
@@ -609,94 +508,10 @@ abstract class BaseAccount extends BaseObject implements Persistent
     } // setName()
 
     /**
-     * Set the value of [mail] column.
-     *
-     * @param  string $v new value
-     * @return Account The current object (for fluent API support)
-     */
-    public function setMail($v)
-    {
-        if ($v !== null) {
-            $v = (string) $v;
-        }
-
-        if ($this->mail !== $v) {
-            $this->mail = $v;
-            $this->modifiedColumns[] = AccountPeer::MAIL;
-        }
-
-
-        return $this;
-    } // setMail()
-
-    /**
-     * Set the value of [password] column.
-     *
-     * @param  string $v new value
-     * @return Account The current object (for fluent API support)
-     */
-    public function setPassword($v)
-    {
-        if ($v !== null) {
-            $v = (string) $v;
-        }
-
-        if ($this->password !== $v) {
-            $this->password = $v;
-            $this->modifiedColumns[] = AccountPeer::PASSWORD;
-        }
-
-
-        return $this;
-    } // setPassword()
-
-    /**
-     * Set the value of [accountimg] column.
-     *
-     * @param  string $v new value
-     * @return Account The current object (for fluent API support)
-     */
-    public function setAccountimg($v)
-    {
-        if ($v !== null) {
-            $v = (string) $v;
-        }
-
-        if ($this->accountimg !== $v) {
-            $this->accountimg = $v;
-            $this->modifiedColumns[] = AccountPeer::ACCOUNTIMG;
-        }
-
-
-        return $this;
-    } // setAccountimg()
-
-    /**
-     * Set the value of [backimg] column.
-     *
-     * @param  string $v new value
-     * @return Account The current object (for fluent API support)
-     */
-    public function setBackimg($v)
-    {
-        if ($v !== null) {
-            $v = (string) $v;
-        }
-
-        if ($this->backimg !== $v) {
-            $this->backimg = $v;
-            $this->modifiedColumns[] = AccountPeer::BACKIMG;
-        }
-
-
-        return $this;
-    } // setBackimg()
-
-    /**
      * Set the value of [maxcapa] column.
      *
      * @param  int $v new value
-     * @return Account The current object (for fluent API support)
+     * @return Project The current object (for fluent API support)
      */
     public function setMaxcapa($v)
     {
@@ -706,7 +521,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
 
         if ($this->maxcapa !== $v) {
             $this->maxcapa = $v;
-            $this->modifiedColumns[] = AccountPeer::MAXCAPA;
+            $this->modifiedColumns[] = ProjectPeer::MAXCAPA;
         }
 
 
@@ -717,7 +532,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
      * Set the value of [precapa] column.
      *
      * @param  int $v new value
-     * @return Account The current object (for fluent API support)
+     * @return Project The current object (for fluent API support)
      */
     public function setPrecapa($v)
     {
@@ -727,7 +542,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
 
         if ($this->precapa !== $v) {
             $this->precapa = $v;
-            $this->modifiedColumns[] = AccountPeer::PRECAPA;
+            $this->modifiedColumns[] = ProjectPeer::PRECAPA;
         }
 
 
@@ -735,92 +550,71 @@ abstract class BaseAccount extends BaseObject implements Persistent
     } // setPrecapa()
 
     /**
-     * Set the value of [account_status_id] column.
-     *
-     * @param  int $v new value
-     * @return Account The current object (for fluent API support)
-     */
-    public function setAccountStatusId($v)
-    {
-        if ($v !== null && is_numeric($v)) {
-            $v = (int) $v;
-        }
-
-        if ($this->account_status_id !== $v) {
-            $this->account_status_id = $v;
-            $this->modifiedColumns[] = AccountPeer::ACCOUNT_STATUS_ID;
-        }
-
-        if ($this->aAccountStatus !== null && $this->aAccountStatus->getId() !== $v) {
-            $this->aAccountStatus = null;
-        }
-
-
-        return $this;
-    } // setAccountStatusId()
-
-    /**
-     * Set the value of [provisional_key] column.
+     * Set the value of [backimg] column.
      *
      * @param  string $v new value
-     * @return Account The current object (for fluent API support)
+     * @return Project The current object (for fluent API support)
      */
-    public function setProvisionalKey($v)
+    public function setBackimg($v)
     {
         if ($v !== null) {
             $v = (string) $v;
         }
 
-        if ($this->provisional_key !== $v) {
-            $this->provisional_key = $v;
-            $this->modifiedColumns[] = AccountPeer::PROVISIONAL_KEY;
+        if ($this->backimg !== $v) {
+            $this->backimg = $v;
+            $this->modifiedColumns[] = ProjectPeer::BACKIMG;
         }
 
 
         return $this;
-    } // setProvisionalKey()
+    } // setBackimg()
 
     /**
-     * Set the value of [randid] column.
+     * Set the value of [ranid] column.
      *
      * @param  string $v new value
-     * @return Account The current object (for fluent API support)
+     * @return Project The current object (for fluent API support)
      */
-    public function setRandid($v)
+    public function setRanid($v)
     {
         if ($v !== null) {
             $v = (string) $v;
         }
 
-        if ($this->randid !== $v) {
-            $this->randid = $v;
-            $this->modifiedColumns[] = AccountPeer::RANDID;
+        if ($this->ranid !== $v) {
+            $this->ranid = $v;
+            $this->modifiedColumns[] = ProjectPeer::RANID;
         }
 
 
         return $this;
-    } // setRandid()
+    } // setRanid()
 
     /**
-     * Set the value of [langid] column.
+     * Set the value of [account_id] column.
      *
      * @param  int $v new value
-     * @return Account The current object (for fluent API support)
+     * @return Project The current object (for fluent API support)
      */
-    public function setLangid($v)
+    public function setAccountId($v)
     {
         if ($v !== null && is_numeric($v)) {
             $v = (int) $v;
         }
 
-        if ($this->langid !== $v) {
-            $this->langid = $v;
-            $this->modifiedColumns[] = AccountPeer::LANGID;
+        if ($this->account_id !== $v) {
+            $this->account_id = $v;
+            $this->modifiedColumns[] = ProjectPeer::ACCOUNT_ID;
+        }
+
+        if ($this->aAccount !== null && $this->aAccount->getId() !== $v) {
+            $this->aAccount = null;
         }
 
 
         return $this;
-    } // setLangid()
+    } // setAccountId()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -841,14 +635,6 @@ abstract class BaseAccount extends BaseObject implements Persistent
             }
 
             if ($this->precapa !== 0) {
-                return false;
-            }
-
-            if ($this->account_status_id !== 1) {
-                return false;
-            }
-
-            if ($this->langid !== 1) {
                 return false;
             }
 
@@ -880,16 +666,11 @@ abstract class BaseAccount extends BaseObject implements Persistent
             $this->deleted_at = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
             $this->created_at = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
             $this->name = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
-            $this->mail = ($row[$startcol + 6] !== null) ? (string) $row[$startcol + 6] : null;
-            $this->password = ($row[$startcol + 7] !== null) ? (string) $row[$startcol + 7] : null;
-            $this->accountimg = ($row[$startcol + 8] !== null) ? (string) $row[$startcol + 8] : null;
-            $this->backimg = ($row[$startcol + 9] !== null) ? (string) $row[$startcol + 9] : null;
-            $this->maxcapa = ($row[$startcol + 10] !== null) ? (int) $row[$startcol + 10] : null;
-            $this->precapa = ($row[$startcol + 11] !== null) ? (int) $row[$startcol + 11] : null;
-            $this->account_status_id = ($row[$startcol + 12] !== null) ? (int) $row[$startcol + 12] : null;
-            $this->provisional_key = ($row[$startcol + 13] !== null) ? (string) $row[$startcol + 13] : null;
-            $this->randid = ($row[$startcol + 14] !== null) ? (string) $row[$startcol + 14] : null;
-            $this->langid = ($row[$startcol + 15] !== null) ? (int) $row[$startcol + 15] : null;
+            $this->maxcapa = ($row[$startcol + 6] !== null) ? (int) $row[$startcol + 6] : null;
+            $this->precapa = ($row[$startcol + 7] !== null) ? (int) $row[$startcol + 7] : null;
+            $this->backimg = ($row[$startcol + 8] !== null) ? (string) $row[$startcol + 8] : null;
+            $this->ranid = ($row[$startcol + 9] !== null) ? (string) $row[$startcol + 9] : null;
+            $this->account_id = ($row[$startcol + 10] !== null) ? (int) $row[$startcol + 10] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -899,10 +680,10 @@ abstract class BaseAccount extends BaseObject implements Persistent
             }
             $this->postHydrate($row, $startcol, $rehydrate);
 
-            return $startcol + 16; // 16 = AccountPeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 11; // 11 = ProjectPeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
-            throw new PropelException("Error populating Account object", $e);
+            throw new PropelException("Error populating Project object", $e);
         }
     }
 
@@ -922,8 +703,8 @@ abstract class BaseAccount extends BaseObject implements Persistent
     public function ensureConsistency()
     {
 
-        if ($this->aAccountStatus !== null && $this->account_status_id !== $this->aAccountStatus->getId()) {
-            $this->aAccountStatus = null;
+        if ($this->aAccount !== null && $this->account_id !== $this->aAccount->getId()) {
+            $this->aAccount = null;
         }
     } // ensureConsistency
 
@@ -948,13 +729,13 @@ abstract class BaseAccount extends BaseObject implements Persistent
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(AccountPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(ProjectPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
         // We don't need to alter the object instance pool; we're just modifying this instance
         // already in the pool.
 
-        $stmt = AccountPeer::doSelectStmt($this->buildPkeyCriteria(), $con);
+        $stmt = ProjectPeer::doSelectStmt($this->buildPkeyCriteria(), $con);
         $row = $stmt->fetch(PDO::FETCH_NUM);
         $stmt->closeCursor();
         if (!$row) {
@@ -964,12 +745,10 @@ abstract class BaseAccount extends BaseObject implements Persistent
 
         if ($deep) {  // also de-associate any related objects?
 
-            $this->aAccountStatus = null;
+            $this->aAccount = null;
             $this->collAccountLogs = null;
 
             $this->collContents = null;
-
-            $this->collProjects = null;
 
             $this->collProjectMembers = null;
 
@@ -993,16 +772,16 @@ abstract class BaseAccount extends BaseObject implements Persistent
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(AccountPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(ProjectPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         $con->beginTransaction();
         try {
-            $deleteQuery = AccountQuery::create()
+            $deleteQuery = ProjectQuery::create()
                 ->filterByPrimaryKey($this->getPrimaryKey());
             $ret = $this->preDelete($con);
             // symfony_behaviors behavior
-            foreach (sfMixer::getCallables('BaseAccount:delete:pre') as $callable)
+            foreach (sfMixer::getCallables('BaseProject:delete:pre') as $callable)
             {
               if (call_user_func($callable, $this, $con))
               {
@@ -1015,7 +794,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
                 $deleteQuery->delete($con);
                 $this->postDelete($con);
                 // symfony_behaviors behavior
-                foreach (sfMixer::getCallables('BaseAccount:delete:post') as $callable)
+                foreach (sfMixer::getCallables('BaseProject:delete:post') as $callable)
                 {
                   call_user_func($callable, $this, $con);
                 }
@@ -1052,7 +831,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(AccountPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(ProjectPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         $con->beginTransaction();
@@ -1060,7 +839,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
         try {
             $ret = $this->preSave($con);
             // symfony_behaviors behavior
-            foreach (sfMixer::getCallables('BaseAccount:save:pre') as $callable)
+            foreach (sfMixer::getCallables('BaseProject:save:pre') as $callable)
             {
               if (is_integer($affectedRows = call_user_func($callable, $this, $con)))
               {
@@ -1070,14 +849,14 @@ abstract class BaseAccount extends BaseObject implements Persistent
             }
 
             // symfony_timestampable behavior
-            if ($this->isModified() && !$this->isColumnModified(AccountPeer::UPDATED_AT))
+            if ($this->isModified() && !$this->isColumnModified(ProjectPeer::UPDATED_AT))
             {
                 $this->setUpdatedAt(time());
             }
             if ($isInsert) {
                 $ret = $ret && $this->preInsert($con);
                 // symfony_timestampable behavior
-                if (!$this->isColumnModified(AccountPeer::CREATED_AT))
+                if (!$this->isColumnModified(ProjectPeer::CREATED_AT))
                 {
                   $this->setCreatedAt(time());
                 }
@@ -1094,12 +873,12 @@ abstract class BaseAccount extends BaseObject implements Persistent
                 }
                 $this->postSave($con);
                 // symfony_behaviors behavior
-                foreach (sfMixer::getCallables('BaseAccount:save:post') as $callable)
+                foreach (sfMixer::getCallables('BaseProject:save:post') as $callable)
                 {
                   call_user_func($callable, $this, $con, $affectedRows);
                 }
 
-                AccountPeer::addInstanceToPool($this);
+                ProjectPeer::addInstanceToPool($this);
             } else {
                 $affectedRows = 0;
             }
@@ -1134,11 +913,11 @@ abstract class BaseAccount extends BaseObject implements Persistent
             // method.  This object relates to these object(s) by a
             // foreign key reference.
 
-            if ($this->aAccountStatus !== null) {
-                if ($this->aAccountStatus->isModified() || $this->aAccountStatus->isNew()) {
-                    $affectedRows += $this->aAccountStatus->save($con);
+            if ($this->aAccount !== null) {
+                if ($this->aAccount->isModified() || $this->aAccount->isNew()) {
+                    $affectedRows += $this->aAccount->save($con);
                 }
-                $this->setAccountStatus($this->aAccountStatus);
+                $this->setAccount($this->aAccount);
             }
 
             if ($this->isNew() || $this->isModified()) {
@@ -1188,24 +967,6 @@ abstract class BaseAccount extends BaseObject implements Persistent
                 }
             }
 
-            if ($this->projectsScheduledForDeletion !== null) {
-                if (!$this->projectsScheduledForDeletion->isEmpty()) {
-                    foreach ($this->projectsScheduledForDeletion as $project) {
-                        // need to save related object because we set the relation to null
-                        $project->save($con);
-                    }
-                    $this->projectsScheduledForDeletion = null;
-                }
-            }
-
-            if ($this->collProjects !== null) {
-                foreach ($this->collProjects as $referrerFK) {
-                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
-                        $affectedRows += $referrerFK->save($con);
-                    }
-                }
-            }
-
             if ($this->projectMembersScheduledForDeletion !== null) {
                 if (!$this->projectMembersScheduledForDeletion->isEmpty()) {
                     foreach ($this->projectMembersScheduledForDeletion as $projectMember) {
@@ -1244,13 +1005,13 @@ abstract class BaseAccount extends BaseObject implements Persistent
         $modifiedColumns = array();
         $index = 0;
 
-        $this->modifiedColumns[] = AccountPeer::ID;
+        $this->modifiedColumns[] = ProjectPeer::ID;
         if (null !== $this->id) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key (' . AccountPeer::ID . ')');
+            throw new PropelException('Cannot insert a value for auto-increment primary key (' . ProjectPeer::ID . ')');
         }
         if (null === $this->id) {
             try {
-                $stmt = $con->query("SELECT nextval('account_id_seq')");
+                $stmt = $con->query("SELECT nextval('project_id_seq')");
                 $row = $stmt->fetch(PDO::FETCH_NUM);
                 $this->id = $row[0];
             } catch (Exception $e) {
@@ -1260,57 +1021,42 @@ abstract class BaseAccount extends BaseObject implements Persistent
 
 
          // check the columns in natural order for more readable SQL queries
-        if ($this->isColumnModified(AccountPeer::ID)) {
+        if ($this->isColumnModified(ProjectPeer::ID)) {
             $modifiedColumns[':p' . $index++]  = '"id"';
         }
-        if ($this->isColumnModified(AccountPeer::IS_DELETED)) {
+        if ($this->isColumnModified(ProjectPeer::IS_DELETED)) {
             $modifiedColumns[':p' . $index++]  = '"is_deleted"';
         }
-        if ($this->isColumnModified(AccountPeer::UPDATED_AT)) {
+        if ($this->isColumnModified(ProjectPeer::UPDATED_AT)) {
             $modifiedColumns[':p' . $index++]  = '"updated_at"';
         }
-        if ($this->isColumnModified(AccountPeer::DELETED_AT)) {
+        if ($this->isColumnModified(ProjectPeer::DELETED_AT)) {
             $modifiedColumns[':p' . $index++]  = '"deleted_at"';
         }
-        if ($this->isColumnModified(AccountPeer::CREATED_AT)) {
+        if ($this->isColumnModified(ProjectPeer::CREATED_AT)) {
             $modifiedColumns[':p' . $index++]  = '"created_at"';
         }
-        if ($this->isColumnModified(AccountPeer::NAME)) {
+        if ($this->isColumnModified(ProjectPeer::NAME)) {
             $modifiedColumns[':p' . $index++]  = '"name"';
         }
-        if ($this->isColumnModified(AccountPeer::MAIL)) {
-            $modifiedColumns[':p' . $index++]  = '"mail"';
-        }
-        if ($this->isColumnModified(AccountPeer::PASSWORD)) {
-            $modifiedColumns[':p' . $index++]  = '"password"';
-        }
-        if ($this->isColumnModified(AccountPeer::ACCOUNTIMG)) {
-            $modifiedColumns[':p' . $index++]  = '"accountimg"';
-        }
-        if ($this->isColumnModified(AccountPeer::BACKIMG)) {
-            $modifiedColumns[':p' . $index++]  = '"backimg"';
-        }
-        if ($this->isColumnModified(AccountPeer::MAXCAPA)) {
+        if ($this->isColumnModified(ProjectPeer::MAXCAPA)) {
             $modifiedColumns[':p' . $index++]  = '"maxcapa"';
         }
-        if ($this->isColumnModified(AccountPeer::PRECAPA)) {
+        if ($this->isColumnModified(ProjectPeer::PRECAPA)) {
             $modifiedColumns[':p' . $index++]  = '"precapa"';
         }
-        if ($this->isColumnModified(AccountPeer::ACCOUNT_STATUS_ID)) {
-            $modifiedColumns[':p' . $index++]  = '"account_status_id"';
+        if ($this->isColumnModified(ProjectPeer::BACKIMG)) {
+            $modifiedColumns[':p' . $index++]  = '"backimg"';
         }
-        if ($this->isColumnModified(AccountPeer::PROVISIONAL_KEY)) {
-            $modifiedColumns[':p' . $index++]  = '"provisional_key"';
+        if ($this->isColumnModified(ProjectPeer::RANID)) {
+            $modifiedColumns[':p' . $index++]  = '"ranid"';
         }
-        if ($this->isColumnModified(AccountPeer::RANDID)) {
-            $modifiedColumns[':p' . $index++]  = '"randid"';
-        }
-        if ($this->isColumnModified(AccountPeer::LANGID)) {
-            $modifiedColumns[':p' . $index++]  = '"langid"';
+        if ($this->isColumnModified(ProjectPeer::ACCOUNT_ID)) {
+            $modifiedColumns[':p' . $index++]  = '"account_id"';
         }
 
         $sql = sprintf(
-            'INSERT INTO "account" (%s) VALUES (%s)',
+            'INSERT INTO "project" (%s) VALUES (%s)',
             implode(', ', $modifiedColumns),
             implode(', ', array_keys($modifiedColumns))
         );
@@ -1337,35 +1083,20 @@ abstract class BaseAccount extends BaseObject implements Persistent
                     case '"name"':
                         $stmt->bindValue($identifier, $this->name, PDO::PARAM_STR);
                         break;
-                    case '"mail"':
-                        $stmt->bindValue($identifier, $this->mail, PDO::PARAM_STR);
-                        break;
-                    case '"password"':
-                        $stmt->bindValue($identifier, $this->password, PDO::PARAM_STR);
-                        break;
-                    case '"accountimg"':
-                        $stmt->bindValue($identifier, $this->accountimg, PDO::PARAM_STR);
-                        break;
-                    case '"backimg"':
-                        $stmt->bindValue($identifier, $this->backimg, PDO::PARAM_STR);
-                        break;
                     case '"maxcapa"':
                         $stmt->bindValue($identifier, $this->maxcapa, PDO::PARAM_INT);
                         break;
                     case '"precapa"':
                         $stmt->bindValue($identifier, $this->precapa, PDO::PARAM_INT);
                         break;
-                    case '"account_status_id"':
-                        $stmt->bindValue($identifier, $this->account_status_id, PDO::PARAM_INT);
+                    case '"backimg"':
+                        $stmt->bindValue($identifier, $this->backimg, PDO::PARAM_STR);
                         break;
-                    case '"provisional_key"':
-                        $stmt->bindValue($identifier, $this->provisional_key, PDO::PARAM_STR);
+                    case '"ranid"':
+                        $stmt->bindValue($identifier, $this->ranid, PDO::PARAM_STR);
                         break;
-                    case '"randid"':
-                        $stmt->bindValue($identifier, $this->randid, PDO::PARAM_STR);
-                        break;
-                    case '"langid"':
-                        $stmt->bindValue($identifier, $this->langid, PDO::PARAM_INT);
+                    case '"account_id"':
+                        $stmt->bindValue($identifier, $this->account_id, PDO::PARAM_INT);
                         break;
                 }
             }
@@ -1459,14 +1190,14 @@ abstract class BaseAccount extends BaseObject implements Persistent
             // method.  This object relates to these object(s) by a
             // foreign key reference.
 
-            if ($this->aAccountStatus !== null) {
-                if (!$this->aAccountStatus->validate($columns)) {
-                    $failureMap = array_merge($failureMap, $this->aAccountStatus->getValidationFailures());
+            if ($this->aAccount !== null) {
+                if (!$this->aAccount->validate($columns)) {
+                    $failureMap = array_merge($failureMap, $this->aAccount->getValidationFailures());
                 }
             }
 
 
-            if (($retval = AccountPeer::doValidate($this, $columns)) !== true) {
+            if (($retval = ProjectPeer::doValidate($this, $columns)) !== true) {
                 $failureMap = array_merge($failureMap, $retval);
             }
 
@@ -1481,14 +1212,6 @@ abstract class BaseAccount extends BaseObject implements Persistent
 
                 if ($this->collContents !== null) {
                     foreach ($this->collContents as $referrerFK) {
-                        if (!$referrerFK->validate($columns)) {
-                            $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
-                        }
-                    }
-                }
-
-                if ($this->collProjects !== null) {
-                    foreach ($this->collProjects as $referrerFK) {
                         if (!$referrerFK->validate($columns)) {
                             $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
                         }
@@ -1522,7 +1245,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
      */
     public function getByName($name, $type = BasePeer::TYPE_PHPNAME)
     {
-        $pos = AccountPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+        $pos = ProjectPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
         $field = $this->getByPosition($pos);
 
         return $field;
@@ -1557,34 +1280,19 @@ abstract class BaseAccount extends BaseObject implements Persistent
                 return $this->getName();
                 break;
             case 6:
-                return $this->getMail();
-                break;
-            case 7:
-                return $this->getPassword();
-                break;
-            case 8:
-                return $this->getAccountimg();
-                break;
-            case 9:
-                return $this->getBackimg();
-                break;
-            case 10:
                 return $this->getMaxcapa();
                 break;
-            case 11:
+            case 7:
                 return $this->getPrecapa();
                 break;
-            case 12:
-                return $this->getAccountStatusId();
+            case 8:
+                return $this->getBackimg();
                 break;
-            case 13:
-                return $this->getProvisionalKey();
+            case 9:
+                return $this->getRanid();
                 break;
-            case 14:
-                return $this->getRandid();
-                break;
-            case 15:
-                return $this->getLangid();
+            case 10:
+                return $this->getAccountId();
                 break;
             default:
                 return null;
@@ -1609,11 +1317,11 @@ abstract class BaseAccount extends BaseObject implements Persistent
      */
     public function toArray($keyType = BasePeer::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array(), $includeForeignObjects = false)
     {
-        if (isset($alreadyDumpedObjects['Account'][$this->getPrimaryKey()])) {
+        if (isset($alreadyDumpedObjects['Project'][$this->getPrimaryKey()])) {
             return '*RECURSION*';
         }
-        $alreadyDumpedObjects['Account'][$this->getPrimaryKey()] = true;
-        $keys = AccountPeer::getFieldNames($keyType);
+        $alreadyDumpedObjects['Project'][$this->getPrimaryKey()] = true;
+        $keys = ProjectPeer::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getId(),
             $keys[1] => $this->getIsDeleted(),
@@ -1621,16 +1329,11 @@ abstract class BaseAccount extends BaseObject implements Persistent
             $keys[3] => $this->getDeletedAt(),
             $keys[4] => $this->getCreatedAt(),
             $keys[5] => $this->getName(),
-            $keys[6] => $this->getMail(),
-            $keys[7] => $this->getPassword(),
-            $keys[8] => $this->getAccountimg(),
-            $keys[9] => $this->getBackimg(),
-            $keys[10] => $this->getMaxcapa(),
-            $keys[11] => $this->getPrecapa(),
-            $keys[12] => $this->getAccountStatusId(),
-            $keys[13] => $this->getProvisionalKey(),
-            $keys[14] => $this->getRandid(),
-            $keys[15] => $this->getLangid(),
+            $keys[6] => $this->getMaxcapa(),
+            $keys[7] => $this->getPrecapa(),
+            $keys[8] => $this->getBackimg(),
+            $keys[9] => $this->getRanid(),
+            $keys[10] => $this->getAccountId(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -1638,17 +1341,14 @@ abstract class BaseAccount extends BaseObject implements Persistent
         }
 
         if ($includeForeignObjects) {
-            if (null !== $this->aAccountStatus) {
-                $result['AccountStatus'] = $this->aAccountStatus->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            if (null !== $this->aAccount) {
+                $result['Account'] = $this->aAccount->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
             }
             if (null !== $this->collAccountLogs) {
                 $result['AccountLogs'] = $this->collAccountLogs->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
             if (null !== $this->collContents) {
                 $result['Contents'] = $this->collContents->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
-            }
-            if (null !== $this->collProjects) {
-                $result['Projects'] = $this->collProjects->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
             if (null !== $this->collProjectMembers) {
                 $result['ProjectMembers'] = $this->collProjectMembers->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
@@ -1671,7 +1371,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
      */
     public function setByName($name, $value, $type = BasePeer::TYPE_PHPNAME)
     {
-        $pos = AccountPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+        $pos = ProjectPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
 
         $this->setByPosition($pos, $value);
     }
@@ -1706,34 +1406,19 @@ abstract class BaseAccount extends BaseObject implements Persistent
                 $this->setName($value);
                 break;
             case 6:
-                $this->setMail($value);
-                break;
-            case 7:
-                $this->setPassword($value);
-                break;
-            case 8:
-                $this->setAccountimg($value);
-                break;
-            case 9:
-                $this->setBackimg($value);
-                break;
-            case 10:
                 $this->setMaxcapa($value);
                 break;
-            case 11:
+            case 7:
                 $this->setPrecapa($value);
                 break;
-            case 12:
-                $this->setAccountStatusId($value);
+            case 8:
+                $this->setBackimg($value);
                 break;
-            case 13:
-                $this->setProvisionalKey($value);
+            case 9:
+                $this->setRanid($value);
                 break;
-            case 14:
-                $this->setRandid($value);
-                break;
-            case 15:
-                $this->setLangid($value);
+            case 10:
+                $this->setAccountId($value);
                 break;
         } // switch()
     }
@@ -1757,7 +1442,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
      */
     public function fromArray($arr, $keyType = BasePeer::TYPE_PHPNAME)
     {
-        $keys = AccountPeer::getFieldNames($keyType);
+        $keys = ProjectPeer::getFieldNames($keyType);
 
         if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
         if (array_key_exists($keys[1], $arr)) $this->setIsDeleted($arr[$keys[1]]);
@@ -1765,16 +1450,11 @@ abstract class BaseAccount extends BaseObject implements Persistent
         if (array_key_exists($keys[3], $arr)) $this->setDeletedAt($arr[$keys[3]]);
         if (array_key_exists($keys[4], $arr)) $this->setCreatedAt($arr[$keys[4]]);
         if (array_key_exists($keys[5], $arr)) $this->setName($arr[$keys[5]]);
-        if (array_key_exists($keys[6], $arr)) $this->setMail($arr[$keys[6]]);
-        if (array_key_exists($keys[7], $arr)) $this->setPassword($arr[$keys[7]]);
-        if (array_key_exists($keys[8], $arr)) $this->setAccountimg($arr[$keys[8]]);
-        if (array_key_exists($keys[9], $arr)) $this->setBackimg($arr[$keys[9]]);
-        if (array_key_exists($keys[10], $arr)) $this->setMaxcapa($arr[$keys[10]]);
-        if (array_key_exists($keys[11], $arr)) $this->setPrecapa($arr[$keys[11]]);
-        if (array_key_exists($keys[12], $arr)) $this->setAccountStatusId($arr[$keys[12]]);
-        if (array_key_exists($keys[13], $arr)) $this->setProvisionalKey($arr[$keys[13]]);
-        if (array_key_exists($keys[14], $arr)) $this->setRandid($arr[$keys[14]]);
-        if (array_key_exists($keys[15], $arr)) $this->setLangid($arr[$keys[15]]);
+        if (array_key_exists($keys[6], $arr)) $this->setMaxcapa($arr[$keys[6]]);
+        if (array_key_exists($keys[7], $arr)) $this->setPrecapa($arr[$keys[7]]);
+        if (array_key_exists($keys[8], $arr)) $this->setBackimg($arr[$keys[8]]);
+        if (array_key_exists($keys[9], $arr)) $this->setRanid($arr[$keys[9]]);
+        if (array_key_exists($keys[10], $arr)) $this->setAccountId($arr[$keys[10]]);
     }
 
     /**
@@ -1784,24 +1464,19 @@ abstract class BaseAccount extends BaseObject implements Persistent
      */
     public function buildCriteria()
     {
-        $criteria = new Criteria(AccountPeer::DATABASE_NAME);
+        $criteria = new Criteria(ProjectPeer::DATABASE_NAME);
 
-        if ($this->isColumnModified(AccountPeer::ID)) $criteria->add(AccountPeer::ID, $this->id);
-        if ($this->isColumnModified(AccountPeer::IS_DELETED)) $criteria->add(AccountPeer::IS_DELETED, $this->is_deleted);
-        if ($this->isColumnModified(AccountPeer::UPDATED_AT)) $criteria->add(AccountPeer::UPDATED_AT, $this->updated_at);
-        if ($this->isColumnModified(AccountPeer::DELETED_AT)) $criteria->add(AccountPeer::DELETED_AT, $this->deleted_at);
-        if ($this->isColumnModified(AccountPeer::CREATED_AT)) $criteria->add(AccountPeer::CREATED_AT, $this->created_at);
-        if ($this->isColumnModified(AccountPeer::NAME)) $criteria->add(AccountPeer::NAME, $this->name);
-        if ($this->isColumnModified(AccountPeer::MAIL)) $criteria->add(AccountPeer::MAIL, $this->mail);
-        if ($this->isColumnModified(AccountPeer::PASSWORD)) $criteria->add(AccountPeer::PASSWORD, $this->password);
-        if ($this->isColumnModified(AccountPeer::ACCOUNTIMG)) $criteria->add(AccountPeer::ACCOUNTIMG, $this->accountimg);
-        if ($this->isColumnModified(AccountPeer::BACKIMG)) $criteria->add(AccountPeer::BACKIMG, $this->backimg);
-        if ($this->isColumnModified(AccountPeer::MAXCAPA)) $criteria->add(AccountPeer::MAXCAPA, $this->maxcapa);
-        if ($this->isColumnModified(AccountPeer::PRECAPA)) $criteria->add(AccountPeer::PRECAPA, $this->precapa);
-        if ($this->isColumnModified(AccountPeer::ACCOUNT_STATUS_ID)) $criteria->add(AccountPeer::ACCOUNT_STATUS_ID, $this->account_status_id);
-        if ($this->isColumnModified(AccountPeer::PROVISIONAL_KEY)) $criteria->add(AccountPeer::PROVISIONAL_KEY, $this->provisional_key);
-        if ($this->isColumnModified(AccountPeer::RANDID)) $criteria->add(AccountPeer::RANDID, $this->randid);
-        if ($this->isColumnModified(AccountPeer::LANGID)) $criteria->add(AccountPeer::LANGID, $this->langid);
+        if ($this->isColumnModified(ProjectPeer::ID)) $criteria->add(ProjectPeer::ID, $this->id);
+        if ($this->isColumnModified(ProjectPeer::IS_DELETED)) $criteria->add(ProjectPeer::IS_DELETED, $this->is_deleted);
+        if ($this->isColumnModified(ProjectPeer::UPDATED_AT)) $criteria->add(ProjectPeer::UPDATED_AT, $this->updated_at);
+        if ($this->isColumnModified(ProjectPeer::DELETED_AT)) $criteria->add(ProjectPeer::DELETED_AT, $this->deleted_at);
+        if ($this->isColumnModified(ProjectPeer::CREATED_AT)) $criteria->add(ProjectPeer::CREATED_AT, $this->created_at);
+        if ($this->isColumnModified(ProjectPeer::NAME)) $criteria->add(ProjectPeer::NAME, $this->name);
+        if ($this->isColumnModified(ProjectPeer::MAXCAPA)) $criteria->add(ProjectPeer::MAXCAPA, $this->maxcapa);
+        if ($this->isColumnModified(ProjectPeer::PRECAPA)) $criteria->add(ProjectPeer::PRECAPA, $this->precapa);
+        if ($this->isColumnModified(ProjectPeer::BACKIMG)) $criteria->add(ProjectPeer::BACKIMG, $this->backimg);
+        if ($this->isColumnModified(ProjectPeer::RANID)) $criteria->add(ProjectPeer::RANID, $this->ranid);
+        if ($this->isColumnModified(ProjectPeer::ACCOUNT_ID)) $criteria->add(ProjectPeer::ACCOUNT_ID, $this->account_id);
 
         return $criteria;
     }
@@ -1816,8 +1491,8 @@ abstract class BaseAccount extends BaseObject implements Persistent
      */
     public function buildPkeyCriteria()
     {
-        $criteria = new Criteria(AccountPeer::DATABASE_NAME);
-        $criteria->add(AccountPeer::ID, $this->id);
+        $criteria = new Criteria(ProjectPeer::DATABASE_NAME);
+        $criteria->add(ProjectPeer::ID, $this->id);
 
         return $criteria;
     }
@@ -1858,7 +1533,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
      * If desired, this method can also make copies of all associated (fkey referrers)
      * objects.
      *
-     * @param object $copyObj An object of Account (or compatible) type.
+     * @param object $copyObj An object of Project (or compatible) type.
      * @param boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
      * @param boolean $makeNew Whether to reset autoincrement PKs and make the object new.
      * @throws PropelException
@@ -1870,16 +1545,11 @@ abstract class BaseAccount extends BaseObject implements Persistent
         $copyObj->setDeletedAt($this->getDeletedAt());
         $copyObj->setCreatedAt($this->getCreatedAt());
         $copyObj->setName($this->getName());
-        $copyObj->setMail($this->getMail());
-        $copyObj->setPassword($this->getPassword());
-        $copyObj->setAccountimg($this->getAccountimg());
-        $copyObj->setBackimg($this->getBackimg());
         $copyObj->setMaxcapa($this->getMaxcapa());
         $copyObj->setPrecapa($this->getPrecapa());
-        $copyObj->setAccountStatusId($this->getAccountStatusId());
-        $copyObj->setProvisionalKey($this->getProvisionalKey());
-        $copyObj->setRandid($this->getRandid());
-        $copyObj->setLangid($this->getLangid());
+        $copyObj->setBackimg($this->getBackimg());
+        $copyObj->setRanid($this->getRanid());
+        $copyObj->setAccountId($this->getAccountId());
 
         if ($deepCopy && !$this->startCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -1897,12 +1567,6 @@ abstract class BaseAccount extends BaseObject implements Persistent
             foreach ($this->getContents() as $relObj) {
                 if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
                     $copyObj->addContent($relObj->copy($deepCopy));
-                }
-            }
-
-            foreach ($this->getProjects() as $relObj) {
-                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-                    $copyObj->addProject($relObj->copy($deepCopy));
                 }
             }
 
@@ -1931,7 +1595,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
      * objects.
      *
      * @param boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-     * @return Account Clone of current object.
+     * @return Project Clone of current object.
      * @throws PropelException
      */
     public function copy($deepCopy = false)
@@ -1951,38 +1615,38 @@ abstract class BaseAccount extends BaseObject implements Persistent
      * same instance for all member of this class. The method could therefore
      * be static, but this would prevent one from overriding the behavior.
      *
-     * @return AccountPeer
+     * @return ProjectPeer
      */
     public function getPeer()
     {
         if (self::$peer === null) {
-            self::$peer = new AccountPeer();
+            self::$peer = new ProjectPeer();
         }
 
         return self::$peer;
     }
 
     /**
-     * Declares an association between this object and a AccountStatus object.
+     * Declares an association between this object and a Account object.
      *
-     * @param                  AccountStatus $v
-     * @return Account The current object (for fluent API support)
+     * @param                  Account $v
+     * @return Project The current object (for fluent API support)
      * @throws PropelException
      */
-    public function setAccountStatus(AccountStatus $v = null)
+    public function setAccount(Account $v = null)
     {
         if ($v === null) {
-            $this->setAccountStatusId(1);
+            $this->setAccountId(NULL);
         } else {
-            $this->setAccountStatusId($v->getId());
+            $this->setAccountId($v->getId());
         }
 
-        $this->aAccountStatus = $v;
+        $this->aAccount = $v;
 
         // Add binding for other direction of this n:n relationship.
-        // If this object has already been added to the AccountStatus object, it will not be re-added.
+        // If this object has already been added to the Account object, it will not be re-added.
         if ($v !== null) {
-            $v->addAccount($this);
+            $v->addProject($this);
         }
 
 
@@ -1991,27 +1655,27 @@ abstract class BaseAccount extends BaseObject implements Persistent
 
 
     /**
-     * Get the associated AccountStatus object
+     * Get the associated Account object
      *
      * @param PropelPDO $con Optional Connection object.
      * @param $doQuery Executes a query to get the object if required
-     * @return AccountStatus The associated AccountStatus object.
+     * @return Account The associated Account object.
      * @throws PropelException
      */
-    public function getAccountStatus(PropelPDO $con = null, $doQuery = true)
+    public function getAccount(PropelPDO $con = null, $doQuery = true)
     {
-        if ($this->aAccountStatus === null && ($this->account_status_id !== null) && $doQuery) {
-            $this->aAccountStatus = AccountStatusQuery::create()->findPk($this->account_status_id, $con);
+        if ($this->aAccount === null && ($this->account_id !== null) && $doQuery) {
+            $this->aAccount = AccountQuery::create()->findPk($this->account_id, $con);
             /* The following can be used additionally to
                 guarantee the related object contains a reference
                 to this object.  This level of coupling may, however, be
                 undesirable since it could result in an only partially populated collection
                 in the referenced object.
-                $this->aAccountStatus->addAccounts($this);
+                $this->aAccount->addProjects($this);
              */
         }
 
-        return $this->aAccountStatus;
+        return $this->aAccount;
     }
 
 
@@ -2031,9 +1695,6 @@ abstract class BaseAccount extends BaseObject implements Persistent
         if ('Content' == $relationName) {
             $this->initContents();
         }
-        if ('Project' == $relationName) {
-            $this->initProjects();
-        }
         if ('ProjectMember' == $relationName) {
             $this->initProjectMembers();
         }
@@ -2045,7 +1706,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
      * This does not modify the database; however, it will remove any associated objects, causing
      * them to be refetched by subsequent calls to accessor method.
      *
-     * @return Account The current object (for fluent API support)
+     * @return Project The current object (for fluent API support)
      * @see        addAccountLogs()
      */
     public function clearAccountLogs()
@@ -2093,7 +1754,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
      * If the $criteria is not null, it is used to always fetch the results from the database.
      * Otherwise the results are fetched from the database the first time, then cached.
      * Next time the same method is called without $criteria, the cached collection is returned.
-     * If this Account is new, it will return
+     * If this Project is new, it will return
      * an empty collection or the current collection; the criteria is ignored on a new object.
      *
      * @param Criteria $criteria optional Criteria object to narrow the query
@@ -2110,7 +1771,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
                 $this->initAccountLogs();
             } else {
                 $collAccountLogs = AccountLogQuery::create(null, $criteria)
-                    ->filterByAccount($this)
+                    ->filterByProject($this)
                     ->find($con);
                 if (null !== $criteria) {
                     if (false !== $this->collAccountLogsPartial && count($collAccountLogs)) {
@@ -2154,7 +1815,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
      *
      * @param PropelCollection $accountLogs A Propel collection.
      * @param PropelPDO $con Optional connection object
-     * @return Account The current object (for fluent API support)
+     * @return Project The current object (for fluent API support)
      */
     public function setAccountLogs(PropelCollection $accountLogs, PropelPDO $con = null)
     {
@@ -2164,7 +1825,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
         $this->accountLogsScheduledForDeletion = $accountLogsToDelete;
 
         foreach ($accountLogsToDelete as $accountLogRemoved) {
-            $accountLogRemoved->setAccount(null);
+            $accountLogRemoved->setProject(null);
         }
 
         $this->collAccountLogs = null;
@@ -2204,7 +1865,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
             }
 
             return $query
-                ->filterByAccount($this)
+                ->filterByProject($this)
                 ->count($con);
         }
 
@@ -2216,7 +1877,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
      * through the AccountLog foreign key attribute.
      *
      * @param    AccountLog $l AccountLog
-     * @return Account The current object (for fluent API support)
+     * @return Project The current object (for fluent API support)
      */
     public function addAccountLog(AccountLog $l)
     {
@@ -2242,12 +1903,12 @@ abstract class BaseAccount extends BaseObject implements Persistent
     protected function doAddAccountLog($accountLog)
     {
         $this->collAccountLogs[]= $accountLog;
-        $accountLog->setAccount($this);
+        $accountLog->setProject($this);
     }
 
     /**
      * @param	AccountLog $accountLog The accountLog object to remove.
-     * @return Account The current object (for fluent API support)
+     * @return Project The current object (for fluent API support)
      */
     public function removeAccountLog($accountLog)
     {
@@ -2258,7 +1919,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
                 $this->accountLogsScheduledForDeletion->clear();
             }
             $this->accountLogsScheduledForDeletion[]= $accountLog;
-            $accountLog->setAccount(null);
+            $accountLog->setProject(null);
         }
 
         return $this;
@@ -2268,23 +1929,23 @@ abstract class BaseAccount extends BaseObject implements Persistent
     /**
      * If this collection has already been initialized with
      * an identical criteria, it returns the collection.
-     * Otherwise if this Account is new, it will return
-     * an empty collection; or if this Account has previously
+     * Otherwise if this Project is new, it will return
+     * an empty collection; or if this Project has previously
      * been saved, it will retrieve related AccountLogs from storage.
      *
      * This method is protected by default in order to keep the public
      * api reasonable.  You can provide public methods for those you
-     * actually need in Account.
+     * actually need in Project.
      *
      * @param Criteria $criteria optional Criteria object to narrow the query
      * @param PropelPDO $con optional connection object
      * @param string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
      * @return PropelObjectCollection|AccountLog[] List of AccountLog objects
      */
-    public function getAccountLogsJoinProject($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public function getAccountLogsJoinAccount($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
         $query = AccountLogQuery::create(null, $criteria);
-        $query->joinWith('Project', $join_behavior);
+        $query->joinWith('Account', $join_behavior);
 
         return $this->getAccountLogs($query, $con);
     }
@@ -2295,7 +1956,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
      * This does not modify the database; however, it will remove any associated objects, causing
      * them to be refetched by subsequent calls to accessor method.
      *
-     * @return Account The current object (for fluent API support)
+     * @return Project The current object (for fluent API support)
      * @see        addContents()
      */
     public function clearContents()
@@ -2343,7 +2004,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
      * If the $criteria is not null, it is used to always fetch the results from the database.
      * Otherwise the results are fetched from the database the first time, then cached.
      * Next time the same method is called without $criteria, the cached collection is returned.
-     * If this Account is new, it will return
+     * If this Project is new, it will return
      * an empty collection or the current collection; the criteria is ignored on a new object.
      *
      * @param Criteria $criteria optional Criteria object to narrow the query
@@ -2360,7 +2021,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
                 $this->initContents();
             } else {
                 $collContents = ContentQuery::create(null, $criteria)
-                    ->filterByAccount($this)
+                    ->filterByProject($this)
                     ->find($con);
                 if (null !== $criteria) {
                     if (false !== $this->collContentsPartial && count($collContents)) {
@@ -2404,7 +2065,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
      *
      * @param PropelCollection $contents A Propel collection.
      * @param PropelPDO $con Optional connection object
-     * @return Account The current object (for fluent API support)
+     * @return Project The current object (for fluent API support)
      */
     public function setContents(PropelCollection $contents, PropelPDO $con = null)
     {
@@ -2414,7 +2075,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
         $this->contentsScheduledForDeletion = $contentsToDelete;
 
         foreach ($contentsToDelete as $contentRemoved) {
-            $contentRemoved->setAccount(null);
+            $contentRemoved->setProject(null);
         }
 
         $this->collContents = null;
@@ -2454,7 +2115,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
             }
 
             return $query
-                ->filterByAccount($this)
+                ->filterByProject($this)
                 ->count($con);
         }
 
@@ -2466,7 +2127,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
      * through the Content foreign key attribute.
      *
      * @param    Content $l Content
-     * @return Account The current object (for fluent API support)
+     * @return Project The current object (for fluent API support)
      */
     public function addContent(Content $l)
     {
@@ -2492,12 +2153,12 @@ abstract class BaseAccount extends BaseObject implements Persistent
     protected function doAddContent($content)
     {
         $this->collContents[]= $content;
-        $content->setAccount($this);
+        $content->setProject($this);
     }
 
     /**
      * @param	Content $content The content object to remove.
-     * @return Account The current object (for fluent API support)
+     * @return Project The current object (for fluent API support)
      */
     public function removeContent($content)
     {
@@ -2508,7 +2169,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
                 $this->contentsScheduledForDeletion->clear();
             }
             $this->contentsScheduledForDeletion[]= $content;
-            $content->setAccount(null);
+            $content->setProject(null);
         }
 
         return $this;
@@ -2518,23 +2179,23 @@ abstract class BaseAccount extends BaseObject implements Persistent
     /**
      * If this collection has already been initialized with
      * an identical criteria, it returns the collection.
-     * Otherwise if this Account is new, it will return
-     * an empty collection; or if this Account has previously
+     * Otherwise if this Project is new, it will return
+     * an empty collection; or if this Project has previously
      * been saved, it will retrieve related Contents from storage.
      *
      * This method is protected by default in order to keep the public
      * api reasonable.  You can provide public methods for those you
-     * actually need in Account.
+     * actually need in Project.
      *
      * @param Criteria $criteria optional Criteria object to narrow the query
      * @param PropelPDO $con optional connection object
      * @param string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
      * @return PropelObjectCollection|Content[] List of Content objects
      */
-    public function getContentsJoinProject($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public function getContentsJoinAccount($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
         $query = ContentQuery::create(null, $criteria);
-        $query->joinWith('Project', $join_behavior);
+        $query->joinWith('Account', $join_behavior);
 
         return $this->getContents($query, $con);
     }
@@ -2543,13 +2204,13 @@ abstract class BaseAccount extends BaseObject implements Persistent
     /**
      * If this collection has already been initialized with
      * an identical criteria, it returns the collection.
-     * Otherwise if this Account is new, it will return
-     * an empty collection; or if this Account has previously
+     * Otherwise if this Project is new, it will return
+     * an empty collection; or if this Project has previously
      * been saved, it will retrieve related Contents from storage.
      *
      * This method is protected by default in order to keep the public
      * api reasonable.  You can provide public methods for those you
-     * actually need in Account.
+     * actually need in Project.
      *
      * @param Criteria $criteria optional Criteria object to narrow the query
      * @param PropelPDO $con optional connection object
@@ -2568,13 +2229,13 @@ abstract class BaseAccount extends BaseObject implements Persistent
     /**
      * If this collection has already been initialized with
      * an identical criteria, it returns the collection.
-     * Otherwise if this Account is new, it will return
-     * an empty collection; or if this Account has previously
+     * Otherwise if this Project is new, it will return
+     * an empty collection; or if this Project has previously
      * been saved, it will retrieve related Contents from storage.
      *
      * This method is protected by default in order to keep the public
      * api reasonable.  You can provide public methods for those you
-     * actually need in Account.
+     * actually need in Project.
      *
      * @param Criteria $criteria optional Criteria object to narrow the query
      * @param PropelPDO $con optional connection object
@@ -2590,237 +2251,12 @@ abstract class BaseAccount extends BaseObject implements Persistent
     }
 
     /**
-     * Clears out the collProjects collection
-     *
-     * This does not modify the database; however, it will remove any associated objects, causing
-     * them to be refetched by subsequent calls to accessor method.
-     *
-     * @return Account The current object (for fluent API support)
-     * @see        addProjects()
-     */
-    public function clearProjects()
-    {
-        $this->collProjects = null; // important to set this to null since that means it is uninitialized
-        $this->collProjectsPartial = null;
-
-        return $this;
-    }
-
-    /**
-     * reset is the collProjects collection loaded partially
-     *
-     * @return void
-     */
-    public function resetPartialProjects($v = true)
-    {
-        $this->collProjectsPartial = $v;
-    }
-
-    /**
-     * Initializes the collProjects collection.
-     *
-     * By default this just sets the collProjects collection to an empty array (like clearcollProjects());
-     * however, you may wish to override this method in your stub class to provide setting appropriate
-     * to your application -- for example, setting the initial array to the values stored in database.
-     *
-     * @param boolean $overrideExisting If set to true, the method call initializes
-     *                                        the collection even if it is not empty
-     *
-     * @return void
-     */
-    public function initProjects($overrideExisting = true)
-    {
-        if (null !== $this->collProjects && !$overrideExisting) {
-            return;
-        }
-        $this->collProjects = new PropelObjectCollection();
-        $this->collProjects->setModel('Project');
-    }
-
-    /**
-     * Gets an array of Project objects which contain a foreign key that references this object.
-     *
-     * If the $criteria is not null, it is used to always fetch the results from the database.
-     * Otherwise the results are fetched from the database the first time, then cached.
-     * Next time the same method is called without $criteria, the cached collection is returned.
-     * If this Account is new, it will return
-     * an empty collection or the current collection; the criteria is ignored on a new object.
-     *
-     * @param Criteria $criteria optional Criteria object to narrow the query
-     * @param PropelPDO $con optional connection object
-     * @return PropelObjectCollection|Project[] List of Project objects
-     * @throws PropelException
-     */
-    public function getProjects($criteria = null, PropelPDO $con = null)
-    {
-        $partial = $this->collProjectsPartial && !$this->isNew();
-        if (null === $this->collProjects || null !== $criteria  || $partial) {
-            if ($this->isNew() && null === $this->collProjects) {
-                // return empty collection
-                $this->initProjects();
-            } else {
-                $collProjects = ProjectQuery::create(null, $criteria)
-                    ->filterByAccount($this)
-                    ->find($con);
-                if (null !== $criteria) {
-                    if (false !== $this->collProjectsPartial && count($collProjects)) {
-                      $this->initProjects(false);
-
-                      foreach ($collProjects as $obj) {
-                        if (false == $this->collProjects->contains($obj)) {
-                          $this->collProjects->append($obj);
-                        }
-                      }
-
-                      $this->collProjectsPartial = true;
-                    }
-
-                    $collProjects->getInternalIterator()->rewind();
-
-                    return $collProjects;
-                }
-
-                if ($partial && $this->collProjects) {
-                    foreach ($this->collProjects as $obj) {
-                        if ($obj->isNew()) {
-                            $collProjects[] = $obj;
-                        }
-                    }
-                }
-
-                $this->collProjects = $collProjects;
-                $this->collProjectsPartial = false;
-            }
-        }
-
-        return $this->collProjects;
-    }
-
-    /**
-     * Sets a collection of Project objects related by a one-to-many relationship
-     * to the current object.
-     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
-     * and new objects from the given Propel collection.
-     *
-     * @param PropelCollection $projects A Propel collection.
-     * @param PropelPDO $con Optional connection object
-     * @return Account The current object (for fluent API support)
-     */
-    public function setProjects(PropelCollection $projects, PropelPDO $con = null)
-    {
-        $projectsToDelete = $this->getProjects(new Criteria(), $con)->diff($projects);
-
-
-        $this->projectsScheduledForDeletion = $projectsToDelete;
-
-        foreach ($projectsToDelete as $projectRemoved) {
-            $projectRemoved->setAccount(null);
-        }
-
-        $this->collProjects = null;
-        foreach ($projects as $project) {
-            $this->addProject($project);
-        }
-
-        $this->collProjects = $projects;
-        $this->collProjectsPartial = false;
-
-        return $this;
-    }
-
-    /**
-     * Returns the number of related Project objects.
-     *
-     * @param Criteria $criteria
-     * @param boolean $distinct
-     * @param PropelPDO $con
-     * @return int             Count of related Project objects.
-     * @throws PropelException
-     */
-    public function countProjects(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
-    {
-        $partial = $this->collProjectsPartial && !$this->isNew();
-        if (null === $this->collProjects || null !== $criteria || $partial) {
-            if ($this->isNew() && null === $this->collProjects) {
-                return 0;
-            }
-
-            if ($partial && !$criteria) {
-                return count($this->getProjects());
-            }
-            $query = ProjectQuery::create(null, $criteria);
-            if ($distinct) {
-                $query->distinct();
-            }
-
-            return $query
-                ->filterByAccount($this)
-                ->count($con);
-        }
-
-        return count($this->collProjects);
-    }
-
-    /**
-     * Method called to associate a Project object to this object
-     * through the Project foreign key attribute.
-     *
-     * @param    Project $l Project
-     * @return Account The current object (for fluent API support)
-     */
-    public function addProject(Project $l)
-    {
-        if ($this->collProjects === null) {
-            $this->initProjects();
-            $this->collProjectsPartial = true;
-        }
-
-        if (!in_array($l, $this->collProjects->getArrayCopy(), true)) { // only add it if the **same** object is not already associated
-            $this->doAddProject($l);
-
-            if ($this->projectsScheduledForDeletion and $this->projectsScheduledForDeletion->contains($l)) {
-                $this->projectsScheduledForDeletion->remove($this->projectsScheduledForDeletion->search($l));
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param	Project $project The project object to add.
-     */
-    protected function doAddProject($project)
-    {
-        $this->collProjects[]= $project;
-        $project->setAccount($this);
-    }
-
-    /**
-     * @param	Project $project The project object to remove.
-     * @return Account The current object (for fluent API support)
-     */
-    public function removeProject($project)
-    {
-        if ($this->getProjects()->contains($project)) {
-            $this->collProjects->remove($this->collProjects->search($project));
-            if (null === $this->projectsScheduledForDeletion) {
-                $this->projectsScheduledForDeletion = clone $this->collProjects;
-                $this->projectsScheduledForDeletion->clear();
-            }
-            $this->projectsScheduledForDeletion[]= $project;
-            $project->setAccount(null);
-        }
-
-        return $this;
-    }
-
-    /**
      * Clears out the collProjectMembers collection
      *
      * This does not modify the database; however, it will remove any associated objects, causing
      * them to be refetched by subsequent calls to accessor method.
      *
-     * @return Account The current object (for fluent API support)
+     * @return Project The current object (for fluent API support)
      * @see        addProjectMembers()
      */
     public function clearProjectMembers()
@@ -2868,7 +2304,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
      * If the $criteria is not null, it is used to always fetch the results from the database.
      * Otherwise the results are fetched from the database the first time, then cached.
      * Next time the same method is called without $criteria, the cached collection is returned.
-     * If this Account is new, it will return
+     * If this Project is new, it will return
      * an empty collection or the current collection; the criteria is ignored on a new object.
      *
      * @param Criteria $criteria optional Criteria object to narrow the query
@@ -2885,7 +2321,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
                 $this->initProjectMembers();
             } else {
                 $collProjectMembers = ProjectMemberQuery::create(null, $criteria)
-                    ->filterByAccount($this)
+                    ->filterByProject($this)
                     ->find($con);
                 if (null !== $criteria) {
                     if (false !== $this->collProjectMembersPartial && count($collProjectMembers)) {
@@ -2929,7 +2365,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
      *
      * @param PropelCollection $projectMembers A Propel collection.
      * @param PropelPDO $con Optional connection object
-     * @return Account The current object (for fluent API support)
+     * @return Project The current object (for fluent API support)
      */
     public function setProjectMembers(PropelCollection $projectMembers, PropelPDO $con = null)
     {
@@ -2939,7 +2375,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
         $this->projectMembersScheduledForDeletion = $projectMembersToDelete;
 
         foreach ($projectMembersToDelete as $projectMemberRemoved) {
-            $projectMemberRemoved->setAccount(null);
+            $projectMemberRemoved->setProject(null);
         }
 
         $this->collProjectMembers = null;
@@ -2979,7 +2415,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
             }
 
             return $query
-                ->filterByAccount($this)
+                ->filterByProject($this)
                 ->count($con);
         }
 
@@ -2991,7 +2427,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
      * through the ProjectMember foreign key attribute.
      *
      * @param    ProjectMember $l ProjectMember
-     * @return Account The current object (for fluent API support)
+     * @return Project The current object (for fluent API support)
      */
     public function addProjectMember(ProjectMember $l)
     {
@@ -3017,12 +2453,12 @@ abstract class BaseAccount extends BaseObject implements Persistent
     protected function doAddProjectMember($projectMember)
     {
         $this->collProjectMembers[]= $projectMember;
-        $projectMember->setAccount($this);
+        $projectMember->setProject($this);
     }
 
     /**
      * @param	ProjectMember $projectMember The projectMember object to remove.
-     * @return Account The current object (for fluent API support)
+     * @return Project The current object (for fluent API support)
      */
     public function removeProjectMember($projectMember)
     {
@@ -3033,7 +2469,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
                 $this->projectMembersScheduledForDeletion->clear();
             }
             $this->projectMembersScheduledForDeletion[]= $projectMember;
-            $projectMember->setAccount(null);
+            $projectMember->setProject(null);
         }
 
         return $this;
@@ -3043,23 +2479,23 @@ abstract class BaseAccount extends BaseObject implements Persistent
     /**
      * If this collection has already been initialized with
      * an identical criteria, it returns the collection.
-     * Otherwise if this Account is new, it will return
-     * an empty collection; or if this Account has previously
+     * Otherwise if this Project is new, it will return
+     * an empty collection; or if this Project has previously
      * been saved, it will retrieve related ProjectMembers from storage.
      *
      * This method is protected by default in order to keep the public
      * api reasonable.  You can provide public methods for those you
-     * actually need in Account.
+     * actually need in Project.
      *
      * @param Criteria $criteria optional Criteria object to narrow the query
      * @param PropelPDO $con optional connection object
      * @param string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
      * @return PropelObjectCollection|ProjectMember[] List of ProjectMember objects
      */
-    public function getProjectMembersJoinProject($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public function getProjectMembersJoinAccount($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
         $query = ProjectMemberQuery::create(null, $criteria);
-        $query->joinWith('Project', $join_behavior);
+        $query->joinWith('Account', $join_behavior);
 
         return $this->getProjectMembers($query, $con);
     }
@@ -3068,13 +2504,13 @@ abstract class BaseAccount extends BaseObject implements Persistent
     /**
      * If this collection has already been initialized with
      * an identical criteria, it returns the collection.
-     * Otherwise if this Account is new, it will return
-     * an empty collection; or if this Account has previously
+     * Otherwise if this Project is new, it will return
+     * an empty collection; or if this Project has previously
      * been saved, it will retrieve related ProjectMembers from storage.
      *
      * This method is protected by default in order to keep the public
      * api reasonable.  You can provide public methods for those you
-     * actually need in Account.
+     * actually need in Project.
      *
      * @param Criteria $criteria optional Criteria object to narrow the query
      * @param PropelPDO $con optional connection object
@@ -3100,16 +2536,11 @@ abstract class BaseAccount extends BaseObject implements Persistent
         $this->deleted_at = null;
         $this->created_at = null;
         $this->name = null;
-        $this->mail = null;
-        $this->password = null;
-        $this->accountimg = null;
-        $this->backimg = null;
         $this->maxcapa = null;
         $this->precapa = null;
-        $this->account_status_id = null;
-        $this->provisional_key = null;
-        $this->randid = null;
-        $this->langid = null;
+        $this->backimg = null;
+        $this->ranid = null;
+        $this->account_id = null;
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
         $this->alreadyInClearAllReferencesDeep = false;
@@ -3143,18 +2574,13 @@ abstract class BaseAccount extends BaseObject implements Persistent
                     $o->clearAllReferences($deep);
                 }
             }
-            if ($this->collProjects) {
-                foreach ($this->collProjects as $o) {
-                    $o->clearAllReferences($deep);
-                }
-            }
             if ($this->collProjectMembers) {
                 foreach ($this->collProjectMembers as $o) {
                     $o->clearAllReferences($deep);
                 }
             }
-            if ($this->aAccountStatus instanceof Persistent) {
-              $this->aAccountStatus->clearAllReferences($deep);
+            if ($this->aAccount instanceof Persistent) {
+              $this->aAccount->clearAllReferences($deep);
             }
 
             $this->alreadyInClearAllReferencesDeep = false;
@@ -3168,15 +2594,11 @@ abstract class BaseAccount extends BaseObject implements Persistent
             $this->collContents->clearIterator();
         }
         $this->collContents = null;
-        if ($this->collProjects instanceof PropelCollection) {
-            $this->collProjects->clearIterator();
-        }
-        $this->collProjects = null;
         if ($this->collProjectMembers instanceof PropelCollection) {
             $this->collProjectMembers->clearIterator();
         }
         $this->collProjectMembers = null;
-        $this->aAccountStatus = null;
+        $this->aAccount = null;
     }
 
     /**
@@ -3186,7 +2608,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
      */
     public function __toString()
     {
-        return (string) $this->exportTo(AccountPeer::DEFAULT_STRING_FORMAT);
+        return (string) $this->exportTo(ProjectPeer::DEFAULT_STRING_FORMAT);
     }
 
     /**
@@ -3206,7 +2628,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
     {
 
         // symfony_behaviors behavior
-        if ($callable = sfMixer::getCallable('BaseAccount:' . $name))
+        if ($callable = sfMixer::getCallable('BaseProject:' . $name))
         {
           array_unshift($params, $this);
           return call_user_func_array($callable, $params);
