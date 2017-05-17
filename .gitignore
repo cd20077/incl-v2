@@ -2,4 +2,5 @@
 /sfproject/config/*Server
 /sfproject/log/*
 */.DS_Store
+!.gitkeep
 nbproject/
