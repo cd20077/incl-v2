@@ -22,16 +22,16 @@
                 </li>
                 <hr />
                 <li>
-                    <a href="<?php echo url_for('file/index') ?>" class="headli">マイディスプレイ</a>
+                    <a href="<?php echo url_for('@contents') ?>" class="headli">マイディスプレイ</a>
                 </li>
                 <li>
-                    <a href="<?php echo url_for('user/group') ?>" class="headli">プロジェクト</a>
+                    <a href="<?php echo url_for('@project_top') ?>" class="headli">プロジェクト</a>
                 </li>
                 <li>
-                    <a href="<?php echo url_for('other/agreement') ?>" class="headli">利用規約</a>
+                    <a href="<?php echo url_for('@agreement') ?>" class="headli">利用規約</a>
                 </li>
                 <li>
-                    <a href="<?php echo url_for('other/help') ?>" class="headli">ヘルプ</a>
+                    <a href="<?php echo url_for('@help') ?>" class="headli">ヘルプ</a>
                 </li>
                 <li>
                     <a href="<?php echo url_for('@logout') ?>" class="headli">ログアウト</a>

@@ -1,10 +1,10 @@
 <?php
 
 /**
- * user actions.
+ * top actions.
  *
  * @package    incl2
- * @subpackage user
+ * @subpackage top
  */
 class indexAction extends sfAction
 {
@@ -23,11 +23,9 @@ class indexAction extends sfAction
             $this->redirect('@top');
         }
 
-        $accountLogs = $account->getAccountLogs();
         $projects = $account->getProjects();
 
         $this->account = $account;
-        $this->accountLogs = $accountLogs;
         $this->projects = $projects;
 
         return sfView::SUCCESS;

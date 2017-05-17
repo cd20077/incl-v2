@@ -27,8 +27,8 @@ all:
           host:       smtp.gmail.com
           port:       465
           encryption: ssl
-          username:
-          password:
+          username:   nhs20077@gmail.com
+          password:   b19930630
 prod:
   logger:
     class:   sfNoLogger

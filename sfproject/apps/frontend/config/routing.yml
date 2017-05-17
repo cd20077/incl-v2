@@ -34,6 +34,26 @@ user_top:
   url:  /user
   param: { module: user, action: index }
 
+contents:
+  url:  /contents
+  param: { module: contents, action: index }
+
+project_top:
+  url:  /project
+  param: { module: project, action: index }
+
+project_detail:
+  url:  /project/:project_key
+  param: { module: project, action: detail }
+
+help:
+  url:  /help
+  param: { module: other, action: help }
+
+agreement:
+  url:  /agreement
+  param: { module: other, action: agreement }
+
 # generic rules
 # please, remove them by adding more specific rules
 default_index:

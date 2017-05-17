@@ -83,26 +83,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php if (!$groups) {
+                                <?php if (!$projects->count()) {
                                         print '<tr><td colspan="3">'.'現在参加しているプロジェクトはありません'.'</td></tr>';
                                 } else { ?>
-                                    <?php foreach ($groups as $group): ?>
+                                    <?php foreach ($projects as $project): ?>
                                     <tr>
                                         <td>
                                             <a href="<?php echo url_for('@user_top') ?>" class="tableatag">
-                                                <?php echo $group->getName(); ?>
+                                                <?php echo $project->getName(); ?>
                                             </a>
                                             <?php //echo $this->Html->link(h($groupMember['GroupList']['name']), array('controller' => 'GroupMembers', 'action' => 'groupdetail', $groupMember['GroupList']['ranid']), array( 'escape'=>false,'class'=>'tableatag')); ?>
                                         </td>
                                         <td>
                                             <a href="<?php echo url_for('@user_top') ?>" class="tableatag">
-                                                <?php echo $group->getAccountId(); ?>
+                                                <?php echo $project->getAccountId(); ?>
                                             </a>
                                         <?php //echo $this->Html->link(h($groupMember['GroupList']['User']['name']), array('controller' => 'GroupMembers', 'action' => 'groupdetail', $groupMember['GroupList']['ranid']), array( 'escape'=>false,'class'=>'tableatag')); ?>
                                         </td>
                                         <td>
                                             <a href="<?php echo url_for('@user_top') ?>" class="tableatag">
-                                                <?php echo $group->getUpdatedAt(); ?>
+                                                <?php echo $project->getUpdatedAt(); ?>
                                             </a>
                                         <?php //echo $this->Html->link(h($groupMember['GroupList']['modified']), array('controller' => 'GroupMembers', 'action' => 'groupdetail', $groupMember['GroupList']['ranid']), array( 'escape'=>false,'class'=>'tableatag')); ?>
                                         </td>
