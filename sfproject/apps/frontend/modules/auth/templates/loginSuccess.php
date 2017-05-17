@@ -3,18 +3,29 @@
 <link rel="stylesheet" type="text/css" href="/css/./form.css" />
 <!--  /StyleSheet記述  -->
 
-<form action="/auths/login" id="AuthLoginForm" method="post" accept-charset="utf-8">
-    <div style="display:none;">
-        <input type="hidden" name="_method" value="POST"/>
-    </div>
+<form action="<?php echo url_for('@login') ?>" id="AuthLoginForm" method="post" accept-charset="utf-8">
+    <?php echo $form->renderHiddenFields() ?>
     <ul id="css3form">
-        <li class="fmt">メールアドレス</li>
-        <li>
-            <input name="data[Auth][login_mail]" class="fm" type="text" value="" id="AuthLoginMail"/>
+        <li class="fmt">
+            <?php echo $form[LoginForm::MAIL]->renderLabel('メールアドレス') ?>
         </li>
-        <li class="fmt">パスワード</li>
         <li>
-            <input name="data[Auth][login_pw]" value="" class="fm" type="password" id="AuthLoginPw"/>
+            <?php echo $form[LoginForm::MAIL]->renderError() ?>
+            <?php echo $form[LoginForm::MAIL]->render([
+                'placeholder' => 'MailAddress',
+                'required' => 'required',
+                'maxlength' => '50',
+                'class' => 'fm']) ?>
+        </li>
+        <li class="fmt">
+            <?php echo $form[LoginForm::PASSWORD]->renderLabel('パスワード') ?>
+        </li>
+        <li>
+            <?php echo $form[LoginForm::PASSWORD]->renderError() ?>
+            <?php echo $form[LoginForm::PASSWORD]->render([
+                'placeholder' => 'Password',
+                'required' => 'required',
+                'class' => 'fm']) ?>
         </li>
         <input  class="btn" type="submit" value="ログインする"/>
         <p class="login_forget">

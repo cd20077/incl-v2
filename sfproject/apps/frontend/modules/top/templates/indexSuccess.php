@@ -8,7 +8,7 @@
 
                     <tr>
                         <td>
-                            <a href="<?php echo url_for('user/entryInput') ?>" class="loga" target="">
+                            <a href="<?php echo url_for('@entry') ?>" class="loga" target="">
                                 <div id="logdiv">新規会員登録</div>
                             </a>
                         </td>
@@ -48,3 +48,11 @@
         </div>
     </header>
 <!-- / #wrap --></div>
+
+<?php if ($entryMes) { ?>
+<script>
+$(function(){
+    modelEntrySuccess();
+});
+</script>
+<?php } ?>

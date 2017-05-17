@@ -7,27 +7,38 @@
 
 <!--<h2 class="page_title">新規会員登録</h2>-->
 
-<form action="/users/entry_input" novalidate="novalidate" id="UserEntryInputForm" method="post" accept-charset="utf-8">
-    <div style="display:none;">
-        <input type="hidden" name="_method" value="POST"/>
-    </div>
+<form action="<?php echo url_for('@entry') ?>" novalidate="novalidate" id="UserEntryInputForm" method="post" accept-charset="utf-8">
+    <?php echo $form->renderHiddenFields() ?>
     <ul id="css3form">
-        <li class="fmt">メールアドレス</li>
-        <li>
-            <input name="data[User][mail]" class="fm" maxlength="50" type="text" value="" id="UserMail" required="required"/>
+        <li class="fmt">
+            <?php echo $form[EntryForm::MAIL]->renderLabel('メールアドレス') ?>
         </li>
-        <li class="fmt">パスワード</li>
         <li>
-            <input name="data[User][password]" value="" class="fm" type="password" id="UserPassword" required="required"/>
+            <?php echo $form[EntryForm::MAIL]->renderError() ?>
+            <?php echo $form[EntryForm::MAIL]->render([
+                'placeholder' => 'MailAddress',
+                'required' => 'required',
+                'maxlength' => '50',
+                'class' => 'fm']) ?>
+        </li>
+        <li class="fmt">
+            <?php echo $form[EntryForm::PASSWORD]->renderLabel('パスワード') ?>
+        </li>
+        <li>
+            <?php echo $form[EntryForm::PASSWORD]->renderError() ?>
+            <?php echo $form[EntryForm::PASSWORD]->render([
+                'placeholder' => 'Password',
+                'required' => 'required',
+                'class' => 'fm']) ?>
         </li>
 
         <p class="regi_kiyaku">
             <a href="/others/agreement">利用規約</a>
         </p>
         <p class="regi_agree">
-            <input type="hidden" name="data[User][check]" id="UserCheck_" value="0"/>
-            <input type="checkbox" name="data[User][check]"  value="1" id="UserCheck"/>
-            <label for="UserCheck">規約に同意してユーザ登録をする</label>
+            <?php echo $form[EntryForm::AGREEMENT_CHECK]->renderError() ?>
+            <?php echo $form[EntryForm::AGREEMENT_CHECK]->render() ?>
+            <?php echo $form[EntryForm::AGREEMENT_CHECK]->renderLabel('規約に同意してユーザ登録をする') ?>
         </p>
 
         <input  class="btn" type="submit" value="登録する"/>

@@ -296,12 +296,12 @@ $(function(){
 });
     
 function topbackset(backimg){
-	$('#userart').css('background-image','url(../'+backimg.replace(/[ !"#$%&'()*+,.\/:;<=>?@\[\\\]^`{|}~]/g, '\\$&')+')');
+	$('#userart').css('background-image','url('+backimg.replace(/[ !"#$%&'()*+,.\/:;<=>?@\[\\\]^`{|}~]/g, '\\$&')+')');
 	
 }
 
 function topuserimgset(userimg){
-	$('#userimgid').css('background-image','url(../'+userimg.replace(/[ !"#$%&'()*+,.\/:;<=>?@\[\\\]^`{|}~]/g, '\\$&')+')');
+	$('#userimgid').css('background-image','url('+userimg.replace(/[ !"#$%&'()*+,.\/:;<=>?@\[\\\]^`{|}~]/g, '\\$&')+')');
 	
 }
 

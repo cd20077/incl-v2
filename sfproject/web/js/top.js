@@ -65,6 +65,16 @@ function entrylink(id){
     });
 }
 
+function modelEntrySuccess(){
+    $.colorbox({
+        href:'/entry/success',
+        width:'600px',
+        height:'450px',
+        iframe:true,
+        fixed: true
+    });
+}
+
 function popupForm()
 {
     $('.popup form').ajaxForm(function(res) {

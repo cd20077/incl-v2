@@ -1,6 +1,34 @@
 # You can find more information about this file on the symfony website:
 # http://www.symfony-project.org/reference/1_4/en/05-Factories
 
+
+all:
+  routing:
+    class: sfPatternRouting
+    param:
+      generate_shortest_url:            true
+      extra_parameters_as_query_string: true
+
+  view_cache_manager:
+    class: sfViewCacheManager
+    param:
+      cache_key_use_vary_headers: true
+      cache_key_use_host_name:    true
+
+  mailer:
+    class: sfMailer
+    param:
+      logging:           %SF_LOGGING_ENABLED%
+      charset:           %SF_CHARSET%
+      delivery_strategy: realtime
+      transport:
+        class: Swift_SmtpTransport
+        param:
+          host:       smtp.gmail.com
+          port:       465
+          encryption: ssl
+          username:
+          password:
 prod:
   logger:
     class:   sfNoLogger
@@ -19,24 +47,4 @@ test:
     param:
       send_http_headers: false
 
-  mailer:
-    param:
-      delivery_strategy: none
-
 dev:
-  mailer:
-    param:
-      delivery_strategy: none
-
-all:
-  routing:
-    class: sfPatternRouting
-    param:
-      generate_shortest_url:            true
-      extra_parameters_as_query_string: true
-
-  view_cache_manager:
-    class: sfViewCacheManager
-    param:
-      cache_key_use_vary_headers: true
-      cache_key_use_host_name:    true

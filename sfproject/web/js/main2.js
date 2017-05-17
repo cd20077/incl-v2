@@ -29,14 +29,14 @@ $(function(){
 
 function headimgset(headimg){
 	//alert(backimg.replace(/[ !"#$%&'()*+,.\/:;<=>?@\[\\\]^`{|}~]/g, '\\$&'));
-	$('#headimgid').css('background-image','url(../'+headimg.replace(/[ !"#$%&'()*+,.\/:;<=>?@\[\\\]^`{|}~]/g, '\\$&')+')');
+	$('#headimgid').css('background-image','url('+headimg.replace(/[ !"#$%&'()*+,.\/:;<=>?@\[\\\]^`{|}~]/g, '\\$&')+')');
 	//$('article').animate({'background-image':'url('+backimg+')'});
 	
 }
 
 function headimgset2(headimg){
 	//alert(backimg.replace(/[ !"#$%&'()*+,.\/:;<=>?@\[\\\]^`{|}~]/g, '\\$&'));
-	$('#headimgid').css('background-image','url(./'+headimg.replace(/[ !"#$%&'()*+,.\/:;<=>?@\[\\\]^`{|}~]/g, '\\$&')+')');
+	$('#headimgid').css('background-image','url('+headimg.replace(/[ !"#$%&'()*+,.\/:;<=>?@\[\\\]^`{|}~]/g, '\\$&')+')');
 	//$('article').animate({'background-image':'url('+backimg+')'});
 	
 }

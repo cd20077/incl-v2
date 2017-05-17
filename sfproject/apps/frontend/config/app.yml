@@ -2,4 +2,30 @@
 # http://www.symfony-project.org/reference/1_4/en/11-App
 
 # default values
-#all:
+all:
+  mail:
+    from: nhs20077@gmail.com
+    to:   nhs20077@gmail.com
+  account:
+    default_name: 'ゲスト'
+    account_img: '/images/def/no_image.png'
+    back_img: '/images/def/back.png'
+  incl:
+    SOLT_LOGIN_PASSWORD: 'uRidGaRJpYe1PQAyKXCeJ6tyO'
+    USER_DATA_URL   : './files/userdata/'     # ユーザーデータ保存場所URL
+    PROJECT_DATA_URL: './files/projectdata/'  # プロジェクト保存場所URL
+    PROJECT_CHAT_URL: './files/projectchat/'  # プロジェクトチャット保存場所URL
+    PROJECT_CHAT_MAX: '50'  # プロジェクトチャットマックスレス
+    DEF_MAX_CAPA    : '209715200'             # 初期データ最大容量
+    DEF_PRE_CAPA    : '0'                     # 初期データ現在容量
+    DEF_PROJECT_MAX_CAPA:    '209715200'             # 初期プロジェクトデータ最大容量
+    DEF_PROJECT_PRE_CAPA:    '0'                     # 初期プロジェクトデータ現在容量
+    image_url:
+        prof    : './img/userimg/'        # ユーザーイメージ保存場所URL
+        back    : './img/userback/'       # ユーザー背景保存場所URL
+        project : './img/projectback/'       # プロジェクト背景保存場所URL
+        DEF_USERIMG_URL : './img/def/no_image.png'# 初期ユーザーイメージ保存場所URL
+        DEF_BACKIMG_URL : './img/def/back.png'  # 初期ユーザー背景保存場所URL
+    DEF_PROLOG_URL  : './img/def/def.log'  # 初期プロジェクトチャットログ保存場所URL
+    MAX_PROJECT_NUM : '5'                     # 最大プロジェクト作成数
+    MAX_PROJECT_MEMBER: '20'                     # 最大プロジェクトメンバー数

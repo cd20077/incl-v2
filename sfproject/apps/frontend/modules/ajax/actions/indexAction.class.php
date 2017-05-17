@@ -3,7 +3,7 @@
 /**
  * ajax actions.
  *
- * @package    inclv2
+ * @package    incl2
  * @subpackage ajax
  */
 class indexAction extends sfAction
