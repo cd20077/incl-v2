@@ -40,7 +40,7 @@
         </nav>
 
         <div class="lang">
-            <?php if ($auth['langid']==2 && 0) { ?>
+            <?php if ($account->getLangid() === 2) { ?>
                 <a href="<?php echo url_for('@logout') ?>" class="langbtn">日本語</a>
                 <a href="<?php echo url_for('@logout') ?>" class="langbtn langon">English</a>
             <?php } else { ?>

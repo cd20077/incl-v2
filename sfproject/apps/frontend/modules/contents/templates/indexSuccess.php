@@ -1,17 +1,21 @@
 
-<?php //echo $this->Html->script('jquery-ui.min', array('inline' => false)); ?>
-<?php //echo $this->Html->script('jquery.colorbox-min', array('inline' => false)); ?>
-<?php //if($auth['langid']==2){ ?>
-    <?php //echo $this->Html->script('deskeng', array('inline' => false)); ?>
-<?php //}else{ ?>
-    <?php //echo $this->Html->script('desk', array('inline' => false)); ?>
-<?php //} ?>
+<script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+<?php if ($account->getLangid() === 2) { ?>
+    <script type="text/javascript" src="/js/deskeng.js"></script>
+<?php } else { ?>
+    <script type="text/javascript" src="/js/desk.js"></script>
+<?php } ?>
 
-<?php //echo $this->Html->script('jquery.halocontext', array('inline' => false)); ?>
-<?php //echo $this->Html->css( 'colorbox', array('inline' => false)); ?>
-<?php //echo $this->Html->css( 'jquery-ui.min', array('inline' => false)); ?>
-<?php //echo $this->Html->css( 'form', array('inline' => false)); ?>
-<?php //echo $this->Html->css( 'rclick', array('inline' => false)); ?>
+<script type="text/javascript" src="/js/jquery.colorbox-min.js"></script>
+<script type="text/javascript" src="/js/jquery.halocontext.js"></script>
+
+
+<!--  StyleSheet記述  -->
+<link rel="stylesheet" type="text/css" href="/css/colorbox.css" />
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="/css/form.css" />
+<link rel="stylesheet" type="text/css" href="/css/rclick.css" />
+<!--  /StyleSheet記述  -->
 
 <div id="container">
 
@@ -20,27 +24,20 @@
         <article id="dropzone" class="sortable-list">
             <?php //echo $this->Session->flash(); ?>
 
-            <?php $i=0; ?>
-            <?php foreach ($dir as $dir1): ?>
-            	<?php if($i == 0){ ?>
-                    <?php foreach ($dir1 as $dir2): ?>
-                        <?php //if($i != 0){ ?>
-                        <div id="<?php echo h($dir2); ?>" data-dirname="" data-fname="<?php echo h($dir2); ?>" class="folderdiv outfdiv">
-                            <span class="folderd"><p><?php echo h($dir2); ?></p></span>
-                        </div>
-                    <?php endforeach; ?>
-                <?php }else{ ?>
-                    <?php foreach ($dir1 as $dir2): ?>
-                        <?php //if($i != 0){ ?>
-                        <div id="<?php echo h($dir2); ?>" data-dirname="" data-fname="<?php echo h($dir2); ?>" class="filediv outfdiv">
-                            <span class="file"><p><?php echo h($dir2); ?></p></span>
-                        </div>
-                    <?php endforeach; ?>
+            <?php foreach ($contens as $content): ?>
+            	<?php if ($content->getContentType() === 2) { ?>
+                    <div id="<?php echo $content->getEncryptName(); ?>" data-dirname="" data-fname="<?php echo $content->getEncryptName(); ?>" class="folderdiv outfdiv">
+                        <span class="folderd"><p><?php echo $content->getOriginName(); ?></p></span>
+                    </div>
+                <?php } else { ?>
+                    <div id="<?php echo $content->getEncryptName(); ?>" data-dirname="" data-fname="<?php echo $content->getEncryptName(); ?>" class="filediv outfdiv">
+                        <span class="file"><p><?php echo $content->getOriginName(); ?></p></span>
+                    </div>
                 <?php } ?>
-            	<?php $i++; ?>
             <?php endforeach; ?>
+
             <!-- ▼フッターここから -->
-            <?php echo $this->element('footer')?>
+            <?php include_partial('global/footer'); ?>
             <!-- ▲フッターここまで -->
         </article>
 

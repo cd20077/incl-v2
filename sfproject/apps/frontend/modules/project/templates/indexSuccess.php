@@ -1,6 +1,7 @@
 <!--  StyleSheet記述  -->
 <link rel="stylesheet" type="text/css" href="/css/form.css" />
-<!--  /StyleSheet記述  --><div id="container">
+<!--  /StyleSheet記述  -->
+<div id="container">
     <!-- ▼メインここから -->
     <main>
         <div id="userart">

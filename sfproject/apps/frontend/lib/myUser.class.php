@@ -2,24 +2,40 @@
 
 class myUser extends sfBasicSecurityUser
 {
-    /**
-     * @return Account
-     */
-//    public function getAccount()
+//    /* @var $account Account */
+//    private $account;
+//
+//    public function __construct(\sfEventDispatcher $dispatcher, \sfStorage $storage, $options = array())
 //    {
 //        $accountId = $this->getUser()->getAttribute('account_id', null);
 //        if (!$accountId) {
 //            $this->redirect('@top');
 //        }
 //
-//        $account = AccountQuery::create()
+//        $this->account = AccountQuery::create()
 //                    ->filterById($accountId)
 //                    ->filterByAccountStatusId(AccountStatus::ACTIVE)
 //                    ->findOne();
-//        if (!$account) {
+//        if (!$this->account) {
 //            $this->redirect('@top');
 //        }
 //
-//        return $account;
+//        parent::__construct($dispatcher, $storage, $options);
+//    }
+//
+//    /**
+//     * @return Account
+//     */
+//    public function getAccount()
+//    {
+//        return $this->account;
+//    }
+//
+//    /**
+//     * @return Account
+//     */
+//    public function setAccount(Account $account)
+//    {
+//        $this->account = $account;
 //    }
 }

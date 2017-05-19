@@ -1,10 +1,10 @@
 <?php
 
 /**
- * top actions.
+ * index actions.
  *
  * @package    incl2
- * @subpackage top
+ * @subpackage contents
  */
 class indexAction extends sfAction
 {
@@ -23,7 +23,13 @@ class indexAction extends sfAction
             $this->redirect('@top');
         }
 
+        $contens = ContentQuery::create()
+                    ->filterByAccount($account)
+                    ->filterByContentStatusId(ContentStatus::ACTIVE)
+                    ->find();
+
         $this->account = $account;
+        $this->contens = $contens;
 
         return sfView::SUCCESS;
     }

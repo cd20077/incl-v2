@@ -15,4 +15,7 @@
  */
 class ContentStatus extends BaseContentStatus
 {
+    const ACTIVE   = 1; // アクティブ
+    const DUST_BOX = 2; // ゴミ箱
+    const DELETED  = 3; // 削除済み
 }
