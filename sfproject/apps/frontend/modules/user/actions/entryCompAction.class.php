@@ -27,11 +27,24 @@ class entryCompAction extends sfAction
             return;
         }
 
+        $randId = crypt($account->getId(), sfConfig::get('app_incl_SOLT_LOGIN_PASSWORD'));
+        $storagePath = sfConfig::get('app_storage_user_dir').$randId.DIRECTORY_SEPARATOR;
+        $defaultImagePath = sfConfig::get('app_default_image_dir');
+        $accountImageName = sfConfig::get('app_default_account_img');
+        $backImageName = sfConfig::get('app_default_back_img');
+
+        $sfFilesystem = new sfFilesystem();
+        $sfFilesystem->mkdirs($storagePath);
+        $sfFilesystem->copy($defaultImagePath.$accountImageName, $storagePath.$accountImageName);
+        $sfFilesystem->copy($defaultImagePath.$backImageName, $storagePath.$backImageName);
+
         $account
-                ->setRandid(crypt($account->getId(), sfConfig::get('app_incl_SOLT_LOGIN_PASSWORD')))
-                ->setName(sfConfig::get('app_account_default_name'))
-                ->setBackimg(sfConfig::get('app_account_back_img'))
-                ->setAccountimg(sfConfig::get('app_account_account_img'))
+                ->setRandid($randId)
+                ->setName(sfConfig::get('app_account_name'))
+//                ->setAccountimg($storagePath.$accountImageName)
+                ->setAccountimg('/images/def/'.$accountImageName)
+//                ->setBackimg($storagePath.$backImageName)
+                ->setBackimg('/images/def/'.$backImageName)
                 ->setAccountStatusId(AccountStatus::ACTIVE)
                 ->save();
 

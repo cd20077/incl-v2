@@ -19,8 +19,8 @@ incl2:
     account_status_id: { phpName: AccountStatusId, type: INTEGER, required: false, defaultValue: '1', foreignTable: account_status, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
     provisional_key: { phpName: ProvisionalKey, type: VARCHAR, size: '255', required: false }
     randid: { phpName: Randid, type: VARCHAR, size: '255', required: false }
-    langid: { phpName: Langid, type: INTEGER, required: false, defaultValue: '1' }
-    _indexes: { account_status_id: [account_status_id] }
+    language_id: { phpName: LanguageId, type: INTEGER, required: false, defaultValue: '1', foreignTable: language, foreignReference: id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    _indexes: { account_status_id: [account_status_id], language_id: [language_id] }
   account_log:
     _attributes: { phpName: AccountLog, idMethod: native }
     id: { phpName: Id, type: INTEGER, primaryKey: true, autoIncrement: true, required: true }
@@ -66,6 +66,14 @@ incl2:
     _indexes: { account_id: [account_id], content_status_id: [content_status_id], parent_directory_id: [parent_directory_id], project_id: [project_id] }
   content_status:
     _attributes: { phpName: ContentStatus, idMethod: native }
+    id: { phpName: Id, type: INTEGER, primaryKey: true, autoIncrement: true, required: true }
+    is_deleted: { phpName: IsDeleted, type: SMALLINT, required: true, defaultValue: '0' }
+    updated_at: { phpName: UpdatedAt, type: TIMESTAMP, required: false }
+    deleted_at: { phpName: DeletedAt, type: TIMESTAMP, required: false }
+    created_at: { phpName: CreatedAt, type: TIMESTAMP, required: true }
+    name: { phpName: Name, type: VARCHAR, size: '255', required: false }
+  language:
+    _attributes: { phpName: Language, idMethod: native }
     id: { phpName: Id, type: INTEGER, primaryKey: true, autoIncrement: true, required: true }
     is_deleted: { phpName: IsDeleted, type: SMALLINT, required: true, defaultValue: '0' }
     updated_at: { phpName: UpdatedAt, type: TIMESTAMP, required: false }

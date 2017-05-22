@@ -29,7 +29,7 @@ abstract class BaseAccountForm extends BaseFormPropel
       'account_status_id' => new sfWidgetFormPropelChoice(array('model' => 'AccountStatus', 'add_empty' => true)),
       'provisional_key'   => new sfWidgetFormInputText(),
       'randid'            => new sfWidgetFormInputText(),
-      'langid'            => new sfWidgetFormInputText(),
+      'language_id'       => new sfWidgetFormPropelChoice(array('model' => 'Language', 'add_empty' => true)),
     ));
 
     $this->setValidators(array(
@@ -48,7 +48,7 @@ abstract class BaseAccountForm extends BaseFormPropel
       'account_status_id' => new sfValidatorPropelChoice(array('model' => 'AccountStatus', 'column' => 'id', 'required' => false)),
       'provisional_key'   => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'randid'            => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'langid'            => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
+      'language_id'       => new sfValidatorPropelChoice(array('model' => 'Language', 'column' => 'id', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('account[%s]');

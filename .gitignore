@@ -1,6 +1,8 @@
 /sfproject/cache/*
 /sfproject/config/*Server
 /sfproject/log/*
+/sfproject/storage/user/*
+/sfproject/storage/project/*
 */.DS_Store
 !.gitkeep
 nbproject/

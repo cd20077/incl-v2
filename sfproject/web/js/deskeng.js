@@ -3,10 +3,10 @@ $(function(){
 	$('#dropzone').haloContext({
             bindings:{
                 'Config':function(){
-                    location.href = './users/usertop';
+                    location.href = '/user';
                 },
                 'Project':function(){
-                    location.href = './users/grouptop';
+                    location.href = '/project';
                 },
                 'Upload':function(){
                     upfunc();
@@ -29,7 +29,7 @@ $(function(){
                             var dragId = ui.draggable.attr("id");
                             if (confirm('Do you delete '+dragId+' ？')) {
                                 $.ajax({
-                                    url: "./Ajaxfuncs/ajaxfoltrash",
+                                    url: "/ajax/ajaxfoltrash",
                                     type: "POST",
                                     data: {name : dragId},
                                     dataType: "text",
@@ -58,7 +58,7 @@ $(function(){
                             var dname = ui.draggable.attr("data-dirname");
                             if (confirm('Do you delete '+dragId+' ？')) {
                                 $.ajax({
-                                    url: "./Ajaxfuncs/ajaxtrash",
+                                    url: "/ajax/ajaxtrash",
                                     type: "POST",
                                     data: {
                                         name : dragId,
@@ -114,7 +114,7 @@ $(function(){
                     }else{
                         if (confirm('Do you change background？')) {
                             $.ajax({
-                                url: "./Ajaxfuncs/ajaxchange",
+                                url: "/ajax/ajaxchange",
                                 type: "POST",
                                 data: {
                                     name : dragId,
@@ -159,7 +159,7 @@ $(function(){
                 if($(ui.draggable).hasClass('folderdiv')){
                     var dragId = ui.draggable.attr("id");
                     $.colorbox({
-                        href:"./Ajaxfuncs/ajaxdownfol/"+dragId.replace(/\u002f/g,'*'),
+                        href:"/ajax/ajaxdownfol/"+dragId.replace(/\u002f/g,'*'),
                         width:"0px",
                         height:"0px",
                         iframe:true
@@ -167,7 +167,7 @@ $(function(){
                 }else if($(ui.draggable).hasClass('filediv')){
                     var dragId = ui.draggable.attr("id");
                     $.colorbox({
-                        href:"./Ajaxfuncs/ajaxdownfile/"+dragId.replace('/','*'),
+                        href:"/ajax/ajaxdownfile/"+dragId.replace('/','*'),
                         width:"0px",
                         height:"0px",
                         iframe:true
@@ -216,7 +216,7 @@ $(function(){
             for (var i = 0; i < file.prop("files").length; i++) {
                 formData.append('file', file.prop("files")[i]);
 
-                $.ajax('./Ajaxfuncs/ajaxupfile', {
+                $.ajax('/ajax/ajaxupfile', {
                     method: 'POST',
                     contentType: false,
                     processData: false,
@@ -267,7 +267,7 @@ $(function(){
             var formData = new FormData();
             formData.append('file', file.prop("files")[0]);
 
-            $.ajax('./Ajaxfuncs/ajaxupbackimg', {
+            $.ajax('/ajax/ajaxupbackimg', {
                 method: 'POST',
                 contentType: false,
                 processData: false,
@@ -336,7 +336,7 @@ function folapp(){
         }else{
             var folname = $('#newfolname').val();
             $.ajax({
-                url: "./Ajaxfuncs/ajaxappfol",
+                url: "/ajax/ajaxappfol",
                 type: "POST",
                 data: {
                     name : folname
@@ -378,7 +378,7 @@ function upfunc(){
         for (var i = 0; i < file.prop("files").length; i++) {
             formData.append('file', file.prop("files")[i]);
 
-            $.ajax('./Ajaxfuncs/ajaxupfile', {
+            $.ajax('/ajax/ajaxupfile', {
                 method: 'POST',
                 contentType: false,
                 processData: false,
@@ -446,7 +446,7 @@ function rcfunc(){
                                     }else{
                                         var folname = $('#refolname').val();
                                         $.ajax({
-                                            url: "./Ajaxfuncs/ajaxrename",
+                                            url: "/ajax/ajaxrename",
                                             type: "POST",
                                             data: {
                                                 dtype : 'fol',
@@ -489,7 +489,7 @@ function rcfunc(){
                             var fname = $('div[id="'+dragId+'"]').attr("data-fname");
                             var dname = $('div[id="'+dragId+'"]').attr("data-dirname");
                             $.ajax({
-                                url: "./Ajaxfuncs/ajaxfcopy",
+                                url: "/ajax/ajaxfcopy",
                                 type: "POST",
                                 data: {
                                     name : dragId,
@@ -522,7 +522,7 @@ function rcfunc(){
                             var dragId = $(this).attr('title');
                             if (confirm('Do you delete the '+dragId+' ？')) {
                                 $.ajax({
-                                    url: "./Ajaxfuncs/ajaxfoltrash",
+                                    url: "/ajax/ajaxfoltrash",
                                     type: "POST",
                                     data: { name : dragId},
                                     dataType: "text",
@@ -549,7 +549,7 @@ function rcfunc(){
 			},
 			'Download':function(){
                             $.colorbox({
-                                href:"./Ajaxfuncs/ajaxdownfol/"+$(this).attr('title').replace(/\u002f/g,'*'),
+                                href:"/ajax/ajaxdownfol/"+$(this).attr('title').replace(/\u002f/g,'*'),
                                 width:"0px",
                                 height:"0px",
                                 iframe:true
@@ -565,7 +565,7 @@ function rcfunc(){
 				ext_nm = ext[0];
 				if(ext_nm.match(/(jpg|gif|png)/i)){
                                     $.ajax({
-                                        url: "./Ajaxfuncs/ajaxopen",
+                                        url: "/ajax/ajaxopen",
                                         type: "POST",
                                         data: {
                                             name : dragId
@@ -595,7 +595,7 @@ function rcfunc(){
                                     });
 				}else if(ext_nm.match(/(txt|js|css)/i)){
                                     $.ajax({
-                                        url: "./Ajaxfuncs/ajaxopen",
+                                        url: "/ajax/ajaxopen",
                                         type: "POST",
                                         data: {
                                             name : dragId
@@ -649,7 +649,7 @@ function rcfunc(){
                                 }else{
                                     var folname = $('#refilename').val();
                                     $.ajax({
-                                        url: "./Ajaxfuncs/ajaxrename",
+                                        url: "/ajax/ajaxrename",
                                         type: "POST",
                                         data: {
                                             dtype : 'file',
@@ -693,7 +693,7 @@ function rcfunc(){
                             var fname = $('div[id="'+dragId+'"]').attr("data-fname");
                             var dname = $('div[id="'+dragId+'"]').attr("data-dirname");
                             $.ajax({
-                                url: "./Ajaxfuncs/ajaxcopy",
+                                url: "/ajax/ajaxcopy",
                                 type: "POST",
                                 data: {
                                     name : dragId,
@@ -728,7 +728,7 @@ function rcfunc(){
                             var dname = $('div[id="'+dragId+'"]').attr("data-dirname");
                             if (confirm('Do you delete '+dragId+' ？')) {
                                 $.ajax({
-                                    url: "./Ajaxfuncs/ajaxtrash",
+                                    url: "/ajax/ajaxtrash",
                                     type: "POST",
                                     data: {
                                         name : dragId,
@@ -759,7 +759,7 @@ function rcfunc(){
 			},
 			'Download':function(){
                             $.colorbox({
-                                href:"./Ajaxfuncs/ajaxdownfile/"+$(this).attr('title').replace('/','*'),
+                                href:"/ajax/ajaxdownfile/"+$(this).attr('title').replace('/','*'),
                                 width:"0px",
                                 height:"0px",
                                 iframe:true
@@ -774,7 +774,7 @@ function rcfunc(){
 		ext_nm = ext[0];
 		if(ext_nm.match(/(jpg|gif|png)/i)){
                     $.ajax({
-                        url: "./Ajaxfuncs/ajaxopen",
+                        url: "/ajax/ajaxopen",
                         type: "POST",
                         data: {
                             name : dragId
@@ -803,7 +803,7 @@ function rcfunc(){
                     });
 		}else if(ext_nm.match(/(txt|js|css)/i)){
                     $.ajax({
-                        url: "./Ajaxfuncs/ajaxopen",
+                        url: "/ajax/ajaxopen",
                         type: "POST",
                         data: {
                             name : dragId
@@ -924,7 +924,7 @@ function rcfunc(){
                     var dirid = this.id+'/';
                     if($(ui.draggable).hasClass('folderdiv')){
                         $.ajax({
-                            url: "./Ajaxfuncs/ajaxmovetop",
+                            url: "/ajax/ajaxmovetop",
                             type: "POST",
                             data: {
                                 id : ui.draggable.attr("id"),
@@ -954,7 +954,7 @@ function rcfunc(){
                         });
                     }else if($(ui.draggable).hasClass('filediv')){
                         $.ajax({
-                            url: "./Ajaxfuncs/ajaxmovetop",
+                            url: "/ajax/ajaxmovetop",
                             type: "POST",
                             data: {
                                 id : ui.draggable.attr("id"),
@@ -1004,7 +1004,7 @@ function rcfunc(){
                                     var dirid = $(this).attr("data-fname")+'/';
                                     if($(ui.draggable).hasClass('folderdiv')){
                                         $.ajax({
-                                            url: "./Ajaxfuncs/ajaxmovetop",
+                                            url: "/ajax/ajaxmovetop",
                                             type: "POST",
                                             data: {
                                                 id : ui.draggable.attr("id"),
@@ -1034,7 +1034,7 @@ function rcfunc(){
                                         });
                                     }else if($(ui.draggable).hasClass('filediv')){
                                         $.ajax({
-                                            url: "./Ajaxfuncs/ajaxmovetop",
+                                            url: "/ajax/ajaxmovetop",
                                             type: "POST",
                                             data: {
                                                 id : ui.draggable.attr("id"),
@@ -1073,7 +1073,7 @@ function rcfunc(){
                                     var dirid = $(this).attr("data-fname")+'/';
                                     if($(ui.draggable).hasClass('folderdiv')){
                                         $.ajax({
-                                            url: "./Ajaxfuncs/ajaxmovetop",
+                                            url: "/ajax/ajaxmovetop",
                                             type: "POST",
                                             data: {
                                                 id : ui.draggable.attr("id"),
@@ -1103,7 +1103,7 @@ function rcfunc(){
                                         });
                                     }else if($(ui.draggable).hasClass('filediv')){
                                         $.ajax({
-                                            url: "./Ajaxfuncs/ajaxmovetop",
+                                            url: "/ajax/ajaxmovetop",
                                             type: "POST",
                                             data: {
                                                 id : ui.draggable.attr("id"),
@@ -1150,7 +1150,7 @@ function rcfunc(){
 		drop : function(event , ui){
 			if($(ui.draggable).hasClass('folderdiv')){
                             $.ajax({
-                                url: "./Ajaxfuncs/ajaxmovetop",
+                                url: "/ajax/ajaxmovetop",
                                 type: "POST",
                                 data: {
                                     id : ui.draggable.attr("id"),
@@ -1180,7 +1180,7 @@ function rcfunc(){
                             });
 			}else if($(ui.draggable).hasClass('filediv')){
                             $.ajax({
-                                url: "./Ajaxfuncs/ajaxmovetop",
+                                url: "/ajax/ajaxmovetop",
                                 type: "POST",
                                 data: {
                                     id : ui.draggable.attr("id"),
@@ -1245,7 +1245,7 @@ var uploadFile = function(file){
         var formData = new FormData();
         formData.append('file', file);
 
-        $.ajax('./Ajaxfuncs/ajaxupfile', {
+        $.ajax('/ajax/ajaxupfile', {
             method: 'POST',
             contentType: false,
             processData: false,

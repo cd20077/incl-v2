@@ -2,24 +2,24 @@
 
 
 /**
- * Base class that represents a row from the 'account_status' table.
+ * Base class that represents a row from the 'language' table.
  *
  *
  *
  * @package    propel.generator.lib.model.incl2.om
  */
-abstract class BaseAccountStatus extends BaseObject implements Persistent
+abstract class BaseLanguage extends BaseObject implements Persistent
 {
     /**
      * Peer class name
      */
-    const PEER = 'AccountStatusPeer';
+    const PEER = 'LanguagePeer';
 
     /**
      * The Peer class.
      * Instance provides a convenient way of calling static methods on a class
      * that calling code may not be able to identify.
-     * @var        AccountStatusPeer
+     * @var        LanguagePeer
      */
     protected static $peer;
 
@@ -110,7 +110,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
     }
 
     /**
-     * Initializes internal state of BaseAccountStatus object.
+     * Initializes internal state of BaseLanguage object.
      * @see        applyDefaults()
      */
     public function __construct()
@@ -261,7 +261,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
      * Set the value of [id] column.
      *
      * @param  int $v new value
-     * @return AccountStatus The current object (for fluent API support)
+     * @return Language The current object (for fluent API support)
      */
     public function setId($v)
     {
@@ -271,7 +271,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
 
         if ($this->id !== $v) {
             $this->id = $v;
-            $this->modifiedColumns[] = AccountStatusPeer::ID;
+            $this->modifiedColumns[] = LanguagePeer::ID;
         }
 
 
@@ -282,7 +282,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
      * Set the value of [is_deleted] column.
      *
      * @param  int $v new value
-     * @return AccountStatus The current object (for fluent API support)
+     * @return Language The current object (for fluent API support)
      */
     public function setIsDeleted($v)
     {
@@ -292,7 +292,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
 
         if ($this->is_deleted !== $v) {
             $this->is_deleted = $v;
-            $this->modifiedColumns[] = AccountStatusPeer::IS_DELETED;
+            $this->modifiedColumns[] = LanguagePeer::IS_DELETED;
         }
 
 
@@ -304,7 +304,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
      *
      * @param mixed $v string, integer (timestamp), or DateTime value.
      *               Empty strings are treated as null.
-     * @return AccountStatus The current object (for fluent API support)
+     * @return Language The current object (for fluent API support)
      */
     public function setUpdatedAt($v)
     {
@@ -314,7 +314,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
             $newDateAsString = $dt ? $dt->format('Y-m-d H:i:s') : null;
             if ($currentDateAsString !== $newDateAsString) {
                 $this->updated_at = $newDateAsString;
-                $this->modifiedColumns[] = AccountStatusPeer::UPDATED_AT;
+                $this->modifiedColumns[] = LanguagePeer::UPDATED_AT;
             }
         } // if either are not null
 
@@ -327,7 +327,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
      *
      * @param mixed $v string, integer (timestamp), or DateTime value.
      *               Empty strings are treated as null.
-     * @return AccountStatus The current object (for fluent API support)
+     * @return Language The current object (for fluent API support)
      */
     public function setDeletedAt($v)
     {
@@ -337,7 +337,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
             $newDateAsString = $dt ? $dt->format('Y-m-d H:i:s') : null;
             if ($currentDateAsString !== $newDateAsString) {
                 $this->deleted_at = $newDateAsString;
-                $this->modifiedColumns[] = AccountStatusPeer::DELETED_AT;
+                $this->modifiedColumns[] = LanguagePeer::DELETED_AT;
             }
         } // if either are not null
 
@@ -350,7 +350,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
      *
      * @param mixed $v string, integer (timestamp), or DateTime value.
      *               Empty strings are treated as null.
-     * @return AccountStatus The current object (for fluent API support)
+     * @return Language The current object (for fluent API support)
      */
     public function setCreatedAt($v)
     {
@@ -360,7 +360,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
             $newDateAsString = $dt ? $dt->format('Y-m-d H:i:s') : null;
             if ($currentDateAsString !== $newDateAsString) {
                 $this->created_at = $newDateAsString;
-                $this->modifiedColumns[] = AccountStatusPeer::CREATED_AT;
+                $this->modifiedColumns[] = LanguagePeer::CREATED_AT;
             }
         } // if either are not null
 
@@ -372,7 +372,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
      * Set the value of [name] column.
      *
      * @param  string $v new value
-     * @return AccountStatus The current object (for fluent API support)
+     * @return Language The current object (for fluent API support)
      */
     public function setName($v)
     {
@@ -382,7 +382,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
 
         if ($this->name !== $v) {
             $this->name = $v;
-            $this->modifiedColumns[] = AccountStatusPeer::NAME;
+            $this->modifiedColumns[] = LanguagePeer::NAME;
         }
 
 
@@ -440,10 +440,10 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
             }
             $this->postHydrate($row, $startcol, $rehydrate);
 
-            return $startcol + 6; // 6 = AccountStatusPeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 6; // 6 = LanguagePeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
-            throw new PropelException("Error populating AccountStatus object", $e);
+            throw new PropelException("Error populating Language object", $e);
         }
     }
 
@@ -486,13 +486,13 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(AccountStatusPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(LanguagePeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
         // We don't need to alter the object instance pool; we're just modifying this instance
         // already in the pool.
 
-        $stmt = AccountStatusPeer::doSelectStmt($this->buildPkeyCriteria(), $con);
+        $stmt = LanguagePeer::doSelectStmt($this->buildPkeyCriteria(), $con);
         $row = $stmt->fetch(PDO::FETCH_NUM);
         $stmt->closeCursor();
         if (!$row) {
@@ -524,16 +524,16 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(AccountStatusPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(LanguagePeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         $con->beginTransaction();
         try {
-            $deleteQuery = AccountStatusQuery::create()
+            $deleteQuery = LanguageQuery::create()
                 ->filterByPrimaryKey($this->getPrimaryKey());
             $ret = $this->preDelete($con);
             // symfony_behaviors behavior
-            foreach (sfMixer::getCallables('BaseAccountStatus:delete:pre') as $callable)
+            foreach (sfMixer::getCallables('BaseLanguage:delete:pre') as $callable)
             {
               if (call_user_func($callable, $this, $con))
               {
@@ -546,7 +546,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
                 $deleteQuery->delete($con);
                 $this->postDelete($con);
                 // symfony_behaviors behavior
-                foreach (sfMixer::getCallables('BaseAccountStatus:delete:post') as $callable)
+                foreach (sfMixer::getCallables('BaseLanguage:delete:post') as $callable)
                 {
                   call_user_func($callable, $this, $con);
                 }
@@ -583,7 +583,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(AccountStatusPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(LanguagePeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         $con->beginTransaction();
@@ -591,7 +591,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
         try {
             $ret = $this->preSave($con);
             // symfony_behaviors behavior
-            foreach (sfMixer::getCallables('BaseAccountStatus:save:pre') as $callable)
+            foreach (sfMixer::getCallables('BaseLanguage:save:pre') as $callable)
             {
               if (is_integer($affectedRows = call_user_func($callable, $this, $con)))
               {
@@ -601,14 +601,14 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
             }
 
             // symfony_timestampable behavior
-            if ($this->isModified() && !$this->isColumnModified(AccountStatusPeer::UPDATED_AT))
+            if ($this->isModified() && !$this->isColumnModified(LanguagePeer::UPDATED_AT))
             {
                 $this->setUpdatedAt(time());
             }
             if ($isInsert) {
                 $ret = $ret && $this->preInsert($con);
                 // symfony_timestampable behavior
-                if (!$this->isColumnModified(AccountStatusPeer::CREATED_AT))
+                if (!$this->isColumnModified(LanguagePeer::CREATED_AT))
                 {
                   $this->setCreatedAt(time());
                 }
@@ -625,12 +625,12 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
                 }
                 $this->postSave($con);
                 // symfony_behaviors behavior
-                foreach (sfMixer::getCallables('BaseAccountStatus:save:post') as $callable)
+                foreach (sfMixer::getCallables('BaseLanguage:save:post') as $callable)
                 {
                   call_user_func($callable, $this, $con, $affectedRows);
                 }
 
-                AccountStatusPeer::addInstanceToPool($this);
+                LanguagePeer::addInstanceToPool($this);
             } else {
                 $affectedRows = 0;
             }
@@ -709,13 +709,13 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
         $modifiedColumns = array();
         $index = 0;
 
-        $this->modifiedColumns[] = AccountStatusPeer::ID;
+        $this->modifiedColumns[] = LanguagePeer::ID;
         if (null !== $this->id) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key (' . AccountStatusPeer::ID . ')');
+            throw new PropelException('Cannot insert a value for auto-increment primary key (' . LanguagePeer::ID . ')');
         }
         if (null === $this->id) {
             try {
-                $stmt = $con->query("SELECT nextval('account_status_id_seq')");
+                $stmt = $con->query("SELECT nextval('language_id_seq')");
                 $row = $stmt->fetch(PDO::FETCH_NUM);
                 $this->id = $row[0];
             } catch (Exception $e) {
@@ -725,27 +725,27 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
 
 
          // check the columns in natural order for more readable SQL queries
-        if ($this->isColumnModified(AccountStatusPeer::ID)) {
+        if ($this->isColumnModified(LanguagePeer::ID)) {
             $modifiedColumns[':p' . $index++]  = '"id"';
         }
-        if ($this->isColumnModified(AccountStatusPeer::IS_DELETED)) {
+        if ($this->isColumnModified(LanguagePeer::IS_DELETED)) {
             $modifiedColumns[':p' . $index++]  = '"is_deleted"';
         }
-        if ($this->isColumnModified(AccountStatusPeer::UPDATED_AT)) {
+        if ($this->isColumnModified(LanguagePeer::UPDATED_AT)) {
             $modifiedColumns[':p' . $index++]  = '"updated_at"';
         }
-        if ($this->isColumnModified(AccountStatusPeer::DELETED_AT)) {
+        if ($this->isColumnModified(LanguagePeer::DELETED_AT)) {
             $modifiedColumns[':p' . $index++]  = '"deleted_at"';
         }
-        if ($this->isColumnModified(AccountStatusPeer::CREATED_AT)) {
+        if ($this->isColumnModified(LanguagePeer::CREATED_AT)) {
             $modifiedColumns[':p' . $index++]  = '"created_at"';
         }
-        if ($this->isColumnModified(AccountStatusPeer::NAME)) {
+        if ($this->isColumnModified(LanguagePeer::NAME)) {
             $modifiedColumns[':p' . $index++]  = '"name"';
         }
 
         $sql = sprintf(
-            'INSERT INTO "account_status" (%s) VALUES (%s)',
+            'INSERT INTO "language" (%s) VALUES (%s)',
             implode(', ', $modifiedColumns),
             implode(', ', array_keys($modifiedColumns))
         );
@@ -859,7 +859,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
             $failureMap = array();
 
 
-            if (($retval = AccountStatusPeer::doValidate($this, $columns)) !== true) {
+            if (($retval = LanguagePeer::doValidate($this, $columns)) !== true) {
                 $failureMap = array_merge($failureMap, $retval);
             }
 
@@ -891,7 +891,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
      */
     public function getByName($name, $type = BasePeer::TYPE_PHPNAME)
     {
-        $pos = AccountStatusPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+        $pos = LanguagePeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
         $field = $this->getByPosition($pos);
 
         return $field;
@@ -948,11 +948,11 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
      */
     public function toArray($keyType = BasePeer::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array(), $includeForeignObjects = false)
     {
-        if (isset($alreadyDumpedObjects['AccountStatus'][$this->getPrimaryKey()])) {
+        if (isset($alreadyDumpedObjects['Language'][$this->getPrimaryKey()])) {
             return '*RECURSION*';
         }
-        $alreadyDumpedObjects['AccountStatus'][$this->getPrimaryKey()] = true;
-        $keys = AccountStatusPeer::getFieldNames($keyType);
+        $alreadyDumpedObjects['Language'][$this->getPrimaryKey()] = true;
+        $keys = LanguagePeer::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getId(),
             $keys[1] => $this->getIsDeleted(),
@@ -988,7 +988,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
      */
     public function setByName($name, $value, $type = BasePeer::TYPE_PHPNAME)
     {
-        $pos = AccountStatusPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+        $pos = LanguagePeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
 
         $this->setByPosition($pos, $value);
     }
@@ -1044,7 +1044,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
      */
     public function fromArray($arr, $keyType = BasePeer::TYPE_PHPNAME)
     {
-        $keys = AccountStatusPeer::getFieldNames($keyType);
+        $keys = LanguagePeer::getFieldNames($keyType);
 
         if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
         if (array_key_exists($keys[1], $arr)) $this->setIsDeleted($arr[$keys[1]]);
@@ -1061,14 +1061,14 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
      */
     public function buildCriteria()
     {
-        $criteria = new Criteria(AccountStatusPeer::DATABASE_NAME);
+        $criteria = new Criteria(LanguagePeer::DATABASE_NAME);
 
-        if ($this->isColumnModified(AccountStatusPeer::ID)) $criteria->add(AccountStatusPeer::ID, $this->id);
-        if ($this->isColumnModified(AccountStatusPeer::IS_DELETED)) $criteria->add(AccountStatusPeer::IS_DELETED, $this->is_deleted);
-        if ($this->isColumnModified(AccountStatusPeer::UPDATED_AT)) $criteria->add(AccountStatusPeer::UPDATED_AT, $this->updated_at);
-        if ($this->isColumnModified(AccountStatusPeer::DELETED_AT)) $criteria->add(AccountStatusPeer::DELETED_AT, $this->deleted_at);
-        if ($this->isColumnModified(AccountStatusPeer::CREATED_AT)) $criteria->add(AccountStatusPeer::CREATED_AT, $this->created_at);
-        if ($this->isColumnModified(AccountStatusPeer::NAME)) $criteria->add(AccountStatusPeer::NAME, $this->name);
+        if ($this->isColumnModified(LanguagePeer::ID)) $criteria->add(LanguagePeer::ID, $this->id);
+        if ($this->isColumnModified(LanguagePeer::IS_DELETED)) $criteria->add(LanguagePeer::IS_DELETED, $this->is_deleted);
+        if ($this->isColumnModified(LanguagePeer::UPDATED_AT)) $criteria->add(LanguagePeer::UPDATED_AT, $this->updated_at);
+        if ($this->isColumnModified(LanguagePeer::DELETED_AT)) $criteria->add(LanguagePeer::DELETED_AT, $this->deleted_at);
+        if ($this->isColumnModified(LanguagePeer::CREATED_AT)) $criteria->add(LanguagePeer::CREATED_AT, $this->created_at);
+        if ($this->isColumnModified(LanguagePeer::NAME)) $criteria->add(LanguagePeer::NAME, $this->name);
 
         return $criteria;
     }
@@ -1083,8 +1083,8 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
      */
     public function buildPkeyCriteria()
     {
-        $criteria = new Criteria(AccountStatusPeer::DATABASE_NAME);
-        $criteria->add(AccountStatusPeer::ID, $this->id);
+        $criteria = new Criteria(LanguagePeer::DATABASE_NAME);
+        $criteria->add(LanguagePeer::ID, $this->id);
 
         return $criteria;
     }
@@ -1125,7 +1125,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
      * If desired, this method can also make copies of all associated (fkey referrers)
      * objects.
      *
-     * @param object $copyObj An object of AccountStatus (or compatible) type.
+     * @param object $copyObj An object of Language (or compatible) type.
      * @param boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
      * @param boolean $makeNew Whether to reset autoincrement PKs and make the object new.
      * @throws PropelException
@@ -1170,7 +1170,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
      * objects.
      *
      * @param boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-     * @return AccountStatus Clone of current object.
+     * @return Language Clone of current object.
      * @throws PropelException
      */
     public function copy($deepCopy = false)
@@ -1190,12 +1190,12 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
      * same instance for all member of this class. The method could therefore
      * be static, but this would prevent one from overriding the behavior.
      *
-     * @return AccountStatusPeer
+     * @return LanguagePeer
      */
     public function getPeer()
     {
         if (self::$peer === null) {
-            self::$peer = new AccountStatusPeer();
+            self::$peer = new LanguagePeer();
         }
 
         return self::$peer;
@@ -1223,7 +1223,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
      * This does not modify the database; however, it will remove any associated objects, causing
      * them to be refetched by subsequent calls to accessor method.
      *
-     * @return AccountStatus The current object (for fluent API support)
+     * @return Language The current object (for fluent API support)
      * @see        addAccounts()
      */
     public function clearAccounts()
@@ -1271,7 +1271,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
      * If the $criteria is not null, it is used to always fetch the results from the database.
      * Otherwise the results are fetched from the database the first time, then cached.
      * Next time the same method is called without $criteria, the cached collection is returned.
-     * If this AccountStatus is new, it will return
+     * If this Language is new, it will return
      * an empty collection or the current collection; the criteria is ignored on a new object.
      *
      * @param Criteria $criteria optional Criteria object to narrow the query
@@ -1288,7 +1288,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
                 $this->initAccounts();
             } else {
                 $collAccounts = AccountQuery::create(null, $criteria)
-                    ->filterByAccountStatus($this)
+                    ->filterByLanguage($this)
                     ->find($con);
                 if (null !== $criteria) {
                     if (false !== $this->collAccountsPartial && count($collAccounts)) {
@@ -1332,7 +1332,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
      *
      * @param PropelCollection $accounts A Propel collection.
      * @param PropelPDO $con Optional connection object
-     * @return AccountStatus The current object (for fluent API support)
+     * @return Language The current object (for fluent API support)
      */
     public function setAccounts(PropelCollection $accounts, PropelPDO $con = null)
     {
@@ -1342,7 +1342,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
         $this->accountsScheduledForDeletion = $accountsToDelete;
 
         foreach ($accountsToDelete as $accountRemoved) {
-            $accountRemoved->setAccountStatus(null);
+            $accountRemoved->setLanguage(null);
         }
 
         $this->collAccounts = null;
@@ -1382,7 +1382,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
             }
 
             return $query
-                ->filterByAccountStatus($this)
+                ->filterByLanguage($this)
                 ->count($con);
         }
 
@@ -1394,7 +1394,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
      * through the Account foreign key attribute.
      *
      * @param    Account $l Account
-     * @return AccountStatus The current object (for fluent API support)
+     * @return Language The current object (for fluent API support)
      */
     public function addAccount(Account $l)
     {
@@ -1420,12 +1420,12 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
     protected function doAddAccount($account)
     {
         $this->collAccounts[]= $account;
-        $account->setAccountStatus($this);
+        $account->setLanguage($this);
     }
 
     /**
      * @param	Account $account The account object to remove.
-     * @return AccountStatus The current object (for fluent API support)
+     * @return Language The current object (for fluent API support)
      */
     public function removeAccount($account)
     {
@@ -1436,7 +1436,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
                 $this->accountsScheduledForDeletion->clear();
             }
             $this->accountsScheduledForDeletion[]= $account;
-            $account->setAccountStatus(null);
+            $account->setLanguage(null);
         }
 
         return $this;
@@ -1446,23 +1446,23 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
     /**
      * If this collection has already been initialized with
      * an identical criteria, it returns the collection.
-     * Otherwise if this AccountStatus is new, it will return
-     * an empty collection; or if this AccountStatus has previously
+     * Otherwise if this Language is new, it will return
+     * an empty collection; or if this Language has previously
      * been saved, it will retrieve related Accounts from storage.
      *
      * This method is protected by default in order to keep the public
      * api reasonable.  You can provide public methods for those you
-     * actually need in AccountStatus.
+     * actually need in Language.
      *
      * @param Criteria $criteria optional Criteria object to narrow the query
      * @param PropelPDO $con optional connection object
      * @param string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
      * @return PropelObjectCollection|Account[] List of Account objects
      */
-    public function getAccountsJoinLanguage($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public function getAccountsJoinAccountStatus($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
         $query = AccountQuery::create(null, $criteria);
-        $query->joinWith('Language', $join_behavior);
+        $query->joinWith('AccountStatus', $join_behavior);
 
         return $this->getAccounts($query, $con);
     }
@@ -1523,7 +1523,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
      */
     public function __toString()
     {
-        return (string) $this->exportTo(AccountStatusPeer::DEFAULT_STRING_FORMAT);
+        return (string) $this->exportTo(LanguagePeer::DEFAULT_STRING_FORMAT);
     }
 
     /**
@@ -1543,7 +1543,7 @@ abstract class BaseAccountStatus extends BaseObject implements Persistent
     {
 
         // symfony_behaviors behavior
-        if ($callable = sfMixer::getCallable('BaseAccountStatus:' . $name))
+        if ($callable = sfMixer::getCallable('BaseLanguage:' . $name))
         {
           array_unshift($params, $this);
           return call_user_func_array($callable, $params);

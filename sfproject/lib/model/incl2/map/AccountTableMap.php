@@ -54,7 +54,7 @@ class AccountTableMap extends TableMap
         $this->addForeignKey('account_status_id', 'AccountStatusId', 'INTEGER', 'account_status', 'id', false, null, 1);
         $this->addColumn('provisional_key', 'ProvisionalKey', 'VARCHAR', false, 255, null);
         $this->addColumn('randid', 'Randid', 'VARCHAR', false, 255, null);
-        $this->addColumn('langid', 'Langid', 'INTEGER', false, null, 1);
+        $this->addForeignKey('language_id', 'LanguageId', 'INTEGER', 'language', 'id', false, null, 1);
         // validators
     } // initialize()
 
@@ -64,6 +64,7 @@ class AccountTableMap extends TableMap
     public function buildRelations()
     {
         $this->addRelation('AccountStatus', 'AccountStatus', RelationMap::MANY_TO_ONE, array('account_status_id' => 'id', ), 'RESTRICT', 'RESTRICT');
+        $this->addRelation('Language', 'Language', RelationMap::MANY_TO_ONE, array('language_id' => 'id', ), 'RESTRICT', 'RESTRICT');
         $this->addRelation('AccountLog', 'AccountLog', RelationMap::ONE_TO_MANY, array('id' => 'account_id', ), 'RESTRICT', 'RESTRICT', 'AccountLogs');
         $this->addRelation('Content', 'Content', RelationMap::ONE_TO_MANY, array('id' => 'account_id', ), 'RESTRICT', 'RESTRICT', 'Contents');
         $this->addRelation('Project', 'Project', RelationMap::ONE_TO_MANY, array('id' => 'account_id', ), 'RESTRICT', 'RESTRICT', 'Projects');

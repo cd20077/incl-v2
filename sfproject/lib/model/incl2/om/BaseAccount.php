@@ -124,16 +124,21 @@ abstract class BaseAccount extends BaseObject implements Persistent
     protected $randid;
 
     /**
-     * The value for the langid field.
+     * The value for the language_id field.
      * Note: this column has a database default value of: 1
      * @var        int
      */
-    protected $langid;
+    protected $language_id;
 
     /**
      * @var        AccountStatus
      */
     protected $aAccountStatus;
+
+    /**
+     * @var        Language
+     */
+    protected $aLanguage;
 
     /**
      * @var        PropelObjectCollection|AccountLog[] Collection to store aggregation of AccountLog objects.
@@ -215,7 +220,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
         $this->maxcapa = 209715200;
         $this->precapa = 0;
         $this->account_status_id = 1;
-        $this->langid = 1;
+        $this->language_id = 1;
     }
 
     /**
@@ -466,14 +471,14 @@ abstract class BaseAccount extends BaseObject implements Persistent
     }
 
     /**
-     * Get the [langid] column value.
+     * Get the [language_id] column value.
      *
      * @return int
      */
-    public function getLangid()
+    public function getLanguageId()
     {
 
-        return $this->langid;
+        return $this->language_id;
     }
 
     /**
@@ -802,25 +807,29 @@ abstract class BaseAccount extends BaseObject implements Persistent
     } // setRandid()
 
     /**
-     * Set the value of [langid] column.
+     * Set the value of [language_id] column.
      *
      * @param  int $v new value
      * @return Account The current object (for fluent API support)
      */
-    public function setLangid($v)
+    public function setLanguageId($v)
     {
         if ($v !== null && is_numeric($v)) {
             $v = (int) $v;
         }
 
-        if ($this->langid !== $v) {
-            $this->langid = $v;
-            $this->modifiedColumns[] = AccountPeer::LANGID;
+        if ($this->language_id !== $v) {
+            $this->language_id = $v;
+            $this->modifiedColumns[] = AccountPeer::LANGUAGE_ID;
+        }
+
+        if ($this->aLanguage !== null && $this->aLanguage->getId() !== $v) {
+            $this->aLanguage = null;
         }
 
 
         return $this;
-    } // setLangid()
+    } // setLanguageId()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -848,7 +857,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
                 return false;
             }
 
-            if ($this->langid !== 1) {
+            if ($this->language_id !== 1) {
                 return false;
             }
 
@@ -889,7 +898,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
             $this->account_status_id = ($row[$startcol + 12] !== null) ? (int) $row[$startcol + 12] : null;
             $this->provisional_key = ($row[$startcol + 13] !== null) ? (string) $row[$startcol + 13] : null;
             $this->randid = ($row[$startcol + 14] !== null) ? (string) $row[$startcol + 14] : null;
-            $this->langid = ($row[$startcol + 15] !== null) ? (int) $row[$startcol + 15] : null;
+            $this->language_id = ($row[$startcol + 15] !== null) ? (int) $row[$startcol + 15] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -924,6 +933,9 @@ abstract class BaseAccount extends BaseObject implements Persistent
 
         if ($this->aAccountStatus !== null && $this->account_status_id !== $this->aAccountStatus->getId()) {
             $this->aAccountStatus = null;
+        }
+        if ($this->aLanguage !== null && $this->language_id !== $this->aLanguage->getId()) {
+            $this->aLanguage = null;
         }
     } // ensureConsistency
 
@@ -965,6 +977,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
         if ($deep) {  // also de-associate any related objects?
 
             $this->aAccountStatus = null;
+            $this->aLanguage = null;
             $this->collAccountLogs = null;
 
             $this->collContents = null;
@@ -1141,6 +1154,13 @@ abstract class BaseAccount extends BaseObject implements Persistent
                 $this->setAccountStatus($this->aAccountStatus);
             }
 
+            if ($this->aLanguage !== null) {
+                if ($this->aLanguage->isModified() || $this->aLanguage->isNew()) {
+                    $affectedRows += $this->aLanguage->save($con);
+                }
+                $this->setLanguage($this->aLanguage);
+            }
+
             if ($this->isNew() || $this->isModified()) {
                 // persist changes
                 if ($this->isNew()) {
@@ -1305,8 +1325,8 @@ abstract class BaseAccount extends BaseObject implements Persistent
         if ($this->isColumnModified(AccountPeer::RANDID)) {
             $modifiedColumns[':p' . $index++]  = '"randid"';
         }
-        if ($this->isColumnModified(AccountPeer::LANGID)) {
-            $modifiedColumns[':p' . $index++]  = '"langid"';
+        if ($this->isColumnModified(AccountPeer::LANGUAGE_ID)) {
+            $modifiedColumns[':p' . $index++]  = '"language_id"';
         }
 
         $sql = sprintf(
@@ -1364,8 +1384,8 @@ abstract class BaseAccount extends BaseObject implements Persistent
                     case '"randid"':
                         $stmt->bindValue($identifier, $this->randid, PDO::PARAM_STR);
                         break;
-                    case '"langid"':
-                        $stmt->bindValue($identifier, $this->langid, PDO::PARAM_INT);
+                    case '"language_id"':
+                        $stmt->bindValue($identifier, $this->language_id, PDO::PARAM_INT);
                         break;
                 }
             }
@@ -1462,6 +1482,12 @@ abstract class BaseAccount extends BaseObject implements Persistent
             if ($this->aAccountStatus !== null) {
                 if (!$this->aAccountStatus->validate($columns)) {
                     $failureMap = array_merge($failureMap, $this->aAccountStatus->getValidationFailures());
+                }
+            }
+
+            if ($this->aLanguage !== null) {
+                if (!$this->aLanguage->validate($columns)) {
+                    $failureMap = array_merge($failureMap, $this->aLanguage->getValidationFailures());
                 }
             }
 
@@ -1584,7 +1610,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
                 return $this->getRandid();
                 break;
             case 15:
-                return $this->getLangid();
+                return $this->getLanguageId();
                 break;
             default:
                 return null;
@@ -1630,7 +1656,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
             $keys[12] => $this->getAccountStatusId(),
             $keys[13] => $this->getProvisionalKey(),
             $keys[14] => $this->getRandid(),
-            $keys[15] => $this->getLangid(),
+            $keys[15] => $this->getLanguageId(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -1640,6 +1666,9 @@ abstract class BaseAccount extends BaseObject implements Persistent
         if ($includeForeignObjects) {
             if (null !== $this->aAccountStatus) {
                 $result['AccountStatus'] = $this->aAccountStatus->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
+            if (null !== $this->aLanguage) {
+                $result['Language'] = $this->aLanguage->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
             }
             if (null !== $this->collAccountLogs) {
                 $result['AccountLogs'] = $this->collAccountLogs->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
@@ -1733,7 +1762,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
                 $this->setRandid($value);
                 break;
             case 15:
-                $this->setLangid($value);
+                $this->setLanguageId($value);
                 break;
         } // switch()
     }
@@ -1774,7 +1803,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
         if (array_key_exists($keys[12], $arr)) $this->setAccountStatusId($arr[$keys[12]]);
         if (array_key_exists($keys[13], $arr)) $this->setProvisionalKey($arr[$keys[13]]);
         if (array_key_exists($keys[14], $arr)) $this->setRandid($arr[$keys[14]]);
-        if (array_key_exists($keys[15], $arr)) $this->setLangid($arr[$keys[15]]);
+        if (array_key_exists($keys[15], $arr)) $this->setLanguageId($arr[$keys[15]]);
     }
 
     /**
@@ -1801,7 +1830,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
         if ($this->isColumnModified(AccountPeer::ACCOUNT_STATUS_ID)) $criteria->add(AccountPeer::ACCOUNT_STATUS_ID, $this->account_status_id);
         if ($this->isColumnModified(AccountPeer::PROVISIONAL_KEY)) $criteria->add(AccountPeer::PROVISIONAL_KEY, $this->provisional_key);
         if ($this->isColumnModified(AccountPeer::RANDID)) $criteria->add(AccountPeer::RANDID, $this->randid);
-        if ($this->isColumnModified(AccountPeer::LANGID)) $criteria->add(AccountPeer::LANGID, $this->langid);
+        if ($this->isColumnModified(AccountPeer::LANGUAGE_ID)) $criteria->add(AccountPeer::LANGUAGE_ID, $this->language_id);
 
         return $criteria;
     }
@@ -1879,7 +1908,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
         $copyObj->setAccountStatusId($this->getAccountStatusId());
         $copyObj->setProvisionalKey($this->getProvisionalKey());
         $copyObj->setRandid($this->getRandid());
-        $copyObj->setLangid($this->getLangid());
+        $copyObj->setLanguageId($this->getLanguageId());
 
         if ($deepCopy && !$this->startCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -2012,6 +2041,58 @@ abstract class BaseAccount extends BaseObject implements Persistent
         }
 
         return $this->aAccountStatus;
+    }
+
+    /**
+     * Declares an association between this object and a Language object.
+     *
+     * @param                  Language $v
+     * @return Account The current object (for fluent API support)
+     * @throws PropelException
+     */
+    public function setLanguage(Language $v = null)
+    {
+        if ($v === null) {
+            $this->setLanguageId(1);
+        } else {
+            $this->setLanguageId($v->getId());
+        }
+
+        $this->aLanguage = $v;
+
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the Language object, it will not be re-added.
+        if ($v !== null) {
+            $v->addAccount($this);
+        }
+
+
+        return $this;
+    }
+
+
+    /**
+     * Get the associated Language object
+     *
+     * @param PropelPDO $con Optional Connection object.
+     * @param $doQuery Executes a query to get the object if required
+     * @return Language The associated Language object.
+     * @throws PropelException
+     */
+    public function getLanguage(PropelPDO $con = null, $doQuery = true)
+    {
+        if ($this->aLanguage === null && ($this->language_id !== null) && $doQuery) {
+            $this->aLanguage = LanguageQuery::create()->findPk($this->language_id, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aLanguage->addAccounts($this);
+             */
+        }
+
+        return $this->aLanguage;
     }
 
 
@@ -3109,7 +3190,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
         $this->account_status_id = null;
         $this->provisional_key = null;
         $this->randid = null;
-        $this->langid = null;
+        $this->language_id = null;
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
         $this->alreadyInClearAllReferencesDeep = false;
@@ -3156,6 +3237,9 @@ abstract class BaseAccount extends BaseObject implements Persistent
             if ($this->aAccountStatus instanceof Persistent) {
               $this->aAccountStatus->clearAllReferences($deep);
             }
+            if ($this->aLanguage instanceof Persistent) {
+              $this->aLanguage->clearAllReferences($deep);
+            }
 
             $this->alreadyInClearAllReferencesDeep = false;
         } // if ($deep)
@@ -3177,6 +3261,7 @@ abstract class BaseAccount extends BaseObject implements Persistent
         }
         $this->collProjectMembers = null;
         $this->aAccountStatus = null;
+        $this->aLanguage = null;
     }
 
     /**

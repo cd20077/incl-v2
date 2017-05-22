@@ -21,7 +21,7 @@
  * @method AccountQuery orderByAccountStatusId($order = Criteria::ASC) Order by the account_status_id column
  * @method AccountQuery orderByProvisionalKey($order = Criteria::ASC) Order by the provisional_key column
  * @method AccountQuery orderByRandid($order = Criteria::ASC) Order by the randid column
- * @method AccountQuery orderByLangid($order = Criteria::ASC) Order by the langid column
+ * @method AccountQuery orderByLanguageId($order = Criteria::ASC) Order by the language_id column
  *
  * @method AccountQuery groupById() Group by the id column
  * @method AccountQuery groupByIsDeleted() Group by the is_deleted column
@@ -38,7 +38,7 @@
  * @method AccountQuery groupByAccountStatusId() Group by the account_status_id column
  * @method AccountQuery groupByProvisionalKey() Group by the provisional_key column
  * @method AccountQuery groupByRandid() Group by the randid column
- * @method AccountQuery groupByLangid() Group by the langid column
+ * @method AccountQuery groupByLanguageId() Group by the language_id column
  *
  * @method AccountQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method AccountQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -47,6 +47,10 @@
  * @method AccountQuery leftJoinAccountStatus($relationAlias = null) Adds a LEFT JOIN clause to the query using the AccountStatus relation
  * @method AccountQuery rightJoinAccountStatus($relationAlias = null) Adds a RIGHT JOIN clause to the query using the AccountStatus relation
  * @method AccountQuery innerJoinAccountStatus($relationAlias = null) Adds a INNER JOIN clause to the query using the AccountStatus relation
+ *
+ * @method AccountQuery leftJoinLanguage($relationAlias = null) Adds a LEFT JOIN clause to the query using the Language relation
+ * @method AccountQuery rightJoinLanguage($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Language relation
+ * @method AccountQuery innerJoinLanguage($relationAlias = null) Adds a INNER JOIN clause to the query using the Language relation
  *
  * @method AccountQuery leftJoinAccountLog($relationAlias = null) Adds a LEFT JOIN clause to the query using the AccountLog relation
  * @method AccountQuery rightJoinAccountLog($relationAlias = null) Adds a RIGHT JOIN clause to the query using the AccountLog relation
@@ -81,7 +85,7 @@
  * @method Account findOneByAccountStatusId(int $account_status_id) Return the first Account filtered by the account_status_id column
  * @method Account findOneByProvisionalKey(string $provisional_key) Return the first Account filtered by the provisional_key column
  * @method Account findOneByRandid(string $randid) Return the first Account filtered by the randid column
- * @method Account findOneByLangid(int $langid) Return the first Account filtered by the langid column
+ * @method Account findOneByLanguageId(int $language_id) Return the first Account filtered by the language_id column
  *
  * @method array findById(int $id) Return Account objects filtered by the id column
  * @method array findByIsDeleted(int $is_deleted) Return Account objects filtered by the is_deleted column
@@ -98,7 +102,7 @@
  * @method array findByAccountStatusId(int $account_status_id) Return Account objects filtered by the account_status_id column
  * @method array findByProvisionalKey(string $provisional_key) Return Account objects filtered by the provisional_key column
  * @method array findByRandid(string $randid) Return Account objects filtered by the randid column
- * @method array findByLangid(int $langid) Return Account objects filtered by the langid column
+ * @method array findByLanguageId(int $language_id) Return Account objects filtered by the language_id column
  *
  * @package    propel.generator.lib.model.incl2.om
  */
@@ -206,7 +210,7 @@ abstract class BaseAccountQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT "id", "is_deleted", "updated_at", "deleted_at", "created_at", "name", "mail", "password", "accountimg", "backimg", "maxcapa", "precapa", "account_status_id", "provisional_key", "randid", "langid" FROM "account" WHERE "id" = :p0';
+        $sql = 'SELECT "id", "is_deleted", "updated_at", "deleted_at", "created_at", "name", "mail", "password", "accountimg", "backimg", "maxcapa", "precapa", "account_status_id", "provisional_key", "randid", "language_id" FROM "account" WHERE "id" = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -840,17 +844,19 @@ abstract class BaseAccountQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the langid column
+     * Filter the query on the language_id column
      *
      * Example usage:
      * <code>
-     * $query->filterByLangid(1234); // WHERE langid = 1234
-     * $query->filterByLangid(array(12, 34)); // WHERE langid IN (12, 34)
-     * $query->filterByLangid(array('min' => 12)); // WHERE langid >= 12
-     * $query->filterByLangid(array('max' => 12)); // WHERE langid <= 12
+     * $query->filterByLanguageId(1234); // WHERE language_id = 1234
+     * $query->filterByLanguageId(array(12, 34)); // WHERE language_id IN (12, 34)
+     * $query->filterByLanguageId(array('min' => 12)); // WHERE language_id >= 12
+     * $query->filterByLanguageId(array('max' => 12)); // WHERE language_id <= 12
      * </code>
      *
-     * @param     mixed $langid The value to use as filter.
+     * @see       filterByLanguage()
+     *
+     * @param     mixed $languageId The value to use as filter.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
@@ -858,16 +864,16 @@ abstract class BaseAccountQuery extends ModelCriteria
      *
      * @return AccountQuery The current query, for fluid interface
      */
-    public function filterByLangid($langid = null, $comparison = null)
+    public function filterByLanguageId($languageId = null, $comparison = null)
     {
-        if (is_array($langid)) {
+        if (is_array($languageId)) {
             $useMinMax = false;
-            if (isset($langid['min'])) {
-                $this->addUsingAlias(AccountPeer::LANGID, $langid['min'], Criteria::GREATER_EQUAL);
+            if (isset($languageId['min'])) {
+                $this->addUsingAlias(AccountPeer::LANGUAGE_ID, $languageId['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
-            if (isset($langid['max'])) {
-                $this->addUsingAlias(AccountPeer::LANGID, $langid['max'], Criteria::LESS_EQUAL);
+            if (isset($languageId['max'])) {
+                $this->addUsingAlias(AccountPeer::LANGUAGE_ID, $languageId['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -878,7 +884,7 @@ abstract class BaseAccountQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(AccountPeer::LANGID, $langid, $comparison);
+        return $this->addUsingAlias(AccountPeer::LANGUAGE_ID, $languageId, $comparison);
     }
 
     /**
@@ -955,6 +961,82 @@ abstract class BaseAccountQuery extends ModelCriteria
         return $this
             ->joinAccountStatus($relationAlias, $joinType)
             ->useQuery($relationAlias ? $relationAlias : 'AccountStatus', 'AccountStatusQuery');
+    }
+
+    /**
+     * Filter the query by a related Language object
+     *
+     * @param   Language|PropelObjectCollection $language The related object(s) to use as filter
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return                 AccountQuery The current query, for fluid interface
+     * @throws PropelException - if the provided filter is invalid.
+     */
+    public function filterByLanguage($language, $comparison = null)
+    {
+        if ($language instanceof Language) {
+            return $this
+                ->addUsingAlias(AccountPeer::LANGUAGE_ID, $language->getId(), $comparison);
+        } elseif ($language instanceof PropelObjectCollection) {
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+
+            return $this
+                ->addUsingAlias(AccountPeer::LANGUAGE_ID, $language->toKeyValue('PrimaryKey', 'Id'), $comparison);
+        } else {
+            throw new PropelException('filterByLanguage() only accepts arguments of type Language or PropelCollection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the Language relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return AccountQuery The current query, for fluid interface
+     */
+    public function joinLanguage($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('Language');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'Language');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the Language relation Language object
+     *
+     * @see       useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return   LanguageQuery A secondary query class using the current class as primary query
+     */
+    public function useLanguageQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        return $this
+            ->joinLanguage($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Language', 'LanguageQuery');
     }
 
     /**

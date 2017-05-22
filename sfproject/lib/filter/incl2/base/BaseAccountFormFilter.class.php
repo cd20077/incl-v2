@@ -26,7 +26,7 @@ abstract class BaseAccountFormFilter extends BaseFormFilterPropel
       'account_status_id' => new sfWidgetFormPropelChoice(array('model' => 'AccountStatus', 'add_empty' => true)),
       'provisional_key'   => new sfWidgetFormFilterInput(),
       'randid'            => new sfWidgetFormFilterInput(),
-      'langid'            => new sfWidgetFormFilterInput(),
+      'language_id'       => new sfWidgetFormPropelChoice(array('model' => 'Language', 'add_empty' => true)),
     ));
 
     $this->setValidators(array(
@@ -44,7 +44,7 @@ abstract class BaseAccountFormFilter extends BaseFormFilterPropel
       'account_status_id' => new sfValidatorPropelChoice(array('required' => false, 'model' => 'AccountStatus', 'column' => 'id')),
       'provisional_key'   => new sfValidatorPass(array('required' => false)),
       'randid'            => new sfValidatorPass(array('required' => false)),
-      'langid'            => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'language_id'       => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Language', 'column' => 'id')),
     ));
 
     $this->widgetSchema->setNameFormat('account_filters[%s]');
@@ -77,7 +77,7 @@ abstract class BaseAccountFormFilter extends BaseFormFilterPropel
       'account_status_id' => 'ForeignKey',
       'provisional_key'   => 'Text',
       'randid'            => 'Text',
-      'langid'            => 'Number',
+      'language_id'       => 'ForeignKey',
     );
   }
 }

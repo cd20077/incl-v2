@@ -33,6 +33,15 @@ ContentStatus:
     created_at: '2017-01-01 00:00:00'
     updated_at: '2017-01-01 00:00:00'
     name:       '削除済み'
+Language:
+  1:
+    created_at: '2017-01-01 00:00:00'
+    updated_at: '2017-01-01 00:00:00'
+    name:       '日本語'
+  2:
+    created_at: '2017-01-01 00:00:00'
+    updated_at: '2017-01-01 00:00:00'
+    name:       '英語'
 SendMailStatus:
   1:
     created_at: '2017-01-01 00:00:00'

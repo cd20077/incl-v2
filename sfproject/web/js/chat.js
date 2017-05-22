@@ -80,7 +80,7 @@ $(document).ready(function(){
         $("#str").val('');
          $.ajax({
             type: "POST",
-            url: "../../GroupMembers/cometfunc",
+            url: "/project/cometfunc",
             data: {
                 type:type,
                 str:str,
@@ -113,7 +113,7 @@ $(document).ready(function(){
     $.ajax({
        async: false,
        type: "POST",
-       url: "../../GroupMembers/cometfunc",
+       url: "/project/cometfunc",
        data: {
            type:'log',
            gid : $( '#proid').val(),

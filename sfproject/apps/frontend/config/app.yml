@@ -3,13 +3,20 @@
 
 # default values
 all:
+  storage:
+    root_dir: <?php echo sfConfig::get('sf_root_dir').'/storage/'.PHP_EOL ?>
+    user_dir: <?php echo sfConfig::get('sf_root_dir').'/storage/user/'.PHP_EOL ?>
+    project_dir: <?php echo sfConfig::get('sf_root_dir').'/storage/project/'.PHP_EOL ?>
+#      server: 192.168.70.100
   mail:
     from: nhs20077@gmail.com
     to:   nhs20077@gmail.com
   account:
-    default_name: 'ゲスト'
-    account_img: '/images/def/no_image.png'
-    back_img: '/images/def/back.png'
+    name: 'ゲスト'
+  default:
+    image_dir: <?php echo sfConfig::get('sf_web_dir').'/images/def/'.PHP_EOL ?>
+    account_img: 'no_image.png'
+    back_img: 'back.png'
   incl:
     SOLT_LOGIN_PASSWORD: 'uRidGaRJpYe1PQAyKXCeJ6tyO'
     USER_DATA_URL   : './files/userdata/'     # ユーザーデータ保存場所URL

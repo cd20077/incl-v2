@@ -41,6 +41,7 @@ class entryInputAction extends sfAction
 //        } while (1 == $this->Account->find('all', Array('conditions' => Array('randnum' => $ranid))));
 
         $account->setProvisionalKey($ranid);
+//        $account->setLanguageId(1);
         $account->setMaxcapa(sfConfig::get('app_incl_DEF_MAX_CAPA'));
         $account->setPrecapa(sfConfig::get('app_incl_DEF_PRE_CAPA'));
         $account->setAccountStatusId(AccountStatus::PROVISIONAL);

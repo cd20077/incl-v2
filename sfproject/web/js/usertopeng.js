@@ -82,7 +82,7 @@ $(function(){
 			}else{
 				$('#nameid2').css( 'display', '');
 				$.ajax({
-					url: "../../Ajaxfuncs/ajaxpronamechan",
+					url: "/ajax/ajaxpronamechan",
 					type: "POST",
 					data: {
 						name : $( '#nameid2-edit').val(),
@@ -241,7 +241,7 @@ $(function(){
 				}else{
 					var mailad = $('#newmemmail').val();
 					$.ajax({
-						url: "../../Ajaxfuncs/ajaxsearchumail",
+						url: "/ajax/ajaxsearchumail",
 						type: "POST",
 						data: {
                                                     mail : mailad,
@@ -258,7 +258,7 @@ $(function(){
                                                         $('#addcont').html('<p>'+response+'</p><input type="button" id="newmemokbtn" class="btn" value="Add this user" />');
                                                         $('#newmemokbtn').click(function() {
                                                             $.ajax({
-                                                                url: "../../Ajaxfuncs/ajaxaddmem",
+                                                                url: "/ajax/ajaxaddmem",
                                                                 type: "POST",
                                                                 data: {
                                                                     mail : mailad,
@@ -308,7 +308,7 @@ function topuserimgset(userimg){
 function memdel(id,name){
 	if (confirm('Do you let you withdraw from '+name+' ？')) {
 		$.ajax({
-			url: "../../Ajaxfuncs/ajaxmemdel",
+			url: "/ajax/ajaxmemdel",
 			type: "POST",
 			data: {
 				name : name,
@@ -336,7 +336,7 @@ function memdel(id,name){
 function chanauth(id,name,authid){
     if (confirm('Do you change authority of '+name+' ？')) {
         $.ajax({
-            url: "../../Ajaxfuncs/ajaxchanauth",
+            url: "/ajax/ajaxchanauth",
             type: "POST",
             data: {
                 name : name,

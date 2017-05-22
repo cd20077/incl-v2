@@ -1,6 +1,6 @@
 
 <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
-<?php if ($account->getLangid() === 2) { ?>
+<?php if ($account->getLanguageId() === 2) { ?>
     <script type="text/javascript" src="/js/deskeng.js"></script>
 <?php } else { ?>
     <script type="text/javascript" src="/js/desk.js"></script>

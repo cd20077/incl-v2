@@ -297,7 +297,7 @@ article {
 ----------------------------------------*/
 
 #userart {
-	background-image: url(../img/def/back5.jpg);
+	background-image: url(/images/def/back.png);
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center top;

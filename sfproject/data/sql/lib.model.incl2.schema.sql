@@ -22,11 +22,13 @@ CREATE TABLE "account"
     "account_status_id" INTEGER DEFAULT 1,
     "provisional_key" VARCHAR(255),
     "randid" VARCHAR(255),
-    "langid" INTEGER DEFAULT 1,
+    "language_id" INTEGER DEFAULT 1,
     PRIMARY KEY ("id")
 );
 
 CREATE INDEX "account_status_id" ON "account" ("account_status_id");
+
+CREATE INDEX "language_id" ON "account" ("language_id");
 
 -----------------------------------------------------------------------
 -- account_log
@@ -110,9 +112,9 @@ CREATE INDEX "account_id" ON "content" ("account_id");
 
 CREATE INDEX "content_status_id" ON "content" ("content_status_id");
 
-CREATE INDEX "project_id" ON "content" ("project_id");
-
 CREATE INDEX "parent_directory_id" ON "content" ("parent_directory_id");
+
+CREATE INDEX "project_id" ON "content" ("project_id");
 
 -----------------------------------------------------------------------
 -- content_status
@@ -128,6 +130,41 @@ CREATE TABLE "content_status"
     "deleted_at" TIMESTAMP,
     "created_at" TIMESTAMP NOT NULL,
     "name" VARCHAR(255),
+    PRIMARY KEY ("id")
+);
+
+-----------------------------------------------------------------------
+-- language
+-----------------------------------------------------------------------
+
+DROP TABLE IF EXISTS "language" CASCADE;
+
+CREATE TABLE "language"
+(
+    "id" serial NOT NULL,
+    "is_deleted" INT2 DEFAULT 0 NOT NULL,
+    "updated_at" TIMESTAMP,
+    "deleted_at" TIMESTAMP,
+    "created_at" TIMESTAMP NOT NULL,
+    "name" VARCHAR(255),
+    PRIMARY KEY ("id")
+);
+
+-----------------------------------------------------------------------
+-- mail
+-----------------------------------------------------------------------
+
+DROP TABLE IF EXISTS "mail" CASCADE;
+
+CREATE TABLE "mail"
+(
+    "id" serial NOT NULL,
+    "is_deleted" INT2 DEFAULT 0 NOT NULL,
+    "updated_at" TIMESTAMP,
+    "deleted_at" TIMESTAMP,
+    "created_at" TIMESTAMP NOT NULL,
+    "title" VARCHAR(255),
+    "text" TEXT,
     PRIMARY KEY ("id")
 );
 
@@ -173,24 +210,6 @@ CREATE TABLE "project_member"
 );
 
 CREATE INDEX "auth_level_status_id" ON "project_member" ("auth_level_status_id");
-
------------------------------------------------------------------------
--- mail
------------------------------------------------------------------------
-
-DROP TABLE IF EXISTS "mail" CASCADE;
-
-CREATE TABLE "mail"
-(
-    "id" serial NOT NULL,
-    "is_deleted" INT2 DEFAULT 0 NOT NULL,
-    "updated_at" TIMESTAMP,
-    "deleted_at" TIMESTAMP,
-    "created_at" TIMESTAMP NOT NULL,
-    "title" VARCHAR(255),
-    "text" TEXT,
-    PRIMARY KEY ("id")
-);
 
 -----------------------------------------------------------------------
 -- send_mail_status
@@ -246,6 +265,12 @@ CREATE TABLE "send_mails"
 ALTER TABLE "account" ADD CONSTRAINT "account_FK_1"
     FOREIGN KEY ("account_status_id")
     REFERENCES "account_status" ("id")
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT;
+
+ALTER TABLE "account" ADD CONSTRAINT "account_FK_2"
+    FOREIGN KEY ("language_id")
+    REFERENCES "language" ("id")
     ON UPDATE RESTRICT
     ON DELETE RESTRICT;
 
