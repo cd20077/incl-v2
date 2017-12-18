@@ -16,12 +16,12 @@ all:
     charset:                utf-8
 
   .actions:
-#    login_module:           login
-#    login_action:           index
-#    error_404_module:       error
-#    error_404_action:       error404
-#    secure_module:          login
-#    secure_action:          index
+    login_module:           top
+    login_action:           secure
+    error_404_module:       error
+    error_404_action:       error404
+    secure_module:          top
+    secure_action:          secure
 #    module_disabled_module: error
 #    module_disabled_action: disabled
 

@@ -28,11 +28,11 @@ all:
     DEF_PROJECT_MAX_CAPA:    '209715200'             # 初期プロジェクトデータ最大容量
     DEF_PROJECT_PRE_CAPA:    '0'                     # 初期プロジェクトデータ現在容量
     image_url:
-        prof    : './img/userimg/'        # ユーザーイメージ保存場所URL
-        back    : './img/userback/'       # ユーザー背景保存場所URL
-        project : './img/projectback/'       # プロジェクト背景保存場所URL
-        DEF_USERIMG_URL : './img/def/no_image.png'# 初期ユーザーイメージ保存場所URL
-        DEF_BACKIMG_URL : './img/def/back.png'  # 初期ユーザー背景保存場所URL
+      prof    : './img/userimg/'        # ユーザーイメージ保存場所URL
+      back    : './img/userback/'       # ユーザー背景保存場所URL
+      project : './img/projectback/'       # プロジェクト背景保存場所URL
+      DEF_USERIMG_URL : './img/def/no_image.png'# 初期ユーザーイメージ保存場所URL
+      DEF_BACKIMG_URL : './img/def/back.png'  # 初期ユーザー背景保存場所URL
     DEF_PROLOG_URL  : './img/def/def.log'  # 初期プロジェクトチャットログ保存場所URL
     MAX_PROJECT_NUM : '5'                     # 最大プロジェクト作成数
     MAX_PROJECT_MEMBER: '20'                     # 最大プロジェクトメンバー数

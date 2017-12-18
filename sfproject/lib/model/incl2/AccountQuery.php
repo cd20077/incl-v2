@@ -15,4 +15,10 @@
  */
 class AccountQuery extends BaseAccountQuery
 {
+    public function getProvisionalAccountByKey($provisionalKey)
+    {
+        return $this->filterByProvisionalKey($provisionalKey)
+                    ->filterByAccountStatusId(AccountStatus::PROVISIONAL)
+                    ->findOne();
+    }
 }

@@ -145,7 +145,7 @@ $(function(){
     $("#inputfile1").change( function() {
         var file = $('#inputfile1');
         var formData = new FormData();
-        formData.append('file', file.prop("files")[0]);
+        formData.append('ajax_data[image_file]', file.prop("files")[0]);
 
         $.ajax('/ajax/userImageChange', {
             method: 'POST',

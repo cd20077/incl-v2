@@ -122,7 +122,7 @@
     <!-- ▲メインここまで -->
 
     <!-- ▼ヘッダーここから -->
-    <?php include_partial('global/header', ['account' =>$account]); ?>
+    <?php include_partial('global/header', ['account' => $sf_user->getAccount()]); ?>
     <!-- ▲ヘッダーここまで -->
 
 <!-- / #wrap --></div>

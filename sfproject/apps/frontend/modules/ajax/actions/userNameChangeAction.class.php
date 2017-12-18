@@ -10,9 +10,7 @@ class userNameChangeAction extends sfAction
 {
     public function execute($request)
     {
-        $account = AccountQuery::create()
-                    ->filterByAccountStatusId(AccountStatus::ACTIVE)
-                    ->findOne();
+        $account = $this->getUser()->getAccount();
         if (!$account) {
             echo 'ng';
         }

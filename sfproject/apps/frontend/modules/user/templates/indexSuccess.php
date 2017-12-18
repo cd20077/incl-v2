@@ -85,7 +85,7 @@
                             </thead>
                             <tbody>
                                 <?php if (!$projects->count()) {
-                                        print '<tr><td colspan="3">'.'現在参加しているプロジェクトはありません'.'</td></tr>';
+                                    print '<tr><td colspan="3">'.'現在参加しているプロジェクトはありません'.'</td></tr>';
                                 } else { ?>
                                     <?php foreach ($projects as $project): ?>
                                     <tr>
@@ -144,7 +144,7 @@
     <!-- ▲メインここまで -->
 
     <!-- ▼ヘッダーここから -->
-    <?php include_partial('global/header', ['account' =>$account]); ?>
+    <?php include_partial('global/header', ['account' => $sf_user->getAccount()]); ?>
     <!-- ▲ヘッダーここまで -->
 
 <!-- / #wrap --></div>

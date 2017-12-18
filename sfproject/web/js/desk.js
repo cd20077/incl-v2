@@ -19,7 +19,7 @@ $(function(){
 
     rcfunc();
 
-    $( "#trashzone" ).droppable({
+    $('#trashzone').droppable({
             accept : ".filediv,.folderdiv" , // 受け入れる要素を指定
             hoverClass: 'foothover',
             tolerance: 'pointer',
@@ -27,8 +27,7 @@ $(function(){
             drop : function(event , ui){
                     if($(ui.draggable).hasClass('folderdiv')){
                         //  dragされてきたオブジェクトを取得してクローン作製
-                        var dragId = ui.draggable.attr("id");
-                        //alert(dragId);
+                        var dragId = ui.draggable.attr('id');
                         if (confirm(dragId+'を削除しますか？')) {
                             $.ajax({
                                 url: "/ajax/ajaxfoltrash",
@@ -60,7 +59,6 @@ $(function(){
                         var dragId = ui.draggable.attr("id");
                         var fname = ui.draggable.attr("data-fname");
                         var dname = ui.draggable.attr("data-dirname");
-                        //alert(dragId);
                         if (confirm(dragId+'を削除しますか？')) {
                             //alert("OKボタンがクリックされました");
                             $.ajax({
@@ -394,8 +392,8 @@ function upfunc(){
                     dataup(response);
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
-                    console.log( textStatus );
-                    console.log( errorThrown );
+                    console.log(textStatus);
+                    console.log(errorThrown);
                     $.colorbox.close();
                 }
             });

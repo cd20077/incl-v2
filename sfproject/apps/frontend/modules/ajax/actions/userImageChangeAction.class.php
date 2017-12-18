@@ -18,19 +18,24 @@ class userImageChangeAction extends sfAction
             $this->redirect('@top');
         }
 
-        $account = AccountQuery::create()
-                    ->filterByAccountStatusId(AccountStatus::ACTIVE)
-                    ->findOne();
+        $account = $this->getUser()->getAccount();
         if (!$account) {
             echo 'ng';
         }
 
-        $name = $request->getParameter('name', null);
-        if (!$name) {
+        $uploadImageForm = new UploadImageForm();
+        $uploadImageForm->bind(
+                $request->getParameter($uploadImageForm->getName()),
+                $request->getFiles($uploadImageForm->getName()));
+        if ($uploadImageForm->isValid()) {
+            /* @var $imageFile sfValidatedFile */
+            $imageFile = $uploadImageForm->getValue(UploadImageForm::IMAGE_FILE);
+            var_dump($imageFile);
+            exit();
+        } else {
             echo 'ng';
         }
 
-        $account->setName($name)->save();
         echo 'ok';
 
         return sfView::NONE;

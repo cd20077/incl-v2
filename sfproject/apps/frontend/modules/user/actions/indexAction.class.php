@@ -6,23 +6,11 @@
  * @package    incl2
  * @subpackage user
  */
-class indexAction extends sfAction
+class indexAction extends frontendAction
 {
     public function execute($request)
     {
-        $accountId = $this->getUser()->getAttribute('account_id', null);
-        if (!$accountId) {
-            $this->redirect('@top');
-        }
-
-        $account = AccountQuery::create()
-                    ->filterById($accountId)
-                    ->filterByAccountStatusId(AccountStatus::ACTIVE)
-                    ->findOne();
-        if (!$account) {
-            $this->redirect('@top');
-        }
-
+        $account = $this->getUser()->getAccount();
         $accountLogs = $account->getAccountLogs();
         $projects = $account->getProjects();
 
