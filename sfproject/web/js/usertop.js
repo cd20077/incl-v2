@@ -154,10 +154,8 @@ $(function(){
             data:formData,
             dataType: 'text',
             success: function(data) {
-                //$('#userimgid').attr('src','../'+data);
-                topuserimgset(data);
-                headimgset(data);
-                //console.log(data);
+                topuserimgset();
+                headimgset();
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
                 alert( "ユーザーイメージの変更に失敗しました。" );
@@ -303,11 +301,13 @@ $(function(){
 });
 
 function topbackset(backimg){
-    $('#userart').css('background-image','url(../'+backimg.replace(/[ !"#$%&'()*+,.\/:;<=>?@\[\\\]^`{|}~]/g, '\\$&')+')');
+//    $('#userart').css('background-image','url('+backimg+')');
+    $('#userart').css('background-image', 'url(/user/image/background)');
 }
 
 function topuserimgset(userimg){
-    $('#userimgid').css('background-image','url(../'+userimg.replace(/[ !"#$%&'()*+,.\/:;<=>?@\[\\\]^`{|}~]/g, '\\$&')+')');
+//    $('#userimgid').css('background-image','url('+userimg+')');
+    $('#userimgid').css('background-image', 'url(/user/image/profile)');
 }
 
 function memdel(id,name){

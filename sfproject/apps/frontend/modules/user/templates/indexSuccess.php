@@ -150,8 +150,8 @@
 <!-- / #wrap --></div>
 <script>
 $(function(){
-    headimgset('<?php echo $account->getAccountimg(); ?>');
-    topbackset('<?php echo $account->getBackimg(); ?>');
-    topuserimgset('<?php echo $account->getAccountimg(); ?>');
+    headimgset('<?php echo url_for('@user_image?type=profile') ?>');
+    topbackset('<?php echo url_for('@user_image?type=background') ?>');
+    topuserimgset('<?php echo url_for('@user_image?type=profile') ?>');
 });
 </script>

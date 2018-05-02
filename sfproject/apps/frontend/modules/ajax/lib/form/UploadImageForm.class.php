@@ -18,6 +18,7 @@ class UploadImageForm extends BaseForm
               'required'   => false,
               'mime_types' => 'web_images',
               'max_size'   => 204800,
+              'path'       => sfContext::getInstance()->getUser()->getAccoutImageDirPath()
 //              'path'       => sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.sfConfig::get('app_product_img_dir_path')
           ], [
               'required'   => '画像を選択してください',

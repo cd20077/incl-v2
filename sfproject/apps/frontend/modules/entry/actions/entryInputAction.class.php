@@ -62,9 +62,10 @@ class entryInputAction extends sfAction
 
 //        $this->getRoute()->generate('@entry');
         $mailUrl = sprintf(
-                    'http://%s/entry/complete/%s',
-                    $this->getRequest()->getHost(),
-                    $account->getProvisionalKey());
+            'http://%s/entry/complete/%s',
+            $this->getRequest()->getHost(),
+            $account->getProvisionalKey()
+        );
 
         $body = str_replace("%uad%", $mailAddress, $body);
         $body = str_replace("%mail_url%", $mailUrl, $body);

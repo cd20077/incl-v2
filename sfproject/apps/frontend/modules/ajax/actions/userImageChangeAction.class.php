@@ -18,6 +18,7 @@ class userImageChangeAction extends sfAction
             $this->redirect('@top');
         }
 
+        /* @var $account Account */
         $account = $this->getUser()->getAccount();
         if (!$account) {
             echo 'ng';
@@ -30,8 +31,10 @@ class userImageChangeAction extends sfAction
         if ($uploadImageForm->isValid()) {
             /* @var $imageFile sfValidatedFile */
             $imageFile = $uploadImageForm->getValue(UploadImageForm::IMAGE_FILE);
-            var_dump($imageFile);
-            exit();
+            $imageFile->save();
+            $account->setAccountimg(basename($imageFile->getSavedName()))->save();
+//            var_dump($imageFile);
+//            exit();
         } else {
             echo 'ng';
         }

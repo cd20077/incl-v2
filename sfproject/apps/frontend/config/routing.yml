@@ -8,19 +8,19 @@ top:
 
 entry:
   url:  /entry
-  param: { module: user, action: entryInput }
+  param: { module: entry, action: entryInput }
 
 entry_conf:
   url:  /entry/confirm
-  param: { module: user, action: entryConf }
+  param: { module: entry, action: entryConf }
 
 entry_comp:
   url:  /entry/complete/:provisional_key
-  param: { module: user, action: entryComp }
+  param: { module: entry, action: entryComp }
 
 entry_success:
   url:  /entry/success
-  param: { module: user, action: entrySuccess }
+  param: { module: entry, action: entrySuccess }
 
 login:
   url:  /login
@@ -33,6 +33,10 @@ logout:
 user_top:
   url:  /user
   param: { module: user, action: index }
+
+user_image:
+  url:  /user/image/:type
+  param: { module: ajax, action: getImage }
 
 contents:
   url:  /contents

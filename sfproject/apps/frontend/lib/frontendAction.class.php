@@ -18,5 +18,8 @@ class frontendAction extends sfAction
         parent::preExecute();
     }
 
+    /**
+     * @param sfWebRequest $request
+     */
     public function execute($request) {}
 }

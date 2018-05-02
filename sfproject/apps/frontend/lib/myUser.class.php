@@ -35,4 +35,50 @@ class myUser extends sfBasicSecurityUser
     {
         $this->account = $account;
     }
+
+    /**
+     * @return string
+     */
+    public function getAccoutDirPath()
+    {
+        return sfConfig::get('app_storage_user_dir') . $this->getAccount()->getRandid() . DIRECTORY_SEPARATOR;
+    }
+
+    public function getProfileImagePath()
+    {
+        $accountImage = $this->getAccount()->getAccountimg();
+        if (!$accountImage) {
+            return $this->getDefaultProfileImagePath();
+        }
+
+        return $this->getAccoutDirPath() . $accountImage;
+    }
+
+    public function getDefaultProfileImagePath()
+    {
+        return sfConfig::get('app_default_image_dir') . sfConfig::get('app_default_account_img');
+    }
+
+
+    public function getBackgroundImagePath()
+    {
+        $backgroundImage = $this->getAccount()->getBackimg();
+        if (!$backgroundImage) {
+            return $this->getDefaultBackgroundImagePath();
+        }
+
+        return $this->getAccoutDirPath() . $backgroundImage;
+    }
+
+    public function getDefaultBackgroundImagePath()
+    {
+        return sfConfig::get('app_default_image_dir') . sfConfig::get('app_default_back_img');
+    }
+    /**
+     * @return string
+     */
+    public function getContentUploadPath()
+    {
+        return sfConfig::get('app_storage_user_content_dir') . $this->getAccount()->getRandid();
+    }
 }

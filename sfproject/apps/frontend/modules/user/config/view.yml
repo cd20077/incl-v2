@@ -1,25 +1,28 @@
 # You can find more information about this file on the symfony website:
 # http://www.symfony-project.org/reference/1_4/en/13-View
 
-default:
-  http_metas:
-    content-type: text/html
+#default:
+#  http_metas:
+#    content-type: text/html
+#
+#  stylesheets:    [top.css, form.css, colorbox.css, jquery.easypiechart.css]
+#
+#  javascripts:    [jquery-1.11.0.min.js, jquery.colorbox-min.js, jquery.mousewheel.min.js, jquery.easie.js, jquery.form.js, top.js]
+#
+#  has_layout:     true
+#  layout:         topLayout
 
-  stylesheets:    [top.css, form.css, colorbox.css, jquery.easypiechart.css]
-
-  javascripts:    [jquery-1.11.0.min.js, jquery.colorbox-min.js, jquery.mousewheel.min.js, jquery.easie.js, jquery.form.js, top.js]
-
-  has_layout:     true
-  layout:         topLayout
-
-indexSuccess:
-  #metas:
-    #title:        '発令中パトライト | パトライトシステム'
-    #description:  symfony project
-    #keywords:     symfony, project
-    #language:     en
-    #robots:       index, follow
-
-indexError:
-  metas:
-    #title:        'システムエラー | パトライトシステム'
+#indexSuccess:
+#  #metas:
+#    #title:        '発令中パトライト | パトライトシステム'
+#    #description:  symfony project
+#    #keywords:     symfony, project
+#    #language:     en
+#    #robots:       index, follow
+#  stylesheets:    [usertop.css, jquery.easypiechart.css, colorbox.css, style.css]
+#  javascripts:    [jquery-1.11.0.min.js, jquery.colorbox-min.js, main2.js, jquery.easypiechart.min.js, usertop.js ]
+#  layout:         mainLayout
+#
+#indexError:
+#  metas:
+#    #title:        'システムエラー | パトライトシステム'

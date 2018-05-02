@@ -317,7 +317,8 @@ function folup2(dir,result){
 }
 
 function backset(backimg){
-    $('article').css('background-image','url('+backimg.replace(/[ !"#$%&'()*+,.\/:;<=>?@\[\\\]^`{|}~]/g, '\\$&')+')');
+//    $('article').css('background-image','url('+backimg.replace(/[ !"#$%&'()*+,.\/:;<=>?@\[\\\]^`{|}~]/g, '\\$&')+')');
+    $('article').css('background-image', 'url(/user/image/background)');
 }
 
 function folapp(){
