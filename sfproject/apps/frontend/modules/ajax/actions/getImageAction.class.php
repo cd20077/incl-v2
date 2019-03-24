@@ -36,20 +36,21 @@ class getImageAction extends frontendAction
         }
 
         if (!$filePath) {
-            $this->redirect404();
+            return $this->redirect404();
         }
 
-        $mimes = self::MIMES;
-        $mime = $mimes[end(explode('.', $filePath))];
-        if (!$mime) {
+        $explodeFilePath = explode('.', $filePath);
+        $mime = end($explodeFilePath);
+        if (!$mime || !array_key_exists($mime, self::MIMES)) {
             return false;
         }
 
         /* @var $response sfWebResponse */
         $response = $this->getResponse();
         $response->clearHttpHeaders();
-        $response->setContentType($mime);
         $response->setHttpHeader('content-disposition', 'inline');
+        $response->sendHttpHeaders();
+        $response->setContentType(self::MIMES[$mime]);
         $response->setContent(readfile($filePath));
         $response->sendContent();
 

@@ -3,6 +3,4 @@
 /sfproject/log/*
 /sfproject/storage/user/*
 /sfproject/storage/project/*
-*/.DS_Store
 !.gitkeep
-nbproject/

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * userImageChange actions.
+ * backgroundImageChange actions.
  *
  * @package    incl2
  * @subpackage ajax
  */
-class userImageChangeAction extends sfAction
+class backgroundImageChangeAction extends sfAction
 {
     /**
      * @param sfWebRequest $request
@@ -21,7 +21,7 @@ class userImageChangeAction extends sfAction
         /* @var $account Account */
         $account = $this->getUser()->getAccount();
         if (!$account) {
-            echo 'ng';
+            echo 'ng1';
             return sfView::NONE;
         }
 
@@ -30,16 +30,16 @@ class userImageChangeAction extends sfAction
                 $request->getParameter($uploadImageForm->getName()),
                 $request->getFiles($uploadImageForm->getName()));
         if (!$uploadImageForm->isValid()) {
-            echo 'ng';
+            echo 'ng2';
             return sfView::NONE;
         }
 
         /* @var $imageFile sfValidatedFile */
         $imageFile = $uploadImageForm->getValue(UploadImageForm::IMAGE_FILE);
         $imageFile->save();
-        $oldAccountimg = $this->getUser()->getProfileImagePath();
-        $account->setAccountimg(basename($imageFile->getSavedName()))->save();
-        (new sfFilesystem())->remove($oldAccountimg);
+        $oldBackimg = $this->getUser()->getBackgroundImagePath();
+        $account->setBackimg(basename($imageFile->getSavedName()))->save();
+        (new sfFilesystem())->remove($oldBackimg);
 
         echo 'ok';
         return sfView::NONE;

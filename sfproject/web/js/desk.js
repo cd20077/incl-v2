@@ -20,84 +20,82 @@ $(function(){
     rcfunc();
 
     $('#trashzone').droppable({
-            accept : ".filediv,.folderdiv" , // 受け入れる要素を指定
-            hoverClass: 'foothover',
-            tolerance: 'pointer',
-            greedy: true,
-            drop : function(event , ui){
-                    if($(ui.draggable).hasClass('folderdiv')){
-                        //  dragされてきたオブジェクトを取得してクローン作製
-                        var dragId = ui.draggable.attr('id');
-                        if (confirm(dragId+'を削除しますか？')) {
-                            $.ajax({
-                                url: "/ajax/ajaxfoltrash",
-                                type: "POST",
-                                data: {name : dragId},
-                                dataType: "text",
-                                success : function(response){
-                                    //通信成功時の処理
-                                    if(response=="not"){
-                                        alert('該当のフォルダが存在しません。');
-                                    }else if(response=="direrr"){
-                                        alert('削除に失敗しました。');
-                                    }else if(response=="ok"){
-                                        ui.draggable.remove();
-                                    }else{
-                                        alert('削除に失敗しました。');
-                                    }
-                                },
-                                error: function(){
-                                    //通信失敗時の処理
-                                    alert('通信失敗');
-                                }
-                            });
-                        } else {
-                            //alert("キャンセルボタンがクリックされました");
+        accept : ".filediv,.folderdiv" , // 受け入れる要素を指定
+        hoverClass: 'foothover',
+        tolerance: 'pointer',
+        greedy: true,
+        drop : function(event , ui){
+            if($(ui.draggable).hasClass('folderdiv')){
+                //  dragされてきたオブジェクトを取得してクローン作製
+                var dragId = ui.draggable.attr('id');
+                if (confirm(dragId+'を削除しますか？')) {
+                    $.ajax({
+                        url: "/ajax/ajaxfoltrash",
+                        type: "POST",
+                        data: {name : dragId},
+                        dataType: "text",
+                        success : function(response){
+                            //通信成功時の処理
+                            if(response=="not"){
+                                alert('該当のフォルダが存在しません。');
+                            }else if(response=="direrr"){
+                                alert('削除に失敗しました。');
+                            }else if(response=="ok"){
+                                ui.draggable.remove();
+                            }else{
+                                alert('削除に失敗しました。');
+                            }
+                        },
+                        error: function(){
+                            //通信失敗時の処理
+                            alert('通信失敗');
                         }
-                    }else if($(ui.draggable).hasClass('filediv')){
-                        //  dragされてきたオブジェクトを取得してクローン作製
-                        var dragId = ui.draggable.attr("id");
-                        var fname = ui.draggable.attr("data-fname");
-                        var dname = ui.draggable.attr("data-dirname");
-                        if (confirm(dragId+'を削除しますか？')) {
-                            //alert("OKボタンがクリックされました");
-                            $.ajax({
-                                url: "/ajax/ajaxtrash",
-                                type: "POST",
-                                data: {
-                                    name : dragId,
-                                    fname : fname,
-                                    dname : dname
-                                },
-                                dataType: "text",
-                                success : function(response){
-                                    //通信成功時の処理
-                                    if(response=="not"){
-                                        alert('該当のファイルが存在しません。');
-                                    }else if(response=="direrr"){
-                                        alert('削除に失敗しました。');
-                                    }else if(response=="ok"){
-                                        //alert(dragId);
-                                        ui.draggable.remove();
-                                    }else{
-                                        alert('削除に失敗しました。');
-                                    }
-                                },
-                                error: function(){
-                                    //通信失敗時の処理
-                                    alert('通信失敗');
-                                }
-                            });
-                        } else {
-                            //alert("キャンセルボタンがクリックされました");
+                    });
+                } else {
+                    //alert("キャンセルボタンがクリックされました");
+                }
+            }else if($(ui.draggable).hasClass('filediv')){
+                //  dragされてきたオブジェクトを取得してクローン作製
+                var dragId = ui.draggable.attr("id");
+                var fname = ui.draggable.attr("data-fname");
+                var dname = ui.draggable.attr("data-dirname");
+                if (confirm(dragId+'を削除しますか？')) {
+                    $.ajax({
+                        url: "/ajax/ajaxtrash",
+                        type: "POST",
+                        data: {
+                            name : dragId,
+                            fname : fname,
+                            dname : dname
+                        },
+                        dataType: "text",
+                        success : function(response){
+                            //通信成功時の処理
+                            if(response=="not"){
+                                alert('該当のファイルが存在しません。');
+                            }else if(response=="direrr"){
+                                alert('削除に失敗しました。');
+                            }else if(response=="ok"){
+                                ui.draggable.remove();
+                            }else{
+                                alert('削除に失敗しました。');
+                            }
+                        },
+                        error: function(){
+                            //通信失敗時の処理
+                            alert('通信失敗');
                         }
-                    }else{
-
-                    }
-            },
-            out : function (event , ui){
+                    });
+                } else {
+                    //alert("キャンセルボタンがクリックされました");
+                }
+            }else{
 
             }
+        },
+        out : function (event , ui){
+
+        }
 
     });
 
@@ -268,17 +266,18 @@ $(function(){
     }).on('dragover', function(event) {
             return false;
     });
+
     $("#backimgup").change( function() {
         var file = $('#backimgup');
         var formData = new FormData();
-        formData.append('file', file.prop("files")[0]);
+        formData.append('ajax_data[image_file]', file.prop("files")[0]);
 
-        $.ajax('/ajax/ajaxupbackimg', {
+        $.ajax('/ajax/backgroundImageChange', {
             method: 'POST',
             contentType: false,
             processData: false,
             data:formData,
-            dataType: "text",
+            dataType: 'text',
             success: function(data) {
                 backset(data);
             },

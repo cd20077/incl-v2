@@ -8,23 +8,23 @@
  */
 class UploadImageForm extends BaseForm
 {
-    const IMAGE_FILE    = 'image_file';
+    const IMAGE_FILE = 'image_file';
 
     public function configure()
     {
         $this->setWidgets([self::IMAGE_FILE => new sfWidgetFormInputFile()]);
         $this->setValidators([
-          self::IMAGE_FILE => new sfValidatorFile([
-              'required'   => false,
-              'mime_types' => 'web_images',
-              'max_size'   => 204800,
-              'path'       => sfContext::getInstance()->getUser()->getAccoutImageDirPath()
-//              'path'       => sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.sfConfig::get('app_product_img_dir_path')
-          ], [
-              'required'   => '画像を選択してください',
-              'mime_types' => '対応していないファイル形式です',
-              'max_size'   => '最大ファイルサイズ(200KB)を超過しています'
-          ])
+            self::IMAGE_FILE => new sfValidatorFile([
+                'required'   => false,
+                'mime_types' => 'web_images',
+//                'max_size'   => 204800,
+                'max_size'   => 52428800,
+                'path'       => sfContext::getInstance()->getUser()->getAccoutDirPath()
+            ], [
+                'required'   => '画像を選択してください',
+                'mime_types' => '対応していないファイル形式です',
+                'max_size'   => '最大ファイルサイズ(200KB)を超過しています'
+            ])
         ]);
         $this->disableCSRFProtection();
         $this->validatorSchema->setPostValidator(new sfValidatorCallback(['callback' => [$this, 'fileCheck']]));
